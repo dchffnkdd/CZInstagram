@@ -690,11 +690,11 @@
 			buildRules = (
 			);
 			dependencies = (
+				2A3ECC4A1F949AFB00CF9EF3 /* PBXTargetDependency */,
 				2A0C7C751F949CC4004F4B17 /* PBXTargetDependency */,
 				2A3ECC501F949B0400CF9EF3 /* PBXTargetDependency */,
 				2A3ECC4E1F949B0100CF9EF3 /* PBXTargetDependency */,
 				2A3ECC4C1F949AFE00CF9EF3 /* PBXTargetDependency */,
-				2A3ECC4A1F949AFB00CF9EF3 /* PBXTargetDependency */,
 				2A3ECC541F949B0B00CF9EF3 /* PBXTargetDependency */,
 				2A3ECC5A1F949B1C00CF9EF3 /* PBXTargetDependency */,
 				2A3ECC5E1F949B2100CF9EF3 /* PBXTargetDependency */,

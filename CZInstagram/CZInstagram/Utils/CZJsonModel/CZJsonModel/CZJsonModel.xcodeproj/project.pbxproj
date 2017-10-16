@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2A0C7C8F1F949F12004F4B17 /* CZUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A0C7C8E1F949F12004F4B17 /* CZUtils.framework */; };
 		2AC429DD1F7E3269005D553B /* CZJsonModel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AC429D31F7E3269005D553B /* CZJsonModel.framework */; };
 		2AC429E21F7E3269005D553B /* CZJsonModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC429E11F7E3269005D553B /* CZJsonModelTests.swift */; };
 		2AC429E41F7E3269005D553B /* CZJsonModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AC429D61F7E3269005D553B /* CZJsonModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -28,6 +29,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2A0C7C8E1F949F12004F4B17 /* CZUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CZUtils.framework; path = "../../../../../../../Users/mac/Library/Developer/Xcode/DerivedData/CZInstagram-gmtxyykegwvanzcbghqvzvoepvrt/Build/Products/Debug-iphonesimulator/CZUtils.framework"; sourceTree = "<group>"; };
 		2AC429D31F7E3269005D553B /* CZJsonModel.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CZJsonModel.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2AC429D61F7E3269005D553B /* CZJsonModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CZJsonModel.h; sourceTree = "<group>"; };
 		2AC429D71F7E3269005D553B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -46,6 +48,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A0C7C8F1F949F12004F4B17 /* CZUtils.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,12 +63,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2A0C7C8D1F949F12004F4B17 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2A0C7C8E1F949F12004F4B17 /* CZUtils.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		2AC429C91F7E3269005D553B = {
 			isa = PBXGroup;
 			children = (
 				2AC429D51F7E3269005D553B /* CZJsonModel */,
 				2AC429E01F7E3269005D553B /* CZJsonModelTests */,
 				2AC429D41F7E3269005D553B /* Products */,
+				2A0C7C8D1F949F12004F4B17 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
