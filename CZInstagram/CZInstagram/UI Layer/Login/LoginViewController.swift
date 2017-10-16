@@ -11,7 +11,7 @@ import CZUtils
 import ReactiveListViewKit
 
 /**
- Successfully received Instagram authentication token: 5956152420.6d6cef1.e003104aee864ac1bf9a81c53703294b
+ Instagram authentication token: 5956152420.6d6cef1.e003104aee864ac1bf9a81c53703294b
  */
 class LoginViewController: UIViewController, UIWebViewDelegate {
 
