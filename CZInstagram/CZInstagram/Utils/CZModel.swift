@@ -10,7 +10,6 @@ import UIKit
 import CZUtils
 import ReactiveListViewKit
 import EasyMapping
-import ReactiveListViewKit
 
 typealias CZDictionary = [AnyHashable : Any]
 

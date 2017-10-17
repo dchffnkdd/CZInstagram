@@ -23,7 +23,7 @@ enum Instagram {
     static let authUrl = "https://api.instagram.com/oauth/authorize/"
 
     enum FeedList {
-        static let countPerPage = 5
+        static let countPerPage = 25
     }
 
     enum FeedDetails {
