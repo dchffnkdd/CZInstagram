@@ -18,7 +18,7 @@ PODS:
   - EasyMapping (0.20.1):
     - EasyMapping/Core (= 0.20.1)
   - EasyMapping/Core (0.20.1)
-  - Reveal-SDK (8)
+  - Reveal-SDK (11)
   - SDWebImage (4.0.0):
     - SDWebImage/Core (= 4.0.0)
   - SDWebImage/Core (4.0.0)
@@ -36,7 +36,7 @@ SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
   EasyMapping: 5efbb468847aa71ddfdcb4c30640cc82a749a5f6
-  Reveal-SDK: 43be4e662864e937960d0d04d005135e29c4e53b
+  Reveal-SDK: 7fa13d04bb55db61ff2342a990cf731d5159361d
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
   SwiftHTTP: faa1a5f7670568ffc9361898229dbe84a6088468
 

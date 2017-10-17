@@ -114,7 +114,7 @@ class ServicesProxy: NSObject {
         httpManager.GET(urlString(endPoint),
                                     parameters: wrappedParams(params),
                                     success: { (sessionTask, data) in
-                                        print("Succeed to fetch \(endPoint) Data: \n\n\(data)")
+                                        // print("Succeed to fetch \(endPoint) Data: \n\n\(data)")
                                         success(sessionTask, data)
         }, failure: { (sessionTask, error) in
             print("Failed to fetch \(endPoint) Error: \n\n\(error)")
@@ -134,7 +134,7 @@ class ServicesProxy: NSObject {
         httpManager.POST(urlString(endPoint),
                                      parameters: wrappedParams(params),
                                      success: { (dataTask, data) in
-                                        print("Succeed to post \(endPoint) Data: \n\n\(data)")
+                                        // print("Succeed to post \(endPoint) Data: \n\n\(data)")
                                         success(dataTask, data)
         }, failure: { (dataTask, error) in
             print("Failed to post \(endPoint) Error: \n\n\(error)")
@@ -157,7 +157,7 @@ class ServicesProxy: NSObject {
             httpManager.DELETE(urlString(endPoint),
                                            parameters: wrappedParams(params),
                                            success: { (dataTask, data) in
-                                            print("Succeed to DELETE \(endPoint) Data: \n\n\(data)")
+                                            // print("Succeed to DELETE \(endPoint) Data: \n\n\(data)")
                                             success(dataTask, data)
             }, failure: { (dataTask, error) in
                 print("Failed to DELETE \(endPoint) Error: \n\n\(error)")
@@ -168,7 +168,7 @@ class ServicesProxy: NSObject {
             Services.httpMananger.delete(urlString(endPoint),
                                          parameters: presetParams,
                                          success: { (dataTask, data) in
-                                            print("Succeed to DELETE \(endPoint) Data: \n\n\(data)")
+                                            // print("Succeed to DELETE \(endPoint) Data: \n\n\(data)")
                                             success(dataTask, data)
             }) { (dataTask, error) in
                 print("Failed to post \(endPoint) Error: \n\n\(error)")

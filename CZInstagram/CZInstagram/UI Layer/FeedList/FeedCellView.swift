@@ -26,12 +26,13 @@ class FeedCellView: CZNibLoadableView, CZFeedCellViewSizeCalculatable {
     @IBOutlet var commentButton: UIButton!
     @IBOutlet var shareButton: UIButton!
     @IBOutlet var menuButton: UIButton!
-
     @IBOutlet var userActionContainerView: UIView!
+    @IBOutlet var stackViewWidthConstraint: NSLayoutConstraint!
 
     fileprivate var viewModel: FeedCellViewModel    
     var diffId: String {return viewModel.diffId}
     var onEvent: OnEvent?
+    static let imageRatio: CGFloat = 1.0
 
     required init(viewModel: CZFeedViewModelable?, onEvent: OnEvent?) {
         guard let viewModel = viewModel as? FeedCellViewModel else {
@@ -39,7 +40,7 @@ class FeedCellView: CZNibLoadableView, CZFeedCellViewSizeCalculatable {
         }
         self.viewModel = viewModel
         self.onEvent = onEvent
-        super.init(frame: .zero)
+        super.init(frame: .zero)        
         config(with: viewModel)
     }
 
@@ -66,20 +67,18 @@ class FeedCellView: CZNibLoadableView, CZFeedCellViewSizeCalculatable {
         likeButton.setImage(UIImage(named: viewModel.userHasLiked ? "Liked" : "Like"), for: .normal)
 
         bottomDivider.isHidden = !viewModel.isInFeedDetails
+        
+        stackViewWidthConstraint.constant = UIScreen.currWidth
     }
-
-    /// prevViewModel is used for diff Algo
-    func config(with viewModel: CZFeedViewModelable?, prevViewModel: CZFeedViewModelable?) {}
 
     static func sizeThatFits(_ containerSize: CGSize, viewModel: CZFeedViewModelable) -> CGSize {
-        let tmpView = FeedCellView(viewModel: viewModel, onEvent: nil)
-        tmpView.frame = CGRect(x: 0, y: 0, width: containerSize.width, height: 0)
-        tmpView.translatesAutoresizingMaskIntoConstraints = false
-        tmpView.layoutIfNeeded()
-        var size = tmpView.systemLayoutSizeFitting(CGSize(width: containerSize.width, height: 0))
-        size.width = containerSize.width
-        return size
+        return CZFacadeViewHelper.sizeThatFits(containerSize,
+                                               viewModel: viewModel,
+                                               viewClass: FeedCellView.self)
     }
+    
+    /// prevViewModel is used for diff Algo
+    func config(with viewModel: CZFeedViewModelable?, prevViewModel: CZFeedViewModelable?) {}
 }
 
 // MARK: - Private methods
