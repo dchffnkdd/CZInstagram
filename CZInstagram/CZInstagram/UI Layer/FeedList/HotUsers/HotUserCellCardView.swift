@@ -6,7 +6,6 @@
 //  Copyright © 2017 Cheng Zhang. All rights reserved.
 //
 
-import UIKit
 import CZUtils
 import ReactiveListViewKit
 
@@ -48,8 +47,8 @@ class HotUserCellCardView: CZNibLoadableView, CZFeedCellViewSizeCalculatable {
             portaitView?.sd_setImage(with: portraitUrl)
             portaitView?.roundToCircleWithFrame()
         }
-        nameLabel?.text = viewModel.userName
         detailsLabel?.text = viewModel.fullName
+        nameLabel?.text = ""
 
         followButton?.roundCorner(cornerRadius: 2)
         closeButton?.roundCorner(cornerRadius: 2)
@@ -60,9 +59,9 @@ class HotUserCellCardView: CZNibLoadableView, CZFeedCellViewSizeCalculatable {
     
     static func sizeThatFits(_ containerSize: CGSize, viewModel: CZFeedViewModelable) -> CGSize {
         return CZFacadeViewHelper.sizeThatFits(containerSize,
-                                               viewModel: viewModel,
-                                               viewClass: HotUserCellCardView.self,
-                                               isHorizontal: true)
+                                                   viewModel: viewModel,
+                                                   viewClass: HotUserCellCardView.self,
+                                                   isHorizontal: true)
     }
     
     @IBAction func tappedFollow(_ sender: UIButton) {
