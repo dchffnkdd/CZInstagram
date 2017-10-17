@@ -11,6 +11,7 @@ import ReactiveListViewKit
 
 struct Constants {
     static let incrementalUpdateOn = false
+    static let feedListViewInsets = UIEdgeInsets(top: -64, left: 0, bottom: 0, right: 0)
 }
 
 enum Instagram {

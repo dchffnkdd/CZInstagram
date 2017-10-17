@@ -40,7 +40,7 @@ fileprivate extension FeedListViewController {
         feedListFacadeView = CZReactiveFeedListFacadeView<FeedListState>(core: core,
                                                                          sectionModelsResolver: core.state.viewModel.sectionModelsResolver,
                                                                          parentViewController:self)
-        feedListFacadeView?.overlayOnSuperViewController(self)
+        feedListFacadeView?.overlayOnSuperViewController(self, insets: Constants.feedListViewInsets)
     }
 }
 
