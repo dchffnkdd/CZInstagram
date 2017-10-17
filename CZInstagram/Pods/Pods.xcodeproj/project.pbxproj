@@ -260,6 +260,7 @@
 		4E81D49E6AC4B02E736850116CA20865 /* SwiftHTTP.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SwiftHTTP.xcconfig; sourceTree = "<group>"; };
 		4F6994FF5B16C3D357D505C9FADAF48A /* SDWebImage.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SDWebImage.xcconfig; sourceTree = "<group>"; };
 		519E6A1E61ED675449625A98E676004E /* SwiftHTTP-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftHTTP-umbrella.h"; sourceTree = "<group>"; };
+		51A119FD0F2B97E2ED1EA2DEC543DEDA /* RevealServer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RevealServer.framework; path = "RevealServer-11/iOS/RevealServer.framework"; sourceTree = "<group>"; };
 		54457652EFE8C044FBABDD81AA1E2BDD /* UIButton+AFNetworking.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIButton+AFNetworking.m"; path = "UIKit+AFNetworking/UIButton+AFNetworking.m"; sourceTree = "<group>"; };
 		5634E6F319322885FCAFA618D87DEE3D /* UIView+WebCache.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIView+WebCache.m"; path = "SDWebImage/UIView+WebCache.m"; sourceTree = "<group>"; };
 		5830B961C0F10A7601BF3BFB2C56AADC /* SDImageCacheConfig.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SDImageCacheConfig.h; path = SDWebImage/SDImageCacheConfig.h; sourceTree = "<group>"; };
@@ -356,7 +357,6 @@
 		C3A990EE287BD0F934E5A1F7616B9A67 /* Result.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Result.swift; path = Source/Result.swift; sourceTree = "<group>"; };
 		C5E187A0BB3A10FCC789B552929CFD86 /* SDWebImageDecoder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SDWebImageDecoder.m; path = SDWebImage/SDWebImageDecoder.m; sourceTree = "<group>"; };
 		C60FF3D3363871F769B1A5BFA7D4F8AB /* Pods-CZInstagramUITests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-CZInstagramUITests-frameworks.sh"; sourceTree = "<group>"; };
-		C66723BD45D2E5E3A7327B2E28FA11CC /* RevealServer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RevealServer.framework; path = "RevealServer-8/iOS/RevealServer.framework"; sourceTree = "<group>"; };
 		C84D5E33057ECAD696F572C1365E125E /* EKRelationshipMapping.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EKRelationshipMapping.h; path = EasyMapping/EKRelationshipMapping.h; sourceTree = "<group>"; };
 		CA6A9D02A3DA1004F090E8FC5679647E /* AFNetworkReachabilityManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFNetworkReachabilityManager.h; path = AFNetworking/AFNetworkReachabilityManager.h; sourceTree = "<group>"; };
 		CB7E5484C4A3F068F3BC652CB66D89E2 /* UIActivityIndicatorView+AFNetworking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIActivityIndicatorView+AFNetworking.h"; path = "UIKit+AFNetworking/UIActivityIndicatorView+AFNetworking.h"; sourceTree = "<group>"; };
@@ -498,6 +498,14 @@
 			path = AFNetworking;
 			sourceTree = "<group>";
 		};
+		1295D3DC7EDC4C9BDAFBFDCCD8C9A178 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				51A119FD0F2B97E2ED1EA2DEC543DEDA /* RevealServer.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		18A7B948A2A04951E7070DF8DC6F1143 /* Serialization */ = {
 			isa = PBXGroup;
 			children = (
@@ -621,7 +629,7 @@
 		6A3A96B07F060C2AE9249BE2D69E8A1E /* Reveal-SDK */ = {
 			isa = PBXGroup;
 			children = (
-				BB05BF36D7BD90C586439702787296C2 /* Frameworks */,
+				1295D3DC7EDC4C9BDAFBFDCCD8C9A178 /* Frameworks */,
 			);
 			name = "Reveal-SDK";
 			path = "Reveal-SDK";
@@ -798,14 +806,6 @@
 			);
 			name = "Pods-CZInstagram";
 			path = "Target Support Files/Pods-CZInstagram";
-			sourceTree = "<group>";
-		};
-		BB05BF36D7BD90C586439702787296C2 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				C66723BD45D2E5E3A7327B2E28FA11CC /* RevealServer.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		BBF4361E4EC1F8AC218F5DD6BAB61249 /* SwiftHTTP */ = {
