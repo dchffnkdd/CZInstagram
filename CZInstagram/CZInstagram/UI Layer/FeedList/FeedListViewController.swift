@@ -6,21 +6,19 @@
 //  Copyright © 2017 Cheng Zhang. All rights reserved.
 //
 
-import UIKit
 import CZUtils
 import ReactiveListViewKit
 
 class FeedListViewController: UIViewController {
     fileprivate(set) var core: Core<FeedListState>
-    fileprivate(set) var viewModel: FeedListViewModel
-    fileprivate var eventHandler: FeedListEventHandler
-    fileprivate(set) var feedListFacadeView: CZFeedListFacadeView?
-    fileprivate(set) var isFirstVisible: Bool = false
+    fileprivate var feedListFacadeView: CZReactiveFeedListFacadeView<FeedListState>?
 
-    init() { 
-        self.viewModel = FeedListViewModel()
-        self.eventHandler = FeedListEventHandler()
-        self.core = Core<FeedListState>.init(state: FeedListState(viewModel: viewModel), middlewares: [self.eventHandler])
+    init() {
+        // Setup `Core` of FLUX pattern
+        let viewModel = FeedListViewModel()
+        let eventHandler = FeedListEventHandler()
+        self.core = Core<FeedListState>.init(state: FeedListState(viewModel: viewModel), middlewares: [eventHandler])
+        
         super.init(nibName:nil, bundle: .main)
         viewModel.core = core
         eventHandler.core = core
@@ -28,24 +26,20 @@ class FeedListViewController: UIViewController {
     }
     required init?(coder aDecoder: NSCoder) { fatalError("Should call designated initilizer.") }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        if !isFirstVisible {
-            isFirstVisible = true
-            // There's topGap in put in `viewDidLoad` (no topLayoutGuide? - worked before)
-            core.add(subscriber: self)
-            setupFeedListView()
-            core.fire(event: CZFeedListViewEvent.pullToRefresh(isFirst: true))
-        }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupFeedListView()
+        core.add(subscriber: self)
+        
+        core.fire(event: CZFeedListViewEvent.pullToRefresh(isFirst: true))
     }
 }
 
 fileprivate extension FeedListViewController {
     func setupFeedListView() {
-        feedListFacadeView = CZFeedListFacadeView(sectionModelsResolver: viewModel.sectionModelsResolver,
-                                                  onEvent: {[weak self] event in
-            self?.core.fire(event: event)
-        })
+        feedListFacadeView = CZReactiveFeedListFacadeView<FeedListState>(core: core,
+                                                                         sectionModelsResolver: core.state.viewModel.sectionModelsResolver,
+                                                                         parentViewController:self)
         feedListFacadeView?.overlayOnSuperViewController(self)
     }
 }
