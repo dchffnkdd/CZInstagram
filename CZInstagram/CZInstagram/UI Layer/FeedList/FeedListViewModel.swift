@@ -41,8 +41,7 @@ class FeedListViewModel: NSObject, NSCopying {
                                                      viewModel: FeedCellViewModel($0)) }
         let feedsSectionModel = CZSectionModel(feedModels: feedModels)
         
-        //return [hotUsersSectionModel, feedsSectionModel]
-        return [feedsSectionModel]
+        return [hotUsersSectionModel, feedsSectionModel]
     }
 
     func fetchFeeds(type fetchType: FetchingFeedsType = .fresh) {
