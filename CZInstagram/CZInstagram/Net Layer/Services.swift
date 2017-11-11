@@ -8,18 +8,12 @@
 
 import CZUtils
 import ReactiveListViewKit
-import AFNetworking
-import SwiftHTTP
-import Alamofire
 
 /// Http client - asynchrnous api call
 class Services: NSObject {
     static let shared = Services()
     lazy var kBaseURL = "https://api.instagram.com/v1"
     lazy var accessToken = "5956152420.6d6cef1.e003104aee864ac1bf9a81c53703294b"
-    static let httpMananger = {
-        return AFHTTPSessionManager()
-    }()
     fileprivate lazy var servicesProxy: ServicesProxy = {
         return ServicesProxy(baseURL: self.kBaseURL,
                              presetParams: ["access_token": self.accessToken])

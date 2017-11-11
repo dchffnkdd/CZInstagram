@@ -8,8 +8,6 @@
 
 import CZUtils
 import ReactiveListViewKit
-import AFNetworking
-import Alamofire
 
 class TestViewController: UIViewController {
 
