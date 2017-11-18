@@ -2,7 +2,7 @@
 
 MVVM + FLUX iOS Instagram client in Swift, eliminates Massive View Controller in unidirectional event/state flow manner.
 
-  <img src="./Documents/FLUX.png">
+  <img src="./Docs/FLUX.png">
   
  
 #### Unidirectional Data Flow
@@ -21,7 +21,7 @@ MVVM + FLUX iOS Instagram client in Swift, eliminates Massive View Controller in
 
 #### Demo Gif
 
-<img src="./Documents/CZInstagram.gif">
+<img src="./Docs/CZInstagram.gif">
 
 #### Eliminate Massive View Controller
  * No more UICollectionViewDataSource/UICollectionViewDelegate overhead
