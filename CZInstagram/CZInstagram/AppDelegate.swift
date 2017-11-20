@@ -13,15 +13,13 @@ import ReactiveListViewKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     enum AppMode {
-        case `default`, login, test
+        case `default`, login
         var feedListController: UIViewController {
             switch self {
             case .`default`:
                 return FeedListViewController()
             case .login:
                 return LoginViewController(nibName:"LoginViewController", bundle: .main)
-            case .test:
-                return TestViewController(nibName:"TestViewController", bundle: .main)
             default:
                 break
             }
