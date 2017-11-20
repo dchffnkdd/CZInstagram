@@ -75,7 +75,7 @@ class FeedDetailsViewModel: NSObject, NSCopying {
                                             } else {
                                                 self.feeds = feeds
                                             }
-                                            // Fire event after fetchedFeeds, to notify VC to update UI
+                                            // Fire event after fetchedFeeds, notify VC to update UI
                                             self.core?.fire(event: FeedDetailsEvent.fetchedFeeds)
             }, failure: { error in
                 self.isLoadingFeeds = false

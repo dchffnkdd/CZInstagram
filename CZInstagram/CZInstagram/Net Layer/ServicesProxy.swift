@@ -114,12 +114,10 @@ class ServicesProxy: NSObject {
         httpManager.GET(urlString(endPoint),
                                     parameters: wrappedParams(params),
                                     success: { (sessionTask, data) in
-                                        // print("Succeed to fetch \(endPoint) Data: \n\n\(data)")
                                         success(sessionTask, data)
         }, failure: { (sessionTask, error) in
             print("Failed to fetch \(endPoint) Error: \n\n\(error)")
             failure(sessionTask, error)
-            //fatalError()
         }, cached: cached,
            progress: progress)
     }
@@ -134,7 +132,6 @@ class ServicesProxy: NSObject {
         httpManager.POST(urlString(endPoint),
                                      parameters: wrappedParams(params),
                                      success: { (dataTask, data) in
-                                        // print("Succeed to post \(endPoint) Data: \n\n\(data)")
                                         success(dataTask, data)
         }, failure: { (dataTask, error) in
             print("Failed to post \(endPoint) Error: \n\n\(error)")
@@ -147,35 +144,15 @@ class ServicesProxy: NSObject {
                     params: [AnyHashable: Any]? = nil,
                     success: @escaping CZHTTPRequester.Success,
                     failure: @escaping CZHTTPRequester.Failure) {
-        //let endPoint = "\(endPoint)?access_token=\(accessToken)"
-        #if false
-            let params = params as? [String: Any]
-            Alamofire.request(urlString(endPoint), method: .delete, parameters: params, encoding: URLEncoding.default, headers: nil).responseJSON(completionHandler: { (response) in
-
-            })
-        #elseif true
-            httpManager.DELETE(urlString(endPoint),
-                                           parameters: wrappedParams(params),
-                                           success: { (dataTask, data) in
-                                            // print("Succeed to DELETE \(endPoint) Data: \n\n\(data)")
-                                            success(dataTask, data)
-            }, failure: { (dataTask, error) in
-                print("Failed to DELETE \(endPoint) Error: \n\n\(error)")
-                failure(dataTask, error)
-                fatalError()
-            })
-        #else
-            Services.httpMananger.delete(urlString(endPoint),
-                                         parameters: presetParams,
-                                         success: { (dataTask, data) in
-                                            // print("Succeed to DELETE \(endPoint) Data: \n\n\(data)")
-                                            success(dataTask, data)
-            }) { (dataTask, error) in
-                print("Failed to post \(endPoint) Error: \n\n\(error)")
-                failure(dataTask, error)
-                fatalError()
-            }
-        #endif
+        httpManager.DELETE(urlString(endPoint),
+                           parameters: wrappedParams(params),
+                           success: { (dataTask, data) in
+                            success(dataTask, data)
+        }, failure: { (dataTask, error) in
+            print("Failed to DELETE \(endPoint) Error: \n\n\(error)")
+            failure(dataTask, error)
+            fatalError()
+        })
     }
 }
 
