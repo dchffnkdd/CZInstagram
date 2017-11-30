@@ -6,6 +6,7 @@
 //  Copyright © 2016 Cheng Zhang. All rights reserved.
 //
 
+import UIKit
 import CZUtils
 import CZNetworking
 
@@ -13,7 +14,7 @@ public typealias CZWebImageCompletion = (UIImage?, Error?) -> Void
 
 private var kImageUrl: UInt8 = 0
 
-/// Convenience UIImageView extension for asynrhonous image downloading
+/// Convenience UIImageView extension for asynchronous image downloading
 extension UIImageView {
     public var czImageUrl: URL? {
         get { return objc_getAssociatedObject(self, &kImageUrl) as? URL }

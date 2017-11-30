@@ -6,6 +6,7 @@
 //  Copyright © 2015 Cheng Zhang. All rights reserved.
 //
 
+import UIKit
 import CZUtils
 
 /// Network Error class

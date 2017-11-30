@@ -6,6 +6,7 @@
 //  Copyright © 2016 Cheng Zhang. All rights reserved.
 //
 
+import UIKit
 import CZUtils
 import CZNetworking
 
@@ -34,7 +35,7 @@ import CZNetworking
                 }
                 return
             }
-            // Load from remote server
+            // Load from http server
             self.downloader.downloadImage(with: url,
                                           cropSize: cropSize,
                                           priority: priority,
