@@ -9,7 +9,7 @@
 import CZUtils
 import ReactiveListViewKit
 
-/// Middleware: Receives all events and current state of core
+/// Middleware: Receives all events and currentState of `Core`
 class FeedListEventHandler: Middleware {
     typealias StateType = FeedListState
     var coordinator: FeedListViewController?
@@ -27,13 +27,13 @@ class FeedListEventHandler: Middleware {
             selectedCell(feedModel: feedModel)
             break
         case let FeedListEvent.requestFetchingFeeds(type):
-            guard let viewModel = (core?.state.viewModel) else { return }
+            guard let viewModel = core?.state.viewModel else { return }
             core?.fire(command: FetchFeedsCommand(type: type, viewModel: viewModel))
         case let CZFeedListViewEvent.pullToRefresh(isFirst):
-            guard let viewModel = (core?.state.viewModel) else { return }
+            guard let viewModel = core?.state.viewModel else { return }
             core?.fire(command: FetchFeedsCommand(type: .pullToRefresh(isFirst: isFirst), viewModel: viewModel))
         case CZFeedListViewEvent.loadMore:
-            guard let viewModel = (core?.state.viewModel) else { return }
+            guard let viewModel = core?.state.viewModel else { return }
             core?.fire(command: FetchFeedsCommand(type: .loadMore, viewModel: viewModel))
         default:
             break
