@@ -166,13 +166,6 @@
 			remoteGlobalIDString = C39982D31F7739EA00775B6C;
 			remoteInfo = CZUtilsTests;
 		};
-		2A3ECC491F949AFB00CF9EF3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2A3ECC3D1F949ADA00CF9EF3 /* CZUtils.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = C39982C91F7739EA00775B6C;
-			remoteInfo = CZUtils;
-		};
 		2A3ECC4B1F949AFE00CF9EF3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 2A3ECC331F949AB700CF9EF3 /* ReactiveListViewKit.xcodeproj */;
@@ -214,6 +207,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 2A02BFE61F7461EA00184823;
 			remoteInfo = CZWebImage;
+		};
+		DF257C152006E32E00D89E75 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2A3ECC3D1F949ADA00CF9EF3 /* CZUtils.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = C39982C91F7739EA00775B6C;
+			remoteInfo = CZUtils;
 		};
 		E1CD1FA11F5B831E00CE529F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -676,10 +676,10 @@
 			buildRules = (
 			);
 			dependencies = (
-				2A3ECC4A1F949AFB00CF9EF3 /* PBXTargetDependency */,
-				2A0C7C751F949CC4004F4B17 /* PBXTargetDependency */,
-				2A3ECC501F949B0400CF9EF3 /* PBXTargetDependency */,
+				DF257C162006E32E00D89E75 /* PBXTargetDependency */,
 				2A3ECC4E1F949B0100CF9EF3 /* PBXTargetDependency */,
+				2A3ECC501F949B0400CF9EF3 /* PBXTargetDependency */,
+				2A0C7C751F949CC4004F4B17 /* PBXTargetDependency */,
 				2A3ECC4C1F949AFE00CF9EF3 /* PBXTargetDependency */,
 				2A3ECC541F949B0B00CF9EF3 /* PBXTargetDependency */,
 				2A3ECC5A1F949B1C00CF9EF3 /* PBXTargetDependency */,
@@ -1147,11 +1147,6 @@
 			name = CZJsonModel;
 			targetProxy = 2A0C7C781F949CCC004F4B17 /* PBXContainerItemProxy */;
 		};
-		2A3ECC4A1F949AFB00CF9EF3 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = CZUtils;
-			targetProxy = 2A3ECC491F949AFB00CF9EF3 /* PBXContainerItemProxy */;
-		};
 		2A3ECC4C1F949AFE00CF9EF3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = ReactiveListViewKit;
@@ -1181,6 +1176,11 @@
 			isa = PBXTargetDependency;
 			name = CZWebImage;
 			targetProxy = 2A3ECC5D1F949B2100CF9EF3 /* PBXContainerItemProxy */;
+		};
+		DF257C162006E32E00D89E75 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = CZUtils;
+			targetProxy = DF257C152006E32E00D89E75 /* PBXContainerItemProxy */;
 		};
 		E1CD1FA21F5B831E00CE529F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
