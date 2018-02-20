@@ -6,7 +6,7 @@
 //  Copyright © 2017 Cheng Zhang. All rights reserved.
 //
 
-import UIKit
+import CZUtils
 import CZNetworking
 
 class ServicesProxy: NSObject {
@@ -116,7 +116,7 @@ class ServicesProxy: NSObject {
                                     success: { (sessionTask, data) in
                                         success(sessionTask, data)
         }, failure: { (sessionTask, error) in
-            print("Failed to fetch \(endPoint) Error: \n\n\(error)")
+            CZUtils.dbgPrint("Failed to fetch \(endPoint) Error: \n\n\(error)")
             failure(sessionTask, error)
         }, cached: cached,
            progress: progress)
@@ -134,7 +134,7 @@ class ServicesProxy: NSObject {
                                      success: { (dataTask, data) in
                                         success(dataTask, data)
         }, failure: { (dataTask, error) in
-            print("Failed to post \(endPoint) Error: \n\n\(error)")
+            CZUtils.dbgPrint("Failed to post \(endPoint) Error: \n\n\(error)")
             failure(dataTask, error)
             fatalError()
         }, progress: progress)
@@ -149,7 +149,7 @@ class ServicesProxy: NSObject {
                            success: { (dataTask, data) in
                             success(dataTask, data)
         }, failure: { (dataTask, error) in
-            print("Failed to DELETE \(endPoint) Error: \n\n\(error)")
+            CZUtils.dbgPrint("Failed to DELETE \(endPoint) Error: \n\n\(error)")
             failure(dataTask, error)
             fatalError()
         })

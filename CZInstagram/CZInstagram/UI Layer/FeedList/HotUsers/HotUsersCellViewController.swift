@@ -74,7 +74,7 @@ fileprivate extension HotUsersCellViewController {
         let sectionHeaderViewModel = CZFeedListSupplementaryTextViewModel(title: HotUsersCellViewController.headerTitle,
                                                                           actionButtonText: HotUsersCellViewController.seeAllText,
                                                                           actionButtonClosure: { button in
-                                                                            print("Tapped SeeAll button")
+                                                                            CZUtils.dbgPrint("Tapped SeeAll button")
         }, inset: UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8) )
         sectionHeaderView = CZFeedListSupplementaryTextView(viewModel: sectionHeaderViewModel,
                                                             onEvent: onEvent)

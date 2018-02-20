@@ -15,7 +15,7 @@ class FeedDetailsEventHandler: Middleware {
     var core: Core<FeedDetailsState>?
 
     func process(event: Event, state: StateType) {
-        print("Received event: \(event)")
+        CZUtils.dbgPrint("Received event: \(event)")
         switch event {
         case let FeedListEvent.requestFetchingFeeds(type):
             guard let viewModel = (core?.state.viewModel) else { return }

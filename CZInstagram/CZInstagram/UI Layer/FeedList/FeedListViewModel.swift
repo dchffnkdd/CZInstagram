@@ -71,7 +71,7 @@ class FeedListViewModel: NSObject, NSCopying {
     
     func fetchFeeds(type fetchType: FetchingFeedsType = .fresh) {
         guard !isLoadingFeeds else {
-            print("Still in loading feeds process.")
+            CZUtils.dbgPrint("Still in loading feeds process.")
             return
         }
         isLoadingFeeds = true
@@ -129,7 +129,7 @@ extension FeedListViewModel: State {
 
         switch event {
         case let CZFeedListViewEvent.selectedCell(feedModel):
-            print(feedModel)
+            CZUtils.dbgPrint(feedModel)
             if let viewModel = feedModel.viewModel as? FeedCellViewModel {
                 let success = { (data: Any?) in
                     self.fetchFeeds()

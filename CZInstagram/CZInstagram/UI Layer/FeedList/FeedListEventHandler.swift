@@ -20,7 +20,7 @@ class FeedListEventHandler: Middleware {
     }
 
     func process(event: Event, state: StateType) {
-        print("Received event: \(event)")
+        CZUtils.dbgPrint("Received event: \(event)")
         switch event {
         case let CZFeedListViewEvent.selectedCell(feedModel):
             // Present Details ViewController

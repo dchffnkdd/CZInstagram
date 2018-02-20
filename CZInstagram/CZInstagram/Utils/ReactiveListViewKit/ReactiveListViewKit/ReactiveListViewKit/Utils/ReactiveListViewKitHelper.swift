@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import CZUtils
 
-public func dbgPrint(_ item: String) {
+public func dbgPrint(_ item: CustomStringConvertible) {
     guard ReactiveListViewKit.isDebugMode else { return }
-    print(item)
+    CZUtils.dbgPrint(item)
 }
 

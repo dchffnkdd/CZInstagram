@@ -48,7 +48,7 @@ class LoginViewController: UIViewController, UIWebViewDelegate {
     }
 
     func handleAuth(authToken: String)  {
-        print("Successfully received Instagram authentication token: ", authToken)
+        CZUtils.dbgPrint("Successfully received Instagram authentication token: \(authToken)")
     }
 
     // MARK: - UIWebViewDelegate
