@@ -33,6 +33,7 @@
 		5560A4703F003A7CF4712DB2 /* Pods_CZInstagramUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99352FF4BF824DFED4F36ABE /* Pods_CZInstagramUITests.framework */; };
 		59EE7BDBCC8ECE6B4CB44B58 /* Pods_CZInstagramTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C094810A6D359CA64336807C /* Pods_CZInstagramTests.framework */; };
 		C1D8357BEF4C65585BF798BC /* Pods_CZInstagram.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA740AF35DC2EC5F40ECA5E6 /* Pods_CZInstagram.framework */; };
+		DF7C7F702166F570003E738B /* portrait.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DF7C7F6F2166F570003E738B /* portrait.jpg */; };
 		E109CDBC1F5BEFFD0012B3A8 /* mediaImage.json in Resources */ = {isa = PBXBuildFile; fileRef = E109CDBA1F5BEFFD0012B3A8 /* mediaImage.json */; };
 		E109CDBD1F5BEFFD0012B3A8 /* user.json in Resources */ = {isa = PBXBuildFile; fileRef = E109CDBB1F5BEFFD0012B3A8 /* user.json */; };
 		E1153E041F60B8AF00C038AF /* CZFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1153E031F60B8AF00C038AF /* CZFeed.swift */; };
@@ -276,6 +277,7 @@
 		AE7903DD171E5FF64C3E485E /* Pods-CZInstagramTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CZInstagramTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CZInstagramTests/Pods-CZInstagramTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B3384FF4D561B599A3FE1CE6 /* Pods-CZInstagramUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CZInstagramUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CZInstagramUITests/Pods-CZInstagramUITests.release.xcconfig"; sourceTree = "<group>"; };
 		C094810A6D359CA64336807C /* Pods_CZInstagramTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CZInstagramTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF7C7F6F2166F570003E738B /* portrait.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = portrait.jpg; path = Resources/Images/portrait.jpg; sourceTree = "<group>"; };
 		E109CDBA1F5BEFFD0012B3A8 /* mediaImage.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = mediaImage.json; path = Resources/JSON/mediaImage.json; sourceTree = "<group>"; };
 		E109CDBB1F5BEFFD0012B3A8 /* user.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = user.json; path = Resources/JSON/user.json; sourceTree = "<group>"; };
 		E1153E031F60B8AF00C038AF /* CZFeed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = CZFeed.swift; path = "Data Layer/CZFeed.swift"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -425,10 +427,19 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		DF7C7F692166F558003E738B /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				DF7C7F6F2166F570003E738B /* portrait.jpg */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
 		E109CDB81F5BEF9F0012B3A8 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
 				E109CDB91F5BEFB10012B3A8 /* JSON */,
+				DF7C7F692166F558003E738B /* Images */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -896,6 +907,7 @@
 				E1CD1F971F5B831E00CE529F /* Assets.xcassets in Resources */,
 				E18B9F641F5BF039005D5C10 /* mediaCarousel.json in Resources */,
 				E109CDBD1F5BEFFD0012B3A8 /* user.json in Resources */,
+				DF7C7F702166F570003E738B /* portrait.jpg in Resources */,
 				E1CD1F951F5B831E00CE529F /* Main.storyboard in Resources */,
 				E1215E531F5DEACA00C582E5 /* FeedCellView.xib in Resources */,
 			);

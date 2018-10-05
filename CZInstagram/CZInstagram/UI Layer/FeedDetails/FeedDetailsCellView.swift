@@ -41,8 +41,8 @@ class FeedDetailsCellView: CZNibLoadableView, CZFeedCellViewSizeCalculatable {
         }
         if let portraitUrl = viewModel.portraitUrl {
             portaitView.sd_setImage(with: portraitUrl)
-            portaitView.roundToCircleWithFrame()
         }
+        portaitView.roundToCircleWithFrame()
         userNameLabel.text = viewModel.userName
         contentLabel.text = viewModel.content
     }

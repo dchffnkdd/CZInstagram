@@ -10,9 +10,9 @@ import CZUtils
 import ReactiveListViewKit
 
 class FeedListViewController: UIViewController {
-    /// Core - composed of Dispatcher/Store
+    /// Core - Composition of Dispatcher/Store
     fileprivate(set) var core: Core<FeedListState>
-    /// List view that renders feeds
+    /// List view that populates feeds
     fileprivate(set) var feedListFacadeView: CZReactiveFeedListFacadeView<FeedListState>?
 
     init() {
@@ -32,7 +32,7 @@ class FeedListViewController: UIViewController {
         super.viewDidLoad()
         // Set up list view
         setupFeedListView()
-        // Add self as subscriber of `core`, will get notice on state change
+        // Add self as subscriber of `core`, will get notified on state change
         core.add(subscriber: self)
         // Fire `pullToRefresh` event that triggers fetch feeds command
         core.fire(event: CZFeedListViewEvent.pullToRefresh(isFirst: true))

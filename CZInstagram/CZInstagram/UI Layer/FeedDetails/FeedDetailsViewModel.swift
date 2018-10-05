@@ -101,9 +101,9 @@ extension FeedDetailsViewModel: State {
                 }
                 let failure = { (error: Error) in }
                 if viewModel.feed.userHasLiked {
-                    Services.shared.unlikeFeed(feedId: viewModel.feed.feedId, success: success, failure: failure)
+                    // Services.shared.unlikeFeed(feedId: viewModel.feed.feedId, success: success, failure: failure)
                 } else {
-                    Services.shared.likeFeed(feedId: viewModel.feed.feedId, success: success, failure: failure)
+                    // Services.shared.likeFeed(feedId: viewModel.feed.feedId, success: success, failure: failure)
                 }
             }
         default:
