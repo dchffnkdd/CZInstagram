@@ -11,10 +11,10 @@ import ReactiveListViewKit
 
 class FeedListViewModel: NSObject, NSCopying {
     fileprivate(set) lazy var feeds: [Feed] = []
-    fileprivate(set) var storyUsers: [User] = {
+    fileprivate(set) lazy var storyUsers: [User] = {
         return CZMocker.shared.hotUsers
     }()
-    fileprivate(set) var suggestedUsers: [User] = {
+    fileprivate(set) lazy var suggestedUsers: [User] = {
         return CZMocker.shared.hotUsers
     }()
     
@@ -105,7 +105,7 @@ class FeedListViewModel: NSObject, NSCopying {
             } else {
                 self.feeds = feeds
             }
-            // Fire event after fetchedFeeds, to notify VC to update UI
+            // Fire event after fetch feeds, notify subscribers to update UI
             self.core?.fire(event: FeedListEvent.fetchedFeeds)
         }, failure: { error in
                 self.isLoadingFeeds = false
@@ -136,9 +136,9 @@ extension FeedListViewModel: State {
                 }
                 let failure = { (error: Error) in }
                 if viewModel.feed.userHasLiked {
-                    Services.shared.unlikeFeed(feedId: viewModel.feed.feedId, success: success, failure: failure)
+                    // Services.shared.unlikeFeed(feedId: viewModel.feed.feedId, success: success, failure: failure)
                 } else {
-                    Services.shared.likeFeed(feedId: viewModel.feed.feedId, success: success, failure: failure)
+                    // Services.shared.likeFeed(feedId: viewModel.feed.feedId, success: success, failure: failure)
                 }
             }
         default:

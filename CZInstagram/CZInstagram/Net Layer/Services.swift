@@ -12,8 +12,8 @@ import ReactiveListViewKit
 /// Http client - asynchrnous api call
 class Services: NSObject {
     static let shared = Services()
-    lazy var kBaseURL = "https://api.instagram.com/v1"
-    lazy var accessToken = "5956152420.6d6cef1.e003104aee864ac1bf9a81c53703294b"
+    private let kBaseURL = "https://api.instagram.com/v1"
+    private let accessToken = "5956152420.6d6cef1.e003104aee864ac1bf9a81c53703294b"
     fileprivate lazy var servicesProxy: ServicesProxy = {
         return ServicesProxy(baseURL: self.kBaseURL,
                              presetParams: ["access_token": self.accessToken])
@@ -82,7 +82,6 @@ class Services: NSObject {
     func unlikeFeed(feedId: String,
                     success: @escaping (Any?) -> Void,
                     failure: @escaping (Error) -> Void) {
-        //let endPoint = "/media/\(feedId)/likes?access_token=\(accessToken)/"
         let endPoint = "/media/\(feedId)/likes/"
         servicesProxy.deleteData(endPoint,
             success: { (task, data) in

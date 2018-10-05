@@ -20,7 +20,7 @@ class ServicesProxy: NSObject {
     fileprivate let httpManager: CZHTTPAPIClientable
     
     override init() {
-        fatalError("Should invoke designated initializer `init(baseURL:)`")
+        fatalError("Must call designated initializer `init(baseURL:)`")
     }
 
     init(baseURL: String,

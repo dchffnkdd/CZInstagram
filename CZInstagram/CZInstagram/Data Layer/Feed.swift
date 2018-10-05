@@ -12,7 +12,8 @@ import EasyMapping
 
 class Feed: CZModel {
     lazy var feedId: String = ""
-    var type: String?           // “image”, “video”, “carousel”
+    /// Type of feed, e.g. image, video, carousel etc.
+    var type: String?
     var user: User?
     var userHasLiked: Bool {
         return _userHasLiked?.boolValue ?? false
@@ -20,7 +21,7 @@ class Feed: CZModel {
     var _userHasLiked: NSNumber?
     var content: String?
     var imageInfo: ImageInfo?
-    var createTime: String?     // “create_time”: “1279340983”
+    var createTime: String?
     var commentsCount: Int? {return _commentsCount?.intValue}
     var likesCount: Int? {return _likesCount?.intValue}
     var _commentsCount: NSNumber?
@@ -52,14 +53,13 @@ class Feed: CZModel {
 extension Feed: State {
     func react(to event: Event) {
         switch event {
-        case let CZFeedListViewEvent.selectedCell(feedModel): // Update liked locally
-            if let viewModel = feedModel.viewModel as? FeedCellViewModel,
-                viewModel.feed.feedId == feedId {
+        // React to LikeFeed event
+        case let event as LikeFeedEvent:
+            if feedId == event.feed.feedId {
                 _userHasLiked = NSNumber(value: !_userHasLiked!.boolValue)
             }
         default:
             break
         }
     }
-    
 }

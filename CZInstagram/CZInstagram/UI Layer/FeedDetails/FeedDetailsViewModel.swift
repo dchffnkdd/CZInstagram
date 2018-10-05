@@ -61,22 +61,23 @@ class FeedDetailsViewModel: NSObject, NSCopying {
         if isLoadMore {
             params["max_id"] = lastMinFeedId
         }
-        Services.shared.fetchComments(feedId: feed.feedId,
-                                      params: params,
-                                         success: {[weak self] feeds in
-                                            guard let `self` = self else {
-                                                return
-                                            }
-                                            self.isLoadingFeeds = false
-                                            self.lastMinFeedId = feeds.last?.commentId ?? self.lastMinFeedId
-
-                                            if fetchType == FetchingFeedsType.loadMore {
-                                                self.feeds.append(contentsOf: feeds)
-                                            } else {
-                                                self.feeds = feeds
-                                            }
-                                            // Fire event after fetchedFeeds, notify VC to update UI
-                                            self.core?.fire(event: FeedDetailsEvent.fetchedFeeds)
+        Services.shared.fetchComments(
+            feedId: feed.feedId,
+            params: params,
+            success: {[weak self] feeds in
+                guard let `self` = self else {
+                    return
+                }
+                self.isLoadingFeeds = false
+                self.lastMinFeedId = feeds.last?.commentId ?? self.lastMinFeedId
+                
+                if fetchType == FetchingFeedsType.loadMore {
+                    self.feeds.append(contentsOf: feeds)
+                } else {
+                    self.feeds = feeds
+                }
+                // Fire event after fetch feeds, notify subscribers to update UI
+                self.core?.fire(event: FeedDetailsEvent.fetchedFeeds)
             }, failure: { error in
                 self.isLoadingFeeds = false
         })

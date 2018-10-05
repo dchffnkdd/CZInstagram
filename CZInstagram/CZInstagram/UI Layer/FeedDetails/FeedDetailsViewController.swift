@@ -12,16 +12,16 @@ import ReactiveListViewKit
 class FeedDetailsViewController: UIViewController {
     fileprivate(set) var core: Core<FeedDetailsState>
     fileprivate(set) var viewModel: FeedDetailsViewModel
-    fileprivate var eventHandler: FeedDetailsEventHandler
+    fileprivate(set) var eventHandler: FeedDetailsEventHandler
     fileprivate(set) var feedListFacadeView: CZFeedListFacadeView?
-    fileprivate var isFirstVisible = false
+    fileprivate(set) var isFirstVisible = false
 
     init(feed: Feed) {
-        self.viewModel = FeedDetailsViewModel(feed: feed)
-        self.eventHandler = FeedDetailsEventHandler()
-        core = Core<FeedDetailsState>.init(state: FeedDetailsState(viewModel: viewModel), middlewares: [self.eventHandler])
-        self.viewModel.core = core
-        self.eventHandler.core = core
+        viewModel = FeedDetailsViewModel(feed: feed)
+        eventHandler = FeedDetailsEventHandler()
+        core = Core<FeedDetailsState>.init(state: FeedDetailsState(viewModel: viewModel), middlewares: [eventHandler])
+        viewModel.core = core
+        eventHandler.core = core
         super.init(nibName:nil, bundle: .main)
     }
     required init?(coder aDecoder: NSCoder) { fatalError("Should call designated initilizer.") }

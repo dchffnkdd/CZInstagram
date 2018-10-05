@@ -33,7 +33,7 @@ class FeedDetailsCellView: CZNibLoadableView, CZFeedCellViewSizeCalculatable {
         config(with: viewModel)
     }
 
-    required init?(coder aDecoder: NSCoder) { fatalError("Should invoke designated initializer `init(viewModel:onEvent:)`")  }
+    required init?(coder aDecoder: NSCoder) { fatalError("Must call designated initializer `init(viewModel:onEvent:)`")  }
 
     func config(with viewModel: CZFeedViewModelable?) {
         guard let viewModel = viewModel as? FeedDetailsCellViewModel else {
