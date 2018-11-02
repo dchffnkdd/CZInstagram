@@ -37,7 +37,6 @@
 		2AB3DB9C1F7EC3D8009A5EF9 /* CZTextFeedCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB3DB941F7EC3D8009A5EF9 /* CZTextFeedCellView.swift */; };
 		2AB3DB9D1F7EC3D8009A5EF9 /* CZTextFeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB3DB951F7EC3D8009A5EF9 /* CZTextFeedViewModel.swift */; };
 		2AB3DB9F1F7EC407009A5EF9 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB3DB9E1F7EC407009A5EF9 /* Array+Extension.swift */; };
-		2AB3DBA21F7EC437009A5EF9 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2AB3DBA01F7EC437009A5EF9 /* Info.plist */; };
 		2AB3DBA31F7EC437009A5EF9 /* ReactiveListViewKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AB3DBA11F7EC437009A5EF9 /* ReactiveListViewKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2AD7DCB81FB0F6A9003A7B6C /* ReactiveListViewKitHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD7DCB71FB0F6A9003A7B6C /* ReactiveListViewKitHelper.swift */; };
 		2ADEE4781F7F6F7D00EC6969 /* CZUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2ADEE4771F7F6F7D00EC6969 /* CZUtils.framework */; };
@@ -309,7 +308,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2AB3DBA21F7EC437009A5EF9 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

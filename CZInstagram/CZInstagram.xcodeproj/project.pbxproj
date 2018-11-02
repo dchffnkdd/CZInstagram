@@ -29,7 +29,7 @@
 		2A3ECC5C1F949B2100CF9EF3 /* CZWebImage.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2A3ECC301F949AAF00CF9EF3 /* CZWebImage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2A5311351F7E2CCB007D565D /* CZUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A5311341F7E2CCB007D565D /* CZUtils.framework */; };
 		2A5311361F7E2CCB007D565D /* CZUtils.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2A5311341F7E2CCB007D565D /* CZUtils.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		2A5311411F7E2CD8007D565D /* CommonCrypto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A5311401F7E2CD8007D565D /* CommonCrypto.framework */; };
+		2A5311411F7E2CD8007D565D /* CommonCrypto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A5311401F7E2CD8007D565D /* CommonCrypto.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		5560A4703F003A7CF4712DB2 /* Pods_CZInstagramUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99352FF4BF824DFED4F36ABE /* Pods_CZInstagramUITests.framework */; };
 		59EE7BDBCC8ECE6B4CB44B58 /* Pods_CZInstagramTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C094810A6D359CA64336807C /* Pods_CZInstagramTests.framework */; };
 		C1D8357BEF4C65585BF798BC /* Pods_CZInstagram.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA740AF35DC2EC5F40ECA5E6 /* Pods_CZInstagram.framework */; };

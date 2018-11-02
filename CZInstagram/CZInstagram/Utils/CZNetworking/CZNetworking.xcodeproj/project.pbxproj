@@ -14,7 +14,7 @@
 		044E02791F74358600849AA2 /* CZHTTPJsonSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044E02721F74358600849AA2 /* CZHTTPJsonSerializer.swift */; };
 		044E027A1F74358600849AA2 /* CZHTTPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044E02731F74358600849AA2 /* CZHTTPManager.swift */; };
 		044E027B1F74358600849AA2 /* CZHTTPRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044E02741F74358600849AA2 /* CZHTTPRequester.swift */; };
-		2A194D891F74991C0027EE24 /* CommonCrypto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 044E02D61F7440F400849AA2 /* CommonCrypto.framework */; };
+		2A194D891F74991C0027EE24 /* CommonCrypto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 044E02D61F7440F400849AA2 /* CommonCrypto.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		2A9200801F75E80100A21F01 /* CZNetError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A92007F1F75E80100A21F01 /* CZNetError.swift */; };
 		2AEBF7C51F759298005A1DEF /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEBF7C41F759298005A1DEF /* Extensions.swift */; };
 		DF952C1A2022577500100621 /* CZUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF952C1B2022577500100621 /* CZUtils.framework */; };
