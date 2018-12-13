@@ -46,10 +46,6 @@ class Services: NSObject {
         servicesProxy.fetchManyModels("/users/self/media/liked/", success: success, failure: failure)
     }
 
-    func fetchRecentMediaTest(success: @escaping ([CZFeed]) -> Void, failure: @escaping (Error) -> Void) {
-        servicesProxy.fetchManyModels("/users/5956152420/media/recent/", success: success, failure: failure)
-    }
-
     func fetchCurrentUser(success: @escaping (CZUser) -> Void, failure: @escaping (Error) -> Void) {
         servicesProxy.fetchOneModel("/users/self/", success: success, failure: failure)
     }

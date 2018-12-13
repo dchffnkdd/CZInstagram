@@ -12,7 +12,7 @@ import EasyMapping
 
 class Feed: CZModel {
     lazy var feedId: String = ""
-    /// Type of feed, e.g. image, video, carousel etc.
+    /// Type of Feed, e.g. image, video, carousel etc.
     var type: String?
     var user: User?
     var userHasLiked: Bool {

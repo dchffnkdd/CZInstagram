@@ -128,7 +128,6 @@ class ServicesProxy: NSObject {
                   failure: @escaping CZHTTPRequester.Failure,
                   cached: CZHTTPRequester.Cached? = nil,
                   progress: CZHTTPRequester.Progress? = nil) {
-        let endPoint = "\(endPoint)"
         httpManager.POST(urlString(endPoint),
                                      parameters: wrappedParams(params),
                                      success: { (dataTask, data) in
