@@ -8,21 +8,20 @@
 
 import UIKit
 
-/// ViewModel/State of Section, groups cellFeedModels inside the section accordingly
+/// ViewModel/State of Section, groups CellFeedModels inside section accordingly
 public class CZSectionModel: NSObject, NSCopying, CZListDiffable {
-    fileprivate(set) var isHorizontal: Bool
-    fileprivate(set) var heightForHorizontal: CGFloat
-
-    // Header: unselectable as cell
-    fileprivate(set) var headerModel: CZFeedModel?
-    fileprivate(set) var footerModel: CZFeedModel?
-    fileprivate(set) var feedModels: [CZFeedModel]
+    private(set) var isHorizontal: Bool
+    private(set) var heightForHorizontal: CGFloat
+    
+    private(set) var headerModel: CZFeedModel?
+    private(set) var footerModel: CZFeedModel?
+    private(set) var feedModels: [CZFeedModel]
 
     /// The minimum spacing to use between lines of items in the grid.
-    fileprivate(set) var minimumLineSpacing: CGFloat?
+    private(set) var minimumLineSpacing: CGFloat?
     /// The minimum spacing to use between items in the same row.
-    fileprivate(set) var minimumInteritemSpacing: CGFloat?
-    fileprivate(set) var sectionInset: UIEdgeInsets?
+    private(set) var minimumInteritemSpacing: CGFloat?
+    private(set) var sectionInset: UIEdgeInsets?
 
     public var isEmpty: Bool {
         return feedModels.count == 0 &&

@@ -10,8 +10,8 @@ import UIKit
 
 /// Convenience divider view class
 public final class CZDividerView: UIView {
-    fileprivate let size: CGFloat
-    fileprivate let bgColor: UIColor
+    private let size: CGFloat
+    private let bgColor: UIColor
     
     public init(size: CGFloat = 1,
          backgroudColor: UIColor = ReactiveListViewKit.GreyDividerColor) {
@@ -26,12 +26,12 @@ public final class CZDividerView: UIView {
     }
 }
 
-fileprivate extension CZDividerView {
+private extension CZDividerView {
     func setup() {
         translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = self.bgColor
         let sizeContrait = heightAnchor.constraint(equalToConstant: size)
-        sizeContrait.priority = 749
+        sizeContrait.priority = UILayoutPriority(rawValue: 749)
         sizeContrait.isActive = true
     }
 }

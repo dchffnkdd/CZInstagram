@@ -17,41 +17,35 @@ import UIKit
 open class CZFeedListFacadeView: UIView {
     // Resolver closure that transforms `Feed` array to `CZSectionModel` array
     public typealias SectionModelsResolver = ([Any]) -> [CZSectionModel]
-    internal var onEvent: OnEvent?
-    var viewModel: CZFeedListViewModel {
-        return _viewModel
-    }
-    fileprivate var _viewModel: CZFeedListViewModel!
-    fileprivate var prevViewModel: CZFeedListViewModel = {
-        let viewModel = CZFeedListViewModel()
-        return viewModel
-    }()
-    fileprivate(set) var collectionView: UICollectionView!
-    fileprivate let parentViewController: UIViewController?
-    fileprivate var collectionViewBGColor: UIColor?
-    fileprivate var minimumLineSpacing: CGFloat
-    fileprivate var minimumInteritemSpacing: CGFloat
-    fileprivate var sectionInset: UIEdgeInsets
-    fileprivate var showsVerticalScrollIndicator: Bool
-    fileprivate var showsHorizontalScrollIndicator: Bool
+    private(set) var onEvent: OnEvent?
+    private(set) lazy var viewModel = CZFeedListViewModel()
+    private(set) lazy var newViewModel = CZFeedListViewModel()
+    public private(set) var collectionView: UICollectionView!
+    private let parentViewController: UIViewController?
+    private var collectionViewBGColor: UIColor?
+    private var minimumLineSpacing: CGFloat
+    private var minimumInteritemSpacing: CGFloat
+    private var sectionInset: UIEdgeInsets
+    private var showsVerticalScrollIndicator: Bool
+    private var showsHorizontalScrollIndicator: Bool
 
-    fileprivate var stateMachine: CZFeedListViewStateMachine!
-    fileprivate var isHorizontal: Bool
-    fileprivate var prevLoadMoreScrollOffset: CGFloat = 0
-    fileprivate var isLoadingMore: Bool = false
-    fileprivate var viewedIndexPaths = Set<IndexPath>()
-    fileprivate var allowPullToRefresh: Bool
-    fileprivate var allowLoadMore: Bool
+    private var stateMachine: CZFeedListViewStateMachine!
+    private var isHorizontal: Bool
+    private var prevLoadMoreScrollOffset: CGFloat = 0
+    private var isLoadingMore: Bool = false
+    private var viewedIndexPaths = Set<IndexPath>()
+    private var allowPullToRefresh: Bool
+    private var allowLoadMore: Bool
 
-    fileprivate lazy var registeredCellReuseIds: Set<String> = []
-    fileprivate lazy var hasPulledToRefresh: Bool = false
-    static let kLoadMoreThreshold = 0
+    private lazy var registeredCellReuseIds: Set<String> = []
+    private lazy var hasPulledToRefresh: Bool = false
+    public static let kLoadMoreThreshold = 0
     /// Threshold of `loadMore`event, indicates distance from the last cell
-    fileprivate var loadMoreThreshold: Int = kLoadMoreThreshold
+    private var loadMoreThreshold: Int = kLoadMoreThreshold
     var sectionModelsResolver: SectionModelsResolver?
-    fileprivate var hasInvokedWillDisplayCell: Bool = false
+    private var hasInvokedWillDisplayCell: Bool = false
     
-    fileprivate var hasSetup: Bool = false
+    private var hasSetup: Bool = false
     public var isLoading: Bool = false {
         willSet {
             guard isLoading != newValue else { return }
@@ -65,8 +59,8 @@ open class CZFeedListFacadeView: UIView {
         }
     }
     // KVO context
-    fileprivate var kvoContext: UInt8 = 0
-    fileprivate var prevVisibleIndexPaths: [IndexPath] = []
+    private var kvoContext: UInt8 = 0
+    private var prevVisibleIndexPaths: [IndexPath] = []
     
     public init(sectionModelsResolver: SectionModelsResolver?,
                 onEvent: OnEvent? = nil,
@@ -114,13 +108,12 @@ open class CZFeedListFacadeView: UIView {
         hasSetup = true
         translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = .clear
-        _viewModel = CZFeedListViewModel(sectionModels: nil)
         setupCollectionView()
     }
 
     public func batchUpdate(withFeeds feeds: [Any], animated: Bool = true) {
         if let sectionModels = sectionModelsResolver?(feeds) {
-            batchUpdate(withSectionModels: sectionModels)
+            batchUpdate(withSectionModels: sectionModels, animated: animated)
         }
     }
 
@@ -128,20 +121,24 @@ open class CZFeedListFacadeView: UIView {
         batchUpdate(withSectionModels: [CZSectionModel(feedModels: feedModels)])
     }
 
-
     public func batchUpdate(withSectionModels sectionModels: [CZSectionModel], animated: Bool = true) {
-        // Filter empty sectionModels to avoid inconsistent amount of sections/rows crash
-        // Because default empty section is counted as 1 before `reloadListView`, leads to crash
+        // Filter empty sectionModels to avoid inconsistent amount of sections/rows crash,
+        // because default empty section is counted as 1 before `reloadListView` which leads to crash
         let sectionModels = adjustSectionModels(sectionModels)
 
-        self.registerCellClassesIfNeeded(for: sectionModels)
-        self.viewModel.batchUpdate(withSectionModels: sectionModels)
-        self.reloadListView(animated: animated)
+        // Automatically register Cell classes from ViewModels inside SectionModels
+        registerCellClassesIfNeeded(for: sectionModels)
+
+        // Update `newViewModel` instead of `viewModel`, to keep collectionViewDataSource unchanged before actual batch update
+        newViewModel.reset(withSectionModels: sectionModels)
+
+        // Reload listView by incremental updating
+        reloadListView(animated: animated)
     }
     
-    fileprivate func adjustSectionModels(_ sectionModels: [CZSectionModel]) -> [CZSectionModel] {
+    private func adjustSectionModels(_ sectionModels: [CZSectionModel]) -> [CZSectionModel] {
         var res = sectionModels.filter { !$0.isEmpty }
-        res = res.flatMap { sectionModel in
+        res = res.compactMap { sectionModel in
             if sectionModel.isHorizontal {
                 let horizontalFeedModel = CZFeedModel(viewClass: CZHorizontalSectionAdapterCell.self,
                                                       viewModel: CZHorizontalSectionAdapterViewModel(sectionModel.feedModels,
@@ -160,13 +157,13 @@ open class CZFeedListFacadeView: UIView {
     }
 
     public func reuseId(with cellClass: AnyClass) -> String {
-        return NSStringFromClass(object_getClass(cellClass))
+        return NSStringFromClass(object_getClass(cellClass)!)
     }
 }
 
 // MARK: - Private methods
 
-fileprivate extension CZFeedListFacadeView  {
+private extension CZFeedListFacadeView  {
     func registerCellClassesIfNeeded(for sectionModels: [CZSectionModel]) {
         [CZFeedModel](sectionModels.flatMap({$0.feedModels})).forEach {
             registerCellClassIfNeeded($0.viewClass)
@@ -175,15 +172,19 @@ fileprivate extension CZFeedListFacadeView  {
 
     func registerCellClassIfNeeded(_ cellClass: AnyClass) {
         let reuseId = self.reuseId(with: cellClass)
-        guard cellClass is UICollectionViewCell.Type else {
+        guard !registeredCellReuseIds.contains(reuseId) else {
             return
         }
-        collectionView.register(cellClass, forCellWithReuseIdentifier: reuseId)
         registeredCellReuseIds.insert(reuseId)
+        if cellClass is UICollectionViewCell.Type {
+            collectionView.register(cellClass, forCellWithReuseIdentifier: reuseId)
+        } else {
+            collectionView.register(CZFeedListCell.self, forCellWithReuseIdentifier: reuseId)
+        }
     }
 
     func reloadListView(animated: Bool) {
-        let (sectionsDiff, rowsDiff) = CZListDiff.diffSectionModels(current: viewModel.sectionModels, prev: prevViewModel.sectionModels)
+        let (sectionsDiff, rowsDiff) = CZListDiff.diffSectionModelIndexes(current: newViewModel.sectionModels, prev: viewModel.sectionModels)
         guard CZListDiff.sectionCount(for: sectionsDiff[.insertedSections]) > 0 ||
             CZListDiff.sectionCount(for: sectionsDiff[.deletedSections]) > 0 ||
             rowsDiff[.deleted]?.count ?? 0 > 0 ||
@@ -193,13 +194,21 @@ fileprivate extension CZFeedListFacadeView  {
                 return
         }
 
-        if !ReactiveListViewKit.incrementalUpdateOn || !animated {
-            self.collectionView.reloadData()
+        // Update current `viewModel` with `newViewModel` after diffing calculation, to ensure consistent state before/after collectionView batchUpdate
+        let isPrevViewModelEmpty = viewModel.sectionModels.isEmpty
+        self.viewModel = self.newViewModel.copy() as! CZFeedListViewModel
+
+        /**
+         There's a bug of CollectionView even on iOS 11, first batchUpdate with inserted sections causes inconsistency crash, so call reloadData directly to solve it
+         https://stackoverflow.com/questions/19199985/invalid-update-invalid-number-of-items-on-uicollectionview/19202953#19202953
+         https://fangpenlin.com/posts/2016/04/29/uicollectionview-invalid-number-of-items-crash-issue/
+         */
+        if isPrevViewModelEmpty || !ReactiveListViewKit.incrementalUpdateOn || !animated {
+            collectionView.reloadData()
         } else {
             let batchUpdate = {
-                // Sections: inserted sections
-                // this operation inserts all items inside section implicitly, shouldn't insert items explicitly again
-                // to avoid inconsistent number crash
+                // Sections: inserted
+                // Note: insert all items inside section implicitly, shouldn't insert items explicitly again to avoid inconsistent number of section crash
                 if let insertedSections = sectionsDiff[.insertedSections] as? IndexSet,
                     insertedSections.count > 0 {
                     self.collectionView.insertSections(insertedSections)
@@ -210,8 +219,9 @@ fileprivate extension CZFeedListFacadeView  {
                     removedIndexPathes.count > 0 {
                     self.collectionView.deleteItems(at: removedIndexPathes)
                 }
+
                 // Rows: unchanged
-                let unchangedIndexPaths = rowsDiff[.unchanged]
+                _ = rowsDiff[.unchanged]
 
                 // Rows: inserted
                 if let insertedIndexPaths = rowsDiff[.inserted] as? [IndexPath],
@@ -241,7 +251,6 @@ fileprivate extension CZFeedListFacadeView  {
             }
             collectionView.performBatchUpdates(batchUpdate, completion: nil)
         }
-        prevViewModel = viewModel.copy() as! CZFeedListViewModel
 
         for indexPath in viewedIndexPaths {
             if indexPath.section > viewModel.sectionModels.count - 1 ||
@@ -268,7 +277,7 @@ fileprivate extension CZFeedListFacadeView  {
         // refreshControl
         if allowPullToRefresh {
             collectionView.refreshControl = UIRefreshControl()
-            collectionView.refreshControl?.addTarget(self, action: #selector(refreshControlValueChanged), for: UIControlEvents.valueChanged)
+            collectionView.refreshControl?.addTarget(self, action: #selector(refreshControlValueChanged), for: UIControl.Event.valueChanged)
         }
 
         // Datasource/Delegate
@@ -280,11 +289,11 @@ fileprivate extension CZFeedListFacadeView  {
 
         // Register headerView
         collectionView.register(CZFeedListSupplementaryView.self,
-                                forSupplementaryViewOfKind: UICollectionElementKindSectionHeader,
+                                forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                 withReuseIdentifier: CZFeedListSupplementaryView.reuseId)
         // Register footerView
         collectionView.register(CZFeedListSupplementaryView.self,
-                                forSupplementaryViewOfKind: UICollectionElementKindSectionFooter,
+                                forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
                                 withReuseIdentifier: CZFeedListSupplementaryView.reuseId)
     }
 }
@@ -312,7 +321,7 @@ extension CZFeedListFacadeView: UICollectionViewDelegateFlowLayout {
     }
 
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        guard let supplymentaryModel = viewModel.supplementaryModel(inSection: section, kind: UICollectionElementKindSectionHeader) else {
+        guard let supplymentaryModel = viewModel.supplementaryModel(inSection: section, kind: UICollectionView.elementKindSectionHeader) else {
             return .zero
         }
         let collectionViewSize = CGSize(width: UIScreen.main.bounds.size.width, height: 0)
@@ -321,7 +330,7 @@ extension CZFeedListFacadeView: UICollectionViewDelegateFlowLayout {
     }
 
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        guard let supplymentaryModel = viewModel.supplementaryModel(inSection: section, kind: UICollectionElementKindSectionFooter) else {
+        guard let supplymentaryModel = viewModel.supplementaryModel(inSection: section, kind: UICollectionView.elementKindSectionFooter) else {
             return .zero
         }
         let collectionViewSize = CGSize(width: UIScreen.main.bounds.size.width, height: 0)
@@ -365,17 +374,13 @@ extension CZFeedListFacadeView: UICollectionViewDataSource {
     }
 
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {        
-        let cellClass: AnyClass
         if let feedModel = viewModel.feedModel(at: indexPath) {
-            if let viewClass = feedModel.viewClass as? UICollectionViewCell.Type {
-                // if is Cell, dequeue it to reuse
-                cellClass = viewClass
-            } else {
-                // if is UIView, overlap it on the embeded Cell
-                cellClass = CZFeedListCell.self
-            }
-
-            let reuseCellId = reuseId(with: cellClass)
+            /**
+             - If feedModel.viewClass is Cell, dequeue it to reuse
+             - If feedModel.viewClass is UIView, overlap it on embeded Cell `CZFeedListCell`. `reuseCellId` is viewClass.className to ensure
+               deqeued cell contains corresponding `viewClass`
+             */
+            let reuseCellId = reuseId(with: feedModel.viewClass)
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseCellId, for: indexPath)
             if let cell = cell as? CZFeedListCell {
                 cell.config(with: feedModel, onEvent: onEvent, parentViewController: parentViewController)
@@ -417,19 +422,29 @@ extension CZFeedListFacadeView: UICollectionViewDelegate {
 
     // MARK: - Load More
     public func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        viewedIndexPaths.insert(indexPath)
-        let isLastRow = indexPath.section == (viewModel.sectionModels.count - 1) &&
-            indexPath.row >= (viewModel.sectionModels.last?.feedModels.count ?? 0) - 1 - loadMoreThreshold
+        let sectionCount = viewModel.sectionModels.count
+        let distanceFromBottom = (indexPath.section..<sectionCount).reduce(0) { (prevSum, section) -> Int in
+            let currSum: Int = {
+                if indexPath.section == section {
+                    return viewModel.sectionModels[section].feedModels.count - indexPath.row - 1
+                } else {
+                    return viewModel.sectionModels[section].feedModels.count
+                }
+            }()
+            return prevSum + currSum
+        }
+        
         if allowLoadMore &&
-            isLastRow &&
+            (distanceFromBottom >= loadMoreThreshold) &&
             !viewedIndexPaths.contains(indexPath) {
             onEvent?(CZFeedListViewEvent.loadMore)
         }
         
-        if !hasInvokedWillDisplayCell &&
-            collectionView.indexPathsForVisibleItems.count > 0 {
+        if !hasInvokedWillDisplayCell && collectionView.indexPathsForVisibleItems.count > 0 {
             hasInvokedWillDisplayCell = true
         }
+
+        viewedIndexPaths.insert(indexPath)
     }
     
     public func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {

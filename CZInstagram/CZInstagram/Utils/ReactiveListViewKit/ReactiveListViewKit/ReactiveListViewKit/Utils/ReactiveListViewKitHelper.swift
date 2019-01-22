@@ -6,7 +6,6 @@
 //  Copyright © 2017 Cheng Zhang. All rights reserved.
 //
 
-import UIKit
 import CZUtils
 
 public func dbgPrint(_ item: CustomStringConvertible) {
@@ -14,3 +13,15 @@ public func dbgPrint(_ item: CustomStringConvertible) {
     CZUtils.dbgPrint(item)
 }
 
+public func PrettyString(_ object: Any) -> String {
+    guard let object = object as? CustomStringConvertible else {
+        return ""
+    }
+    if let indexSet = object as? IndexSet {
+        return indexSet.reduce("[") { (prevResult, index) -> String in
+                    prevResult + String(index) + ", "
+                } + "]"
+    } else {
+        return object.description
+    }
+}

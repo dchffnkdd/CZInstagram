@@ -17,15 +17,15 @@ private var kViewModelObserverContext: Int = 0
         return _viewModel
     }
     var _viewModel: CZFeedDetailsViewModel!
-    fileprivate lazy var prevViewModel: CZFeedDetailsViewModel = CZFeedDetailsViewModel()
+    private lazy var prevViewModel: CZFeedDetailsViewModel = CZFeedDetailsViewModel()
     public var collectionView: UICollectionView!
-    fileprivate var stackView: UIStackView!
-    fileprivate var scrollView: UIScrollView?
-    fileprivate var onScrollView: Bool = true
+    private var stackView: UIStackView!
+    private var scrollView: UIScrollView?
+    private var onScrollView: Bool = true
     // `CZFeedCellViewable` can be `UICollectionViewCell`/`UIView`/`UIViewController`
     public lazy var components: [CZFeedCellViewable] = []
     var containerViewController: UIViewController?
-    fileprivate var hasSetup = false
+    private var hasSetup = false
 
     public init(containerViewController: UIViewController? = nil, onEvent: OnEvent? = nil, onScrollView: Bool = true) {
         self.onScrollView = onScrollView
@@ -45,7 +45,7 @@ private var kViewModelObserverContext: Int = 0
     }
 
     public func batchUpdate(with feedModels: [CZFeedModelable]) {
-        guard let _ = try? checkDuplicatediffId(in: feedModels) else {
+        guard let _ = try? checkDuplicateDiffId(in: feedModels) else {
             assertionFailure("Found duplicate `diffId` in one section.")
             return
         }
@@ -67,7 +67,7 @@ private var kViewModelObserverContext: Int = 0
     }
 
     public func reloadListView() {
-        let diffResult: [CZListDiff.ResultKey: [CZFeedDetailsModel]] = CZListDiff.diffFeedModels(current: viewModel.feedModels,
+        let diffResult: [CZListDiff.RowDiffResultKey: [CZFeedDetailsModel]] = CZListDiff.diffFeedModels(current: viewModel.feedModels,
                                                                                                     prev: prevViewModel.feedModels)
 
         // deleted
@@ -76,9 +76,9 @@ private var kViewModelObserverContext: Int = 0
             let cachedComponent = components.first { $0.diffId == itemModel.viewModel.diffId }
             switch cachedComponent {
             case let cachedComponent as UIViewController:
-                cachedComponent.removeFromParentViewController()
+                cachedComponent.removeFromParent()
                 cachedComponent.view.removeFromSuperview()
-                cachedComponent.didMove(toParentViewController: nil)
+                cachedComponent.didMove(toParent: nil)
             case let cachedComponent as UIView:
                 cachedComponent.removeFromSuperview()
             default:
@@ -89,7 +89,7 @@ private var kViewModelObserverContext: Int = 0
         }
 
         // unchanged
-        let unchangedItemModels = diffResult[.unchanged]
+        _ = diffResult[.unchanged]
 
         // updated
         if let updatedItemModels = diffResult[.updated] {
@@ -114,9 +114,9 @@ private var kViewModelObserverContext: Int = 0
                     if let containerViewController = containerViewController,
                         let itemViewController = itemComponent as? UIViewController {
                         // Component is UIViewController
-                        containerViewController.addChildViewController(itemViewController)
+                        containerViewController.addChild(itemViewController)
                         stackView.insertArrangedSubview(itemViewController.view!, at: i)
-                        itemViewController.didMove(toParentViewController: containerViewController)
+                        itemViewController.didMove(toParent: containerViewController)
                     } else if let itemView = itemComponent as? UIView {
                         // Component is UIView
                         stackView.insertArrangedSubview(itemView, at: i)
@@ -133,17 +133,17 @@ private var kViewModelObserverContext: Int = 0
 
 // MARK: - Private methods
 
-fileprivate extension CZFeedDetailsFacadeView  {
+private extension CZFeedDetailsFacadeView  {
     struct Constants {
         static let stackViewBottomMargin: CGFloat = 12
         static let stackViewSpacing: CGFloat = 12
     }
-    enum DuplicatediffIdError: Error {
+    enum DuplicateDiffIdError: Error {
         case regular
         case custom(reason: String)
     }
     @discardableResult
-    func checkDuplicatediffId(in componentModels: [CZFeedModelable]) throws ->  Bool  {
+    func checkDuplicateDiffId(in componentModels: [CZFeedModelable]) throws ->  Bool  {
         var mapper: [String: [CZFeedModelable]] = [:]
         componentModels.forEach {
             let diffId = $0.viewModel.diffId
@@ -154,7 +154,7 @@ fileprivate extension CZFeedDetailsFacadeView  {
             if value.count > 1 {
                 let reason = "found duplicate values for same key '\(key)'."
                 assertionFailure("diffId should be unique for each section. \n Reason: \(reason)")
-                throw(DuplicatediffIdError.custom(reason: reason))
+                throw(DuplicateDiffIdError.custom(reason: reason))
             }
         }
         return false
@@ -174,7 +174,7 @@ fileprivate extension CZFeedDetailsFacadeView  {
         stackView = UIStackView(frame: .zero)
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
-        stackView.layoutMargins = UIEdgeInsetsMake(0, 0, Constants.stackViewBottomMargin, 0)
+        stackView.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: Constants.stackViewBottomMargin, right: 0)
         stackView.isLayoutMarginsRelativeArrangement = true
         stackView.spacing = Constants.stackViewSpacing
 

@@ -9,6 +9,6 @@
 #ifndef CZInstagram_Bridging_Header_h
 #define CZInstagram_Bridging_Header_h
 
-#import <CommonCrypto/CommonCrypto.h>
+//#import <CommonCrypto/CommonCrypto.h>
 
 #endif /* CZInstagram_Bridging_Header_h */

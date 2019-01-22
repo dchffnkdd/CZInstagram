@@ -9,7 +9,7 @@
 import UIKit
 
 /// Convenience text based CellView class
-open class CZTextFeedListCell: UICollectionViewCell, CZFeedCellViewSizeCalculatable {
+open class CZTextFeedCell: UICollectionViewCell, CZFeedCellViewSizeCalculatable {
     open var onEvent: OnEvent? {
         didSet {
             cellView?.onEvent = onEvent
@@ -55,9 +55,9 @@ open class CZTextFeedListCell: UICollectionViewCell, CZFeedCellViewSizeCalculata
 public class CZTextFeedCellView: UIView, CZFeedCellViewSizeCalculatable {
     public var onEvent: OnEvent?
 
-    fileprivate var titleLabel: UILabel!
+    private var titleLabel: UILabel!
 
-    fileprivate lazy var hasSetup: Bool = false
+    private lazy var hasSetup: Bool = false
     public var viewModel: CZFeedViewModelable?
     public var diffId: String {
         return viewModel?.diffId ?? ""

@@ -13,11 +13,10 @@
 		044E02781F74358600849AA2 /* CZHTTPCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044E02711F74358600849AA2 /* CZHTTPCache.swift */; };
 		044E02791F74358600849AA2 /* CZHTTPJsonSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044E02721F74358600849AA2 /* CZHTTPJsonSerializer.swift */; };
 		044E027A1F74358600849AA2 /* CZHTTPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044E02731F74358600849AA2 /* CZHTTPManager.swift */; };
-		044E027B1F74358600849AA2 /* CZHTTPRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044E02741F74358600849AA2 /* CZHTTPRequester.swift */; };
-		2A194D891F74991C0027EE24 /* CommonCrypto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 044E02D61F7440F400849AA2 /* CommonCrypto.framework */; settings = {ATTRIBUTES = (Required, ); }; };
+		044E027B1F74358600849AA2 /* HTTPRequestWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044E02741F74358600849AA2 /* HTTPRequestWorker.swift */; };
 		2A9200801F75E80100A21F01 /* CZNetError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A92007F1F75E80100A21F01 /* CZNetError.swift */; };
 		2AEBF7C51F759298005A1DEF /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEBF7C41F759298005A1DEF /* Extensions.swift */; };
-		DF952C1A2022577500100621 /* CZUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF952C1B2022577500100621 /* CZUtils.framework */; };
+		DF2A861120E0267C00BED02D /* CZUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF2A861020E0267C00BED02D /* CZUtils.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,41 +26,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 044E02471F74349B00849AA2;
 			remoteInfo = CZNetworking;
-		};
-		044E02D31F7440F400849AA2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 044E02B81F743E1F00849AA2 /* CommonCrypto.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 444A78DC1D8819F8003983A2;
-			remoteInfo = "CommonCrypto-watchOS";
-		};
-		044E02D51F7440F400849AA2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 044E02B81F743E1F00849AA2 /* CommonCrypto.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 444A78E91D881A1E003983A2;
-			remoteInfo = "CommonCrypto-iOS";
-		};
-		044E02D71F7440F400849AA2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 044E02B81F743E1F00849AA2 /* CommonCrypto.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 444A78F61D881A2D003983A2;
-			remoteInfo = "CommonCrypto-tvOS";
-		};
-		044E02D91F7440F400849AA2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 044E02B81F743E1F00849AA2 /* CommonCrypto.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 444A79031D881A39003983A2;
-			remoteInfo = "CommonCrypto-macOS";
-		};
-		044E030D1F7441E800849AA2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 044E02B81F743E1F00849AA2 /* CommonCrypto.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 444A78E81D881A1E003983A2;
-			remoteInfo = "CommonCrypto-iOS";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -75,11 +39,10 @@
 		044E02711F74358600849AA2 /* CZHTTPCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CZHTTPCache.swift; sourceTree = "<group>"; };
 		044E02721F74358600849AA2 /* CZHTTPJsonSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CZHTTPJsonSerializer.swift; sourceTree = "<group>"; };
 		044E02731F74358600849AA2 /* CZHTTPManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CZHTTPManager.swift; sourceTree = "<group>"; };
-		044E02741F74358600849AA2 /* CZHTTPRequester.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CZHTTPRequester.swift; sourceTree = "<group>"; };
-		044E02B81F743E1F00849AA2 /* CommonCrypto.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CommonCrypto.xcodeproj; path = CommonCrypto/CommonCrypto.xcodeproj; sourceTree = "<group>"; };
+		044E02741F74358600849AA2 /* HTTPRequestWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPRequestWorker.swift; sourceTree = "<group>"; };
 		2A92007F1F75E80100A21F01 /* CZNetError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CZNetError.swift; sourceTree = "<group>"; };
 		2AEBF7C41F759298005A1DEF /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		DF952C1B2022577500100621 /* CZUtils.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CZUtils.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF2A861020E0267C00BED02D /* CZUtils.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CZUtils.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,8 +50,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF952C1A2022577500100621 /* CZUtils.framework in Frameworks */,
-				2A194D891F74991C0027EE24 /* CommonCrypto.framework in Frameworks */,
+				DF2A861120E0267C00BED02D /* CZUtils.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -109,7 +71,7 @@
 				044E024A1F74349B00849AA2 /* CZNetworking */,
 				044E02551F74349B00849AA2 /* CZNetworkingTests */,
 				044E02491F74349B00849AA2 /* Products */,
-				DF952C192022577500100621 /* Frameworks */,
+				DF2A860F20E0267C00BED02D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -126,7 +88,7 @@
 			isa = PBXGroup;
 			children = (
 				044E02731F74358600849AA2 /* CZHTTPManager.swift */,
-				044E02741F74358600849AA2 /* CZHTTPRequester.swift */,
+				044E02741F74358600849AA2 /* HTTPRequestWorker.swift */,
 				044E02711F74358600849AA2 /* CZHTTPCache.swift */,
 				044E02721F74358600849AA2 /* CZHTTPJsonSerializer.swift */,
 				2A9200881F75E9BA00A21F01 /* Utils */,
@@ -144,21 +106,9 @@
 			path = CZNetworkingTests;
 			sourceTree = "<group>";
 		};
-		044E02CD1F7440F400849AA2 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				044E02D41F7440F400849AA2 /* CommonCrypto.framework */,
-				044E02D61F7440F400849AA2 /* CommonCrypto.framework */,
-				044E02D81F7440F400849AA2 /* CommonCrypto.framework */,
-				044E02DA1F7440F400849AA2 /* CommonCrypto.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		044E02DB1F7440FD00849AA2 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				044E02B81F743E1F00849AA2 /* CommonCrypto.xcodeproj */,
 				044E024B1F74349B00849AA2 /* CZNetworking.h */,
 				044E024C1F74349B00849AA2 /* Info.plist */,
 			);
@@ -174,10 +124,10 @@
 			name = Utils;
 			sourceTree = "<group>";
 		};
-		DF952C192022577500100621 /* Frameworks */ = {
+		DF2A860F20E0267C00BED02D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				DF952C1B2022577500100621 /* CZUtils.framework */,
+				DF2A861020E0267C00BED02D /* CZUtils.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -208,7 +158,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				044E030E1F7441E800849AA2 /* PBXTargetDependency */,
 			);
 			name = CZNetworking;
 			productName = CZNetworking;
@@ -241,7 +190,7 @@
 			attributes = {
 				CLASSPREFIX = CZ;
 				LastSwiftUpdateCheck = 0820;
-				LastUpgradeCheck = 0820;
+				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = "Cheng Zhang";
 				TargetAttributes = {
 					044E02471F74349B00849AA2 = {
@@ -253,6 +202,7 @@
 					044E02501F74349B00849AA2 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = 55RDUQ8X48;
+						LastSwiftMigration = 1010;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -267,12 +217,6 @@
 			mainGroup = 044E023E1F74349B00849AA2;
 			productRefGroup = 044E02491F74349B00849AA2 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 044E02CD1F7440F400849AA2 /* Products */;
-					ProjectRef = 044E02B81F743E1F00849AA2 /* CommonCrypto.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				044E02471F74349B00849AA2 /* CZNetworking */,
@@ -280,37 +224,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		044E02D41F7440F400849AA2 /* CommonCrypto.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = CommonCrypto.framework;
-			remoteRef = 044E02D31F7440F400849AA2 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		044E02D61F7440F400849AA2 /* CommonCrypto.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = CommonCrypto.framework;
-			remoteRef = 044E02D51F7440F400849AA2 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		044E02D81F7440F400849AA2 /* CommonCrypto.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = CommonCrypto.framework;
-			remoteRef = 044E02D71F7440F400849AA2 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		044E02DA1F7440F400849AA2 /* CommonCrypto.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = CommonCrypto.framework;
-			remoteRef = 044E02D91F7440F400849AA2 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		044E02461F74349B00849AA2 /* Resources */ = {
@@ -335,7 +248,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				044E02791F74358600849AA2 /* CZHTTPJsonSerializer.swift in Sources */,
-				044E027B1F74358600849AA2 /* CZHTTPRequester.swift in Sources */,
+				044E027B1F74358600849AA2 /* HTTPRequestWorker.swift in Sources */,
 				044E027A1F74358600849AA2 /* CZHTTPManager.swift in Sources */,
 				2AEBF7C51F759298005A1DEF /* Extensions.swift in Sources */,
 				044E02781F74358600849AA2 /* CZHTTPCache.swift in Sources */,
@@ -359,11 +272,6 @@
 			target = 044E02471F74349B00849AA2 /* CZNetworking */;
 			targetProxy = 044E02531F74349B00849AA2 /* PBXContainerItemProxy */;
 		};
-		044E030E1F7441E800849AA2 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "CommonCrypto-iOS";
-			targetProxy = 044E030D1F7441E800849AA2 /* PBXContainerItemProxy */;
-		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
@@ -371,20 +279,29 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -425,20 +342,29 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -471,6 +397,7 @@
 		044E025D1F74349B00849AA2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
@@ -485,14 +412,16 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.json.CZNetworking;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
 		044E025E1F74349B00849AA2 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
@@ -507,7 +436,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.json.CZNetworking;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
@@ -520,7 +450,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.json.CZNetworkingTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -533,7 +464,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.json.CZNetworkingTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};

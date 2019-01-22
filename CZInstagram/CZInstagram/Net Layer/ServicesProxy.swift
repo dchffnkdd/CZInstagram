@@ -17,7 +17,7 @@ class ServicesProxy: NSObject {
     fileprivate var baseURL: String
     fileprivate var presetParams: [AnyHashable: Any]? // ["access_token": ""] etc.
     fileprivate let dataKey: String?
-    fileprivate let httpManager: CZHTTPAPIClientable
+    fileprivate let httpManager: CZHTTPManager
     
     override init() {
         fatalError("Must call designated initializer `init(baseURL:)`")
@@ -26,7 +26,7 @@ class ServicesProxy: NSObject {
     init(baseURL: String,
          presetParams: [AnyHashable: Any]? = nil,
          dataKey: String? = "data",
-         httpManager: CZHTTPAPIClientable = ServicesProxy.sharedHttpMananger) {
+         httpManager: CZHTTPManager = ServicesProxy.sharedHttpMananger) {
         self.baseURL = baseURL
         self.presetParams = presetParams
         self.dataKey = dataKey
@@ -104,17 +104,17 @@ class ServicesProxy: NSObject {
             modelingHandler(cached, task, data)
         })
     }
-
+    
     func getData(_ endPoint: String,
-                   params: [AnyHashable: Any]? = nil,
-                   success: @escaping CZHTTPRequester.Success,
-                   failure: @escaping CZHTTPRequester.Failure,
-                   cached: CZHTTPRequester.Cached? = nil,
-                   progress: CZHTTPRequester.Progress? = nil) {
+                 params: [AnyHashable: Any]? = nil,
+                 success: @escaping HTTPRequestWorker.Success,
+                 failure: @escaping HTTPRequestWorker.Failure,
+                 cached: HTTPRequestWorker.Cached? = nil,
+                 progress: HTTPRequestWorker.Progress? = nil) {
         httpManager.GET(urlString(endPoint),
-                                    parameters: wrappedParams(params),
-                                    success: { (sessionTask, data) in
-                                        success(sessionTask, data)
+                        params: wrappedParams(params),
+                        success: { (sessionTask, data) in
+                            success(sessionTask, data)
         }, failure: { (sessionTask, error) in
             CZUtils.dbgPrint("Failed to fetch \(endPoint) Error: \n\n\(error)")
             failure(sessionTask, error)
@@ -124,14 +124,14 @@ class ServicesProxy: NSObject {
 
     func postData(_ endPoint: String,
                   params: [AnyHashable: Any]? = nil,
-                  success: @escaping CZHTTPRequester.Success,
-                  failure: @escaping CZHTTPRequester.Failure,
-                  cached: CZHTTPRequester.Cached? = nil,
-                  progress: CZHTTPRequester.Progress? = nil) {
+                  success: @escaping HTTPRequestWorker.Success,
+                  failure: @escaping HTTPRequestWorker.Failure,
+                  cached: HTTPRequestWorker.Cached? = nil,
+                  progress: HTTPRequestWorker.Progress? = nil) {
         httpManager.POST(urlString(endPoint),
-                                     parameters: wrappedParams(params),
-                                     success: { (dataTask, data) in
-                                        success(dataTask, data)
+                         params: wrappedParams(params),
+                         success: { (dataTask, data) in
+                            success(dataTask, data)
         }, failure: { (dataTask, error) in
             CZUtils.dbgPrint("Failed to post \(endPoint) Error: \n\n\(error)")
             failure(dataTask, error)
@@ -141,10 +141,10 @@ class ServicesProxy: NSObject {
 
     func deleteData(_ endPoint: String,
                     params: [AnyHashable: Any]? = nil,
-                    success: @escaping CZHTTPRequester.Success,
-                    failure: @escaping CZHTTPRequester.Failure) {
+                    success: @escaping HTTPRequestWorker.Success,
+                    failure: @escaping HTTPRequestWorker.Failure) {
         httpManager.DELETE(urlString(endPoint),
-                           parameters: wrappedParams(params),
+                           params: wrappedParams(params),
                            success: { (dataTask, data) in
                             success(dataTask, data)
         }, failure: { (dataTask, error) in

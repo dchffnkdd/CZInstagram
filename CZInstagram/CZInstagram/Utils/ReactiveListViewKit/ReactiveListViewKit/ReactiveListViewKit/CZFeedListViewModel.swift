@@ -10,7 +10,7 @@ import UIKit
 
 /// ViewModel/State class for `CZFeedListFacadeView`
 public class CZFeedListViewModel: NSObject, NSCopying {
-    fileprivate(set) var sectionModels: [CZSectionModel]
+    private(set) var sectionModels: [CZSectionModel]
 
     /// Initializer for multiple section ListView
     public required init(sectionModels: [CZSectionModel]?) {
@@ -22,22 +22,21 @@ public class CZFeedListViewModel: NSObject, NSCopying {
         self.sectionModels = []
         super.init()
         if let feedModels = feedModels {
-            batchUpdate(with: feedModels)
+            reset(withFeedModels: feedModels)
         }
     }
     
     /// Method for multiple section ListView
     @objc(resetWithSectionModels:)
-    public func batchUpdate(withSectionModels sectionModels: [CZSectionModel]) {
-        self.sectionModels.removeAll()
-        self.sectionModels.append(contentsOf: sectionModels)
+    public func reset(withSectionModels sectionModels: [CZSectionModel]) {
+        self.sectionModels = sectionModels
     }
 
     /// Convenient method for single section ListView
     @objc(resetWithFeedModels:)
-    public func batchUpdate(with feedModels: [CZFeedModel]) {
+    public func reset(withFeedModels feedModels: [CZFeedModel]) {
         let sectionModels = [CZSectionModel(feedModels: feedModels)]
-        batchUpdate(withSectionModels: sectionModels)
+        reset(withSectionModels: sectionModels)
     }
 
     // MARK: - UICollectionView DataSource
@@ -53,7 +52,7 @@ public class CZFeedListViewModel: NSObject, NSCopying {
 
     // SectionHeader/SectionFooter
     public func supplementaryModel(inSection section: Int, kind: String) -> CZFeedModel? {
-        return (kind == UICollectionElementKindSectionHeader) ? sectionModels[section].headerModel : sectionModels[section].footerModel
+        return (kind == UICollectionView.elementKindSectionHeader) ? sectionModels[section].headerModel : sectionModels[section].footerModel
     }
 
     public func feedModel(at indexPath: IndexPath) -> CZFeedModel? {

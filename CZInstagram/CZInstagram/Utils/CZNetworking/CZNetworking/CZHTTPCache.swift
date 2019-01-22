@@ -8,20 +8,21 @@
 
 import UIKit
 
-/// Local cache class for HTTP response
+/// Local Cache class for HTTP response
 open class CZHTTPCache: NSObject {
-    fileprivate var ioQueue: DispatchQueue
-
+    private let ioQueue: DispatchQueue
+    
     override init() {
-        ioQueue = DispatchQueue(label: "com.tony.httpCache.ioQueue",
-                                qos: .default,
-                                attributes: .concurrent,
-                                autoreleaseFrequency: .inherit,
-                                target: nil)
+        ioQueue = DispatchQueue(
+            label: "com.tony.httpCache.ioQueue",
+            qos: .default,
+            attributes: .concurrent,
+            autoreleaseFrequency: .inherit,
+            target: nil)
         super.init()
     }
 
-    fileprivate let folder: URL = {
+    private let folder: URL = {
         var documentPath = try! FileManager.default.url(for:.documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
         let cacheFolder = documentPath.appendingPathComponent("CZHTTPCache")
         do {
@@ -31,18 +32,20 @@ open class CZHTTPCache: NSObject {
         }
         return cacheFolder
     }()
-    static func cacheKey(url: URL, parameters: [AnyHashable: Any]?) -> String {
-        return CZHTTPJsonSerializer.url(url, append: parameters).absoluteString
+    static func cacheKey(url: URL, params: [AnyHashable: Any]?) -> String {
+        return CZHTTPJsonSerializer.url(baseURL: url, params: params).absoluteString
     }
 
-    func saveData<T>(_ data: T, forKey key: String) {
+    func saveData(_ data: Any, forKey key: String) {
         ioQueue.async(flags: .barrier) {[weak self] in
             guard let `self` = self else {return}
             switch data {
             case let data as NSDictionary:
-                let success = data.write(to: self.fileURL(forKey: key), atomically: false)
-                return
+                data.write(to: self.fileURL(forKey: key), atomically: false)
+            case let data as NSArray:
+                data.write(to: self.fileURL(forKey: key), atomically: false)
             default:
+                assertionFailure("Unsupported data type.")
                 return
             }
         }
@@ -50,7 +53,7 @@ open class CZHTTPCache: NSObject {
     
     func readData(forKey key: String) -> Any? {
         return ioQueue.sync {[weak self] () -> Any? in
-            guard let `self` = self else {return nil}
+            guard let `self` = self else { return nil }
             if let dict = NSDictionary(contentsOf: self.fileURL(forKey: key)) {
                 return dict
             }
@@ -63,7 +66,7 @@ open class CZHTTPCache: NSObject {
     }
 }
 
-fileprivate extension CZHTTPCache {
+private extension CZHTTPCache {
     func fileURL(forKey key: String) -> URL {
         return folder.appendingPathComponent(key.MD5)
     }
