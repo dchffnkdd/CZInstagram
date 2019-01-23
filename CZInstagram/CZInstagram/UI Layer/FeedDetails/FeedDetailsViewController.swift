@@ -10,11 +10,11 @@ import CZUtils
 import ReactiveListViewKit
 
 class FeedDetailsViewController: UIViewController {
-    fileprivate(set) var core: Core<FeedDetailsState>
-    fileprivate(set) var viewModel: FeedDetailsViewModel
-    fileprivate(set) var eventHandler: FeedDetailsEventHandler
-    fileprivate(set) var feedListFacadeView: CZFeedListFacadeView?
-    fileprivate(set) var isFirstVisible = false
+    private(set) var core: Core<FeedDetailsState>
+    private(set) var viewModel: FeedDetailsViewModel
+    private(set) var eventHandler: FeedDetailsEventHandler
+    private(set) var feedListFacadeView: CZFeedListFacadeView?
+    private(set) var isFirstVisible = false
 
     init(feed: Feed) {
         viewModel = FeedDetailsViewModel(feed: feed)
@@ -40,7 +40,7 @@ class FeedDetailsViewController: UIViewController {
     }
 }
 
-fileprivate extension FeedDetailsViewController {
+private extension FeedDetailsViewController {
     func setupFeedDetailsView() {
         feedListFacadeView = CZFeedListFacadeView(sectionModelsResolver: viewModel.sectionModelsResolver,
                                                   onEvent: { [weak self] event in

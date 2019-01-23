@@ -13,7 +13,7 @@ import CZJsonModel
 import ReactiveListViewKit
 
 class CZCustomModel: NSObject, CZMappingProtocol, NSCopying, CZDictionaryable {
-    fileprivate var serializedObject: CZDictionary?
+    private var serializedObject: CZDictionary?
 
     override init() { super.init() }
     required init(dictionary: CZDictionary) {

@@ -14,7 +14,7 @@ class Services: NSObject {
     static let shared = Services()
     private let kBaseURL = "https://api.instagram.com/v1"
     private let accessToken = "5956152420.6d6cef1.e003104aee864ac1bf9a81c53703294b"
-    fileprivate lazy var servicesProxy: ServicesProxy = {
+    private lazy var servicesProxy: ServicesProxy = {
         return ServicesProxy(baseURL: self.kBaseURL,
                              presetParams: ["access_token": self.accessToken])
     }()

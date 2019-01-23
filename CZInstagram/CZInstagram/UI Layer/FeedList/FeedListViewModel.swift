@@ -10,17 +10,17 @@ import CZUtils
 import ReactiveListViewKit
 
 class FeedListViewModel: NSObject, NSCopying {
-    fileprivate(set) lazy var feeds: [Feed] = []
-    fileprivate(set) lazy var storyUsers: [User] = {
+    private(set) lazy var feeds: [Feed] = []
+    private(set) lazy var storyUsers: [User] = {
         return CZMocker.shared.hotUsers
     }()
-    fileprivate(set) lazy var suggestedUsers: [User] = {
+    private(set) lazy var suggestedUsers: [User] = {
         return CZMocker.shared.hotUsers
     }()
     
-    fileprivate(set) var page: Int = 0
-    fileprivate(set) var isLoadingFeeds: Bool = false
-    fileprivate(set) var lastMinFeedId: String = "-1"
+    private(set) var page: Int = 0
+    private(set) var isLoadingFeeds: Bool = false
+    private(set) var lastMinFeedId: String = "-1"
     var core: Core<FeedListState>?
     var sectionModelsResolver: CZFeedListFacadeView.SectionModelsResolver!
 
@@ -33,7 +33,7 @@ class FeedListViewModel: NSObject, NSCopying {
             var sectionModels = [CZSectionModel]()
             
             // 1. HotUsers section
-            let HotUsersFeedModels = self.storyUsers.flatMap { CZFeedModel(viewClass: HotUserCellView.self,
+            let HotUsersFeedModels = self.storyUsers.compactMap { CZFeedModel(viewClass: HotUserCellView.self,
                                                                            viewModel: HotUserCellViewModel($0)) }
             
             let hotUsersSectionModel = CZSectionModel(isHorizontal: true,
@@ -52,7 +52,7 @@ class FeedListViewModel: NSObject, NSCopying {
             sectionModels.append(hotUsersSectionModel)
             
             // 2. Feeds section
-            var feedModels = feeds.flatMap { CZFeedModel(viewClass: FeedCellView.self,
+            var feedModels = feeds.compactMap { CZFeedModel(viewClass: FeedCellView.self,
                                                          viewModel: FeedCellViewModel($0)) }
             
             // 3. SuggestedUsers - CellViewController
