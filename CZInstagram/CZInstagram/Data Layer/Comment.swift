@@ -6,32 +6,24 @@
 //  Copyright © 2017 Cheng Zhang. All rights reserved.
 //
 
-import EasyMapping
 import CZUtils
 import ReactiveListViewKit
 
-class Comment: CZModel {
-    lazy var commentId: String = ""
-    var user: User?
-    var content: String?
-    var createTime: String?
-
-    override init() { super.init() }
-    required init(dictionary: CZDictionary) {
-        super.init(dictionary: dictionary)
-        
+/// Model of Comment
+class Comment: ReactiveListDiffable {
+    let commentId: String
+    let user: User?
+    let content: String?
+    let createTime: String?
+    
+    // MARK: - CZListDiffable
+    func isEqual(toDiffableObj object: AnyObject) -> Bool {
+        return isEqual(toCodable: object)
     }
-
-    override class func objectMapping() -> EKObjectMapping {
-        let allMapping = super.objectMapping()
-        let mapping = EKObjectMapping(objectClass: self)
-        mapping.mapProperties(from: ["id": "commentId",
-                                     "text": "content",
-                                     "createTime": "createTime",
-                                     ])
-        mapping.hasOne(User.self, forKeyPath: "from", forProperty: "user")
-        allMapping.mapProperties(fromMappingObject: mapping)
-        return allMapping
+    
+    // MARK: - NSCopying
+    func copy(with zone: NSZone? = nil) -> Any {
+        return codableCopy(with: zone)
     }
 }
 
