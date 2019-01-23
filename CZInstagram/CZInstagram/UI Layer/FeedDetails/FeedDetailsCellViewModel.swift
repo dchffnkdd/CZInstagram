@@ -14,7 +14,7 @@ class FeedDetailsCellViewModel: NSObject, CZFeedViewModelable {
     var diffId: String {
         return currentClassName + comment.commentId
     }
-    fileprivate(set) var comment: Comment
+    private(set) var comment: Comment
     var userName: String? {return comment.user?.userName}
     var content: String? {return comment.content}
     var portraitUrl: URL? {

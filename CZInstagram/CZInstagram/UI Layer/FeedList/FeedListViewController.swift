@@ -11,9 +11,9 @@ import ReactiveListViewKit
 
 class FeedListViewController: UIViewController {
     /// Core - Composition of Dispatcher/Store
-    fileprivate(set) var core: Core<FeedListState>
+    private(set) var core: Core<FeedListState>
     /// List view that populates feeds
-    fileprivate(set) var feedListFacadeView: CZReactiveFeedListFacadeView<FeedListState>?
+    private(set) var feedListFacadeView: CZReactiveFeedListFacadeView<FeedListState>?
 
     init() {
         // Setup `Core` of FLUX pattern
@@ -39,7 +39,7 @@ class FeedListViewController: UIViewController {
     }
 }
 
-fileprivate extension FeedListViewController {
+private extension FeedListViewController {
     func setupFeedListView() {
         feedListFacadeView = CZReactiveFeedListFacadeView<FeedListState>(core: core,
                                                                          sectionModelsResolver: core.state.viewModel.sectionModelsResolver,

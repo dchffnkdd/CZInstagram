@@ -17,7 +17,7 @@ protocol CZDictionaryable: NSObjectProtocol {
 }
 
 class CZModel: NSObject, EKMappingProtocol, NSCopying, CZDictionaryable {
-    fileprivate var serializedObject: CZDictionary?
+    private var serializedObject: CZDictionary?
     //var relationshipMapping: EKRelationshipMapping
 
     override init() { super.init() }

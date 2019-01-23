@@ -14,9 +14,9 @@ class ServicesProxy: NSObject {
         return CZHTTPManager()
     }()
 
-    fileprivate var baseURL: String
-    fileprivate var presetParams: [AnyHashable: Any]? // ["access_token": ""] etc.
-    fileprivate let httpManager: CZHTTPManager
+    private var baseURL: String
+    private var presetParams: [AnyHashable: Any]? // ["access_token": ""] etc.
+    private let httpManager: CZHTTPManager
     
     override init() {
         fatalError("Must call designated initializer `init(baseURL:)`")
@@ -39,7 +39,7 @@ class ServicesProxy: NSObject {
                                     failure: @escaping (Error) -> Void,
                                     cached: ((Model) -> Void)? = nil) {
         typealias Completion = (Model) -> Void
-        let modelingHandler =  { (completion: Completion?, task: URLSessionDataTask?, data: Data?) in
+        let modelingHandler = { (completion: Completion?, task: URLSessionDataTask?, data: Data?) in
             let data: Data? = {
                 guard let dataKey = dataKey,
                       let dict = CZHTTPJsonSerializer.deserializedObject(with: data) as? CZDictionary,
@@ -113,7 +113,7 @@ class ServicesProxy: NSObject {
     }
 }
 
-fileprivate extension ServicesProxy {
+private extension ServicesProxy {
     func urlString(_ endPoint: String) -> String {
         return baseURL + endPoint
     }
