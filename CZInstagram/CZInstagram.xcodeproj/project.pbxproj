@@ -23,6 +23,10 @@
 		2A5311351F7E2CCB007D565D /* CZUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A5311341F7E2CCB007D565D /* CZUtils.framework */; };
 		2A5311361F7E2CCB007D565D /* CZUtils.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2A5311341F7E2CCB007D565D /* CZUtils.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2A865AC321F8E37B007C7F19 /* feeds.json in Resources */ = {isa = PBXBuildFile; fileRef = 2A865ABE21F8E37B007C7F19 /* feeds.json */; };
+		2A945A9C2215AA0100B4517A /* ReactiveListViewKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AFB0D7221F77685009697AC /* ReactiveListViewKit.framework */; };
+		2A945A9D2215AA0100B4517A /* ReactiveListViewKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2AFB0D7221F77685009697AC /* ReactiveListViewKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2A945AA32215AA0600B4517A /* CZNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AB416D921F8E9CD006F1F7D /* CZNetworking.framework */; };
+		2A945AA42215AA0600B4517A /* CZNetworking.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2AB416D921F8E9CD006F1F7D /* CZNetworking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2AD9851121F8BFA60010DF34 /* users.json in Resources */ = {isa = PBXBuildFile; fileRef = 2AD9850C21F8BFA60010DF34 /* users.json */; };
 		5560A4703F003A7CF4712DB2 /* Pods_CZInstagramUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99352FF4BF824DFED4F36ABE /* Pods_CZInstagramUITests.framework */; };
 		59EE7BDBCC8ECE6B4CB44B58 /* Pods_CZInstagramTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C094810A6D359CA64336807C /* Pods_CZInstagramTests.framework */; };
@@ -104,6 +108,20 @@
 			proxyType = 2;
 			remoteGlobalIDString = 2AC429DC1F7E3269005D553B;
 			remoteInfo = CZJsonModelTests;
+		};
+		2A945A9E2215AA0200B4517A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2AFB0D6B21F77685009697AC /* ReactiveListViewKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 044E032B1F74458B00849AA2;
+			remoteInfo = ReactiveListViewKit;
+		};
+		2A945AA52215AA0600B4517A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2AB416D221F8E9CD006F1F7D /* CZNetworking.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 044E02471F74349B00849AA2;
+			remoteInfo = CZNetworking;
 		};
 		2AB416CE21F8E9A9006F1F7D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -192,7 +210,9 @@
 			dstSubfolderSpec = 10;
 			files = (
 				2A5311361F7E2CCB007D565D /* CZUtils.framework in Embed Frameworks */,
+				2A945A9D2215AA0100B4517A /* ReactiveListViewKit.framework in Embed Frameworks */,
 				2A0C7C771F949CCC004F4B17 /* CZJsonModel.framework in Embed Frameworks */,
+				2A945AA42215AA0600B4517A /* CZNetworking.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -290,7 +310,9 @@
 			files = (
 				C1D8357BEF4C65585BF798BC /* Pods_CZInstagram.framework in Frameworks */,
 				2A5311351F7E2CCB007D565D /* CZUtils.framework in Frameworks */,
+				2A945AA32215AA0600B4517A /* CZNetworking.framework in Frameworks */,
 				2A0C7C761F949CCC004F4B17 /* CZJsonModel.framework in Frameworks */,
+				2A945A9C2215AA0100B4517A /* ReactiveListViewKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -627,6 +649,8 @@
 				2AFB0D7621F776A0009697AC /* PBXTargetDependency */,
 				2A0C7C751F949CC4004F4B17 /* PBXTargetDependency */,
 				2A0C7C791F949CCC004F4B17 /* PBXTargetDependency */,
+				2A945A9F2215AA0200B4517A /* PBXTargetDependency */,
+				2A945AA62215AA0600B4517A /* PBXTargetDependency */,
 			);
 			name = CZInstagram;
 			productName = CZInstagram;
@@ -1073,6 +1097,16 @@
 			isa = PBXTargetDependency;
 			name = CZJsonModel;
 			targetProxy = 2A0C7C781F949CCC004F4B17 /* PBXContainerItemProxy */;
+		};
+		2A945A9F2215AA0200B4517A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ReactiveListViewKit;
+			targetProxy = 2A945A9E2215AA0200B4517A /* PBXContainerItemProxy */;
+		};
+		2A945AA62215AA0600B4517A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = CZNetworking;
+			targetProxy = 2A945AA52215AA0600B4517A /* PBXContainerItemProxy */;
 		};
 		2AB416DD21F8E9D6006F1F7D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
