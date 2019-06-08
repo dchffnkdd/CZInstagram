@@ -9,15 +9,16 @@
 import CZUtils
 import ReactiveListViewKit
 import EasyMapping
+import CZNetworking
 
-typealias CZDictionary = [AnyHashable : Any]
-
-protocol CZDictionaryable: NSObjectProtocol {
-    init(dictionary: CZDictionary)
-}
+//typealias CZDictionary = [AnyHashable : Any]
+//
+//protocol CZDictionaryable: NSObjectProtocol {
+//    init(dictionary: CZDictionary)
+//}
 
 class CZModel: NSObject, EKMappingProtocol, NSCopying, CZDictionaryable {
-    private var serializedObject: CZDictionary?
+    fileprivate var serializedObject: CZDictionary?
     //var relationshipMapping: EKRelationshipMapping
 
     override init() { super.init() }

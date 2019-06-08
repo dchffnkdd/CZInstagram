@@ -11,6 +11,7 @@ import EasyMapping
 import ReactiveListViewKit
 import CZUtils
 import CZJsonModel
+import CZNetworking
 
 @objc class CZUser: CZCustomModel {
     var userId: String?

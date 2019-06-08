@@ -14,9 +14,10 @@ class ServicesProxy: NSObject {
         return CZHTTPManager()
     }()
 
-    private var baseURL: String
-    private var presetParams: [AnyHashable: Any]?
-    private let httpManager: CZHTTPManager
+    fileprivate var baseURL: String
+    fileprivate var presetParams: [AnyHashable: Any]? // ["access_token": ""] etc.
+    fileprivate let dataKey: String?
+    fileprivate let httpManager: CZHTTPManager
     
     override init() {
         fatalError("Must call designated initializer `init(baseURL:)`")
@@ -24,29 +25,121 @@ class ServicesProxy: NSObject {
 
     init(baseURL: String,
          presetParams: [AnyHashable: Any]? = nil,
+         dataKey: String? = "data",
          httpManager: CZHTTPManager = ServicesProxy.sharedHttpMananger) {
         self.baseURL = baseURL
         self.presetParams = presetParams
+        self.dataKey = dataKey
         self.httpManager = httpManager
         super.init()
     }
+
+    func fetchOneModel<Model: CZDictionaryable>(_ endPoint: String,
+                       params: [AnyHashable: Any]? = nil,
+                       dataKey: String? = nil,
+                       success: @escaping (Model) -> Void,
+                       failure: @escaping (Error) -> Void,
+                       cached: ((Model) -> Void)? = nil) {
+        
+        httpManager.GetOneModel(urlString(endPoint),
+                                  params: wrappedParams(params),
+                                  dataKey: dataKey ?? self.dataKey,
+                                  success: success,
+                                  failure: { (sessionTask, error) in
+                                    CZUtils.dbgPrint("Failed to fetch \(endPoint) Error: \n\n\(error)")
+                                    failure(error)
+        }, cached: cached)
+        
+//        typealias ModelingHandler = (Model) -> Void
+//        let modelingHandler = {(outerHandler: ModelingHandler?, task: URLSessionDataTask?, data: Any?) in
+//
+//            var retrivedData: CZDictionary?
+//            if let dataKey = dataKey ?? self.dataKey {
+//                retrivedData = (data as? CZDictionary)?[dataKey] as? CZDictionary
+//            } else {
+//                retrivedData = data as? CZDictionary
+//            }
+//
+//            guard let retrivedDataNonNil = retrivedData else {
+//                failure(CZNetError.returnType)
+//                return
+//            }
+//            let res = Model(dictionary: retrivedDataNonNil)
+//            outerHandler?(res)
+//        }
+//
+//        getData(endPoint,
+//                params: params,
+//                success: { (task, data) in
+//                    modelingHandler(success, task, data)
+//        },failure: {(task, error) in
+//            failure(error)
+//        }, cached: { (task, data) in
+//            modelingHandler(cached, task, data)
+//        })
+    }
+
+    func fetchManyModels<Model: CZDictionaryable>(_ endPoint: String,
+                         params: [AnyHashable: Any]? = nil,
+                         dataKey: String? = nil,
+                         success: @escaping ([Model]) -> Void,
+                         failure: @escaping (Error) -> Void,
+                         cached: (([Model]) -> Void)? = nil) {
+        
+        httpManager.GetManyModels(urlString(endPoint),
+                        params: wrappedParams(params),
+                        dataKey: dataKey ?? self.dataKey,
+                        success: success,
+                        failure: { (sessionTask, error) in
+            CZUtils.dbgPrint("Failed to fetch \(endPoint) Error: \n\n\(error)")
+            failure(error)
+        }, cached: cached)
+//
+//        typealias ModelingHandler = ([Model]) -> Void
+//        let modelingHandler = {(outerHandler: ModelingHandler?, task: URLSessionDataTask?, data: Any?) in
+//
+//            var retrivedData: [CZDictionary]?
+//            if let dataKey = dataKey ?? self.dataKey {
+//                retrivedData = (data as? CZDictionary)?[dataKey] as? [CZDictionary]
+//            } else {
+//                retrivedData = data as? [CZDictionary]
+//            }
+//
+//            guard let retrivedDataNonNil = retrivedData else {
+//                failure(CZNetError.returnType)
+//                return
+//            }
+//
+//            let res = retrivedDataNonNil.flatMap {Model(dictionary: $0)}
+//            outerHandler?(res)
+//        }
+//
+//        getData(endPoint,
+//                params: params,
+//                success: { (task, data) in
+//                    modelingHandler(success, task, data)
+//        },failure: {(task, error) in
+//            failure(error)
+//        }, cached: { (task, data) in
+//            modelingHandler(cached, task, data)
+//        })
+    }
     
-    /// Generic fetch method for Codable, returns model/models based on infer type
-    func fetchModel<Model: Codable>(_ endPoint: String,
-                                    params: [AnyHashable: Any]? = nil,
-                                    dataKey: String? = "data",
-                                    success: @escaping (Model) -> Void,
-                                    failure: @escaping (Error) -> Void,
-                                    cached: ((Model) -> Void)? = nil) {
-        httpManager.GETCodableModel(
-            urlString(endPoint),
-            params: wrappedParams(params),
-            dataKey: dataKey,
-            success: success,
-            failure: {(task, error) in
-                failure(error)
-            },
-            cached: cached)
+    func getData(_ endPoint: String,
+                 params: [AnyHashable: Any]? = nil,
+                 success: @escaping HTTPRequestWorker.Success,
+                 failure: @escaping HTTPRequestWorker.Failure,
+                 cached: HTTPRequestWorker.Cached? = nil,
+                 progress: HTTPRequestWorker.Progress? = nil) {
+        httpManager.GET(urlString(endPoint),
+                        params: wrappedParams(params),
+                        success: { (sessionTask, data) in
+                            success(sessionTask, data)
+        }, failure: { (sessionTask, error) in
+            CZUtils.dbgPrint("Failed to fetch \(endPoint) Error: \n\n\(error)")
+            failure(sessionTask, error)
+        }, cached: cached,
+           progress: progress)
     }
 
     func postData(_ endPoint: String,
@@ -60,7 +153,7 @@ class ServicesProxy: NSObject {
                          success: { (dataTask, data) in
                             success(dataTask, data)
         }, failure: { (dataTask, error) in
-            dbgPrint("Failed to post \(endPoint) Error: \n\n\(error)")
+            CZUtils.dbgPrint("Failed to post \(endPoint) Error: \n\n\(error)")
             failure(dataTask, error)
             fatalError()
         }, progress: progress)
@@ -75,14 +168,14 @@ class ServicesProxy: NSObject {
                            success: { (dataTask, data) in
                             success(dataTask, data)
         }, failure: { (dataTask, error) in
-            dbgPrint("Failed to DELETE \(endPoint) Error: \n\n\(error)")
+            CZUtils.dbgPrint("Failed to DELETE \(endPoint) Error: \n\n\(error)")
             failure(dataTask, error)
             fatalError()
         })
     }
 }
 
-private extension ServicesProxy {
+fileprivate extension ServicesProxy {
     func urlString(_ endPoint: String) -> String {
         return baseURL + endPoint
     }

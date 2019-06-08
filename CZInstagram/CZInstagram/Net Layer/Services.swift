@@ -14,7 +14,7 @@ class Services: NSObject {
     static let shared = Services()
     private let kBaseURL = "https://api.instagram.com/v1"
     private let accessToken = "5956152420.6d6cef1.80211b1480af4b74a11d239e091c83ed"
-    private lazy var servicesProxy: ServicesProxy = {
+    fileprivate lazy var servicesProxy: ServicesProxy = {
         return ServicesProxy(baseURL: self.kBaseURL,
                              presetParams: ["access_token": self.accessToken])
     }()
@@ -25,7 +25,7 @@ class Services: NSObject {
                        params: [AnyHashable: Any]? = nil,
                           success: @escaping ([Comment]) -> Void,
                           failure: @escaping (Error) -> Void) {
-        servicesProxy.fetchModel("/media/\(feedId)/comments/",
+        servicesProxy.fetchManyModels("/media/\(feedId)/comments/",
                                       params: params,
                                       success: success,
                                       failure: failure)
@@ -35,7 +35,7 @@ class Services: NSObject {
                           success: @escaping ([Feed]) -> Void,
                           failure: @escaping (Error) -> Void,
                           cached: (([Feed]) -> Void)? = nil) {
-        servicesProxy.fetchModel("/users/5956152420/media/recent/",
+        servicesProxy.fetchManyModels("/users/5956152420/media/recent/",
                                       params: params,
                                       success: success,
                                       failure: failure,
@@ -43,19 +43,23 @@ class Services: NSObject {
     }
 
     func fetchLikedMedia(success: @escaping ([Feed]) -> Void, failure: @escaping (Error) -> Void) {
-        servicesProxy.fetchModel("/users/self/media/liked/", success: success, failure: failure)
+        servicesProxy.fetchManyModels("/users/self/media/liked/", success: success, failure: failure)
+    }
+
+    func fetchCurrentUser(success: @escaping (CZUser) -> Void, failure: @escaping (Error) -> Void) {
+        servicesProxy.fetchOneModel("/users/self/", success: success, failure: failure)
     }
 
     func fetchFollows(success: @escaping ([User]) -> Void, failure: @escaping (Error) -> Void) {
-        servicesProxy.fetchModel("/users/self/follows/", success: success, failure: failure)
+        servicesProxy.fetchManyModels("/users/self/follows/", success: success, failure: failure)
     }
 
     func fetchFollowers(success: @escaping ([User]) -> Void, failure: @escaping (Error) -> Void) {
-        servicesProxy.fetchModel("/users/self/followed-by/", success: success, failure: failure)
+        servicesProxy.fetchManyModels("/users/self/followed-by/", success: success, failure: failure)
     }
 
     func fetchLikeUsers(feedId: String, success: @escaping ([User]) -> Void, failure: @escaping (Error) -> Void) {
-        servicesProxy.fetchModel("/media/\(feedId)/likes/", success: success, failure: failure)
+        servicesProxy.fetchManyModels("/media/\(feedId)/likes/", success: success, failure: failure)
     }
 
     // MARK: - POST

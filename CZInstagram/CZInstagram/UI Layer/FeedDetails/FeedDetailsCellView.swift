@@ -19,7 +19,7 @@ class FeedDetailsCellView: CZNibLoadableView, CZFeedCellViewSizeCalculatable {
     @IBOutlet var portaitView: UIImageView!
     @IBOutlet var bottomDivider: UIView!
 
-    private var viewModel: FeedDetailsCellViewModel    
+    fileprivate var viewModel: FeedDetailsCellViewModel    
     var diffId: String {return viewModel.diffId}
     var onEvent: OnEvent?
 
@@ -61,6 +61,6 @@ class FeedDetailsCellView: CZNibLoadableView, CZFeedCellViewSizeCalculatable {
 }
 
 // MARK: - Private methods
-private extension FeedDetailsCellView {
+fileprivate extension FeedDetailsCellView {
 
 }

@@ -6,8 +6,7 @@
 //  Copyright © 2016 Cheng Zhang. All rights reserved.
 //
 
-import CZUtils
-
+import UIKit
 /**
  Asynchronous HTTP requests manager based on NSOperationQueue
  */
@@ -27,124 +26,143 @@ open class CZHTTPManager: NSObject {
     }
     
     public func GET(_ urlStr: String,
-                    headers: HTTPRequestWorker.Headers? = nil,
                     params: HTTPRequestWorker.Params? = nil,
-                    success: HTTPRequestWorker.Success? = nil,
-                    failure: HTTPRequestWorker.Failure? = nil,
+                    headers: HTTPRequestWorker.Headers? = nil,
+                    success: @escaping HTTPRequestWorker.Success,
+                    failure: @escaping HTTPRequestWorker.Failure,
                     cached: HTTPRequestWorker.Cached? = nil,
                     progress: HTTPRequestWorker.Progress? = nil) {
-        startOperation(
+        startRequester(
             .GET,
             urlStr: urlStr,
-            headers: headers,
             params: params,
+            headers: headers,
             success: success,
             failure: failure,
             cached: cached,
             progress: progress)
     }
     
-    public func GETCodableModel<Model: Codable>(_ urlStr: String,
-                                                headers: HTTPRequestWorker.Headers? = nil,
-                                                params: HTTPRequestWorker.Params? = nil,
-                                                dataKey: String? = nil,
-                                                success: @escaping (Model) -> Void,
-                                                failure: HTTPRequestWorker.Failure? = nil,
-                                                cached: ((Model) -> Void)? = nil,
-                                                progress: HTTPRequestWorker.Progress? = nil) {
+    // MARK: - CZDictionaryable
+    
+    public func GetManyModels<Model: CZDictionaryable>(_ urlStr: String,
+                                                       params: HTTPRequestWorker.Params? = nil,
+                                                       headers: HTTPRequestWorker.Headers? = nil,
+                                                       dataKey: String? = nil,
+                                                       success: @escaping ([Model]) -> Void,
+                                                       failure: HTTPRequestWorker.Failure? = nil,
+                                                       cached: (([Model]) -> Void)? = nil,
+                                                       progress: HTTPRequestWorker.Progress? = nil) {
         
-        let modelingHandler = { (completion: ((Model) -> Void)?, task: URLSessionDataTask?, data: Data?) in
-            let retrievedData: Data? = {
-                // With given dataKey, retrieve corresponding field from dictionary
-                if let dataKey = dataKey,
-                    let dict = CZHTTPJsonSerializer.deserializedObject(with: data) as? [AnyHashable : Any],
-                    let dataDict = dict[dataKey]  {
-                    return CZHTTPJsonSerializer.jsonData(with: dataDict)
-                }
-                // Othewise, return directly as data should be decodable
-                return data
-            }()
+        typealias ModelingHandler = ([Model]) -> Void
+        let modelingHandler = {(outerHandler: ModelingHandler?, task: URLSessionDataTask?, data: Any?) in
+            var retrivedData: [CZDictionary]?
+            if let dataKey = dataKey {
+                retrivedData = (data as? CZDictionary)?[dataKey] as? [CZDictionary]
+            } else {
+                retrivedData = data as? [CZDictionary]
+            }
             
-            guard let model: Model = CodableHelper.decode(retrievedData).assertIfNil else {
-                failure?(task, CZNetError.parse)
+            guard let retrivedDataNonNil = retrivedData else {
+                failure?(nil, CZNetError.returnType)
                 return
             }
-            completion?(model)
+            let res = retrivedDataNonNil.compactMap {Model(dictionary: $0)}
+            outerHandler?(res)
         }
         
         GET(urlStr,
-            headers: headers,
             params: params,
+            headers: headers,
             success: { (task, data) in
                 modelingHandler(success, task, data)
             },
-            failure: failure,
+            failure: failure!,
             cached: { (task, data) in
                 modelingHandler(cached, task, data)
             },
-           progress: progress)
+            progress: progress)
+    }
+    
+    public func GetOneModel<Model: CZDictionaryable>(_ urlStr: String,
+                                                     params: HTTPRequestWorker.Params? = nil,
+                                                     headers: HTTPRequestWorker.Headers? = nil,
+                                                     dataKey: String? = nil,
+                                                     success: @escaping (Model) -> Void,
+                                                     failure: HTTPRequestWorker.Failure? = nil,
+                                                     cached: ((Model) -> Void)? = nil,
+                                                     progress: HTTPRequestWorker.Progress? = nil) {
+        
+        typealias ModelingHandler = (Model) -> Void
+        let modelingHandler = {(outerHandler: ModelingHandler?, task: URLSessionDataTask?, data: Any?) in
+            var retrivedData: CZDictionary?
+            if let dataKey = dataKey {
+                retrivedData = (data as? CZDictionary)?[dataKey] as? CZDictionary
+            } else {
+                retrivedData = data as? CZDictionary
+            }
+            
+            guard let retrivedDataNonNil = retrivedData else {
+                failure?(nil, CZNetError.returnType)
+                return
+            }
+            let res = Model(dictionary: retrivedDataNonNil)
+            outerHandler?(res)
+        }
+        
+        GET(urlStr,
+            params: params,
+            headers: headers,
+            success: { (task, data) in
+                modelingHandler(success, task, data)
+        },
+            failure: failure!,
+            cached: { (task, data) in
+                modelingHandler(cached, task, data)
+        },
+            progress: progress)
     }
     
     public func POST(_ urlStr: String,
                      contentType: HTTPRequestWorker.ContentType = .formUrlencoded,
-                     headers: HTTPRequestWorker.Headers? = nil,
                      params: HTTPRequestWorker.Params? = nil,
                      data: Data? = nil,
-                     success: HTTPRequestWorker.Success? = nil,
-                     failure: HTTPRequestWorker.Failure? = nil,
+                     headers: HTTPRequestWorker.Headers? = nil,
+                     success: @escaping HTTPRequestWorker.Success,
+                     failure: @escaping HTTPRequestWorker.Failure,
                      progress: HTTPRequestWorker.Progress? = nil) {
-        startOperation(
+        startRequester(
             .POST(contentType, data),
             urlStr: urlStr,
-            headers: headers,
             params: params,
+            headers: headers,
             success: success,
             failure: failure,
             progress: progress)
     }
     
     public func DELETE(_ urlStr: String,
-                       headers: HTTPRequestWorker.Headers? = nil,
                        params: HTTPRequestWorker.Params? = nil,
-                       success: HTTPRequestWorker.Success? = nil,
-                       failure: HTTPRequestWorker.Failure? = nil) {
-        startOperation(
+                       headers: HTTPRequestWorker.Headers? = nil,
+                       success: @escaping HTTPRequestWorker.Success,
+                       failure: @escaping HTTPRequestWorker.Failure) {
+        startRequester(
             .DELETE,
             urlStr: urlStr,
-            headers: headers,
             params: params,
+            headers: headers,
             success: success,
             failure: failure)
-    }
-    
-    public func UPLOAD(_ urlStr: String,
-                       headers: HTTPRequestWorker.Headers? = nil,
-                       params: HTTPRequestWorker.Params? = nil,
-                       fileName: String? = nil,
-                       data: Data,
-                       success: HTTPRequestWorker.Success? = nil,
-                       failure: HTTPRequestWorker.Failure? = nil,
-                       progress: HTTPRequestWorker.Progress? = nil) {
-        let fileName = fileName ?? UUID.generate()
-        startOperation(
-            .UPLOAD(fileName, data),
-            urlStr: urlStr,
-            headers: headers,
-            params: params,
-            success: success,
-            failure: failure,
-            progress: progress)
     }
 }
 
 private extension CZHTTPManager {
-    
-    func startOperation(_ requestType: HTTPRequestWorker.RequestType,
+    func startRequester(_ requestType: HTTPRequestWorker.RequestType,
                         urlStr: String,
-                        headers: HTTPRequestWorker.Headers? = nil,
                         params: HTTPRequestWorker.Params? = nil,
-                        success: HTTPRequestWorker.Success? = nil,
-                        failure: HTTPRequestWorker.Failure? = nil,
+                        headers: HTTPRequestWorker.Headers? = nil,
+                        success: @escaping HTTPRequestWorker.Success,
+                        failure: @escaping HTTPRequestWorker.Failure,
                         cached: HTTPRequestWorker.Cached? = nil,
                         progress: HTTPRequestWorker.Progress? = nil) {
         let op = HTTPRequestWorker(
@@ -159,4 +177,10 @@ private extension CZHTTPManager {
             progress: progress)
         queue.addOperation(op)
     }
+}
+
+public typealias CZDictionary = [AnyHashable : Any]
+
+public protocol CZDictionaryable: NSObjectProtocol {
+    init(dictionary: CZDictionary)
 }

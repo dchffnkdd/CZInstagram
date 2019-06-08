@@ -11,9 +11,10 @@ import EasyMapping
 import CZUtils
 import CZJsonModel
 import ReactiveListViewKit
+import CZNetworking
 
 class CZCustomModel: NSObject, CZMappingProtocol, NSCopying, CZDictionaryable {
-    private var serializedObject: CZDictionary?
+    fileprivate var serializedObject: CZDictionary?
 
     override init() { super.init() }
     required init(dictionary: CZDictionary) {

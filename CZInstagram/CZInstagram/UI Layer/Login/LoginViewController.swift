@@ -53,7 +53,7 @@ class LoginViewController: UIViewController, UIWebViewDelegate {
 
     // MARK: - UIWebViewDelegate
 
-    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebView.NavigationType) -> Bool {
+    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
         return checkRequestForCallbackURL(request: request)
     }
 

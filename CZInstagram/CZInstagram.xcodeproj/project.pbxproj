@@ -22,10 +22,6 @@
 		2A0C7C771F949CCC004F4B17 /* CZJsonModel.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2A3ECC1B1F949AA000CF9EF3 /* CZJsonModel.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2A5311351F7E2CCB007D565D /* CZUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A5311341F7E2CCB007D565D /* CZUtils.framework */; };
 		2A5311361F7E2CCB007D565D /* CZUtils.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2A5311341F7E2CCB007D565D /* CZUtils.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		2A865AC321F8E37B007C7F19 /* feeds.json in Resources */ = {isa = PBXBuildFile; fileRef = 2A865ABE21F8E37B007C7F19 /* feeds.json */; };
-		2A945A9C2215AA0100B4517A /* ReactiveListViewKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AFB0D7221F77685009697AC /* ReactiveListViewKit.framework */; };
-		2A945A9D2215AA0100B4517A /* ReactiveListViewKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2AFB0D7221F77685009697AC /* ReactiveListViewKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		2AD9851121F8BFA60010DF34 /* users.json in Resources */ = {isa = PBXBuildFile; fileRef = 2AD9850C21F8BFA60010DF34 /* users.json */; };
 		5560A4703F003A7CF4712DB2 /* Pods_CZInstagramUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99352FF4BF824DFED4F36ABE /* Pods_CZInstagramUITests.framework */; };
 		59EE7BDBCC8ECE6B4CB44B58 /* Pods_CZInstagramTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C094810A6D359CA64336807C /* Pods_CZInstagramTests.framework */; };
 		C1D8357BEF4C65585BF798BC /* Pods_CZInstagram.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA740AF35DC2EC5F40ECA5E6 /* Pods_CZInstagram.framework */; };
@@ -79,26 +75,47 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		2A09603E22ABC373007B74ED /* PBXContainerItemProxy */ = {
+		2A04C57122ABCD0600BAEBD7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 2A09603922ABC373007B74ED /* CZNetworking.xcodeproj */;
+			containerPortal = 2A04C56C22ABCD0600BAEBD7 /* CZUtils.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C39982CA1F7739EA00775B6C;
+			remoteInfo = CZUtils;
+		};
+		2A04C57322ABCD0600BAEBD7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2A04C56C22ABCD0600BAEBD7 /* CZUtils.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C39982D31F7739EA00775B6C;
+			remoteInfo = CZUtilsTests;
+		};
+		2A04C58322ABCD1700BAEBD7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2A04C57E22ABCD1700BAEBD7 /* CZNetworking.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 044E02481F74349B00849AA2;
 			remoteInfo = CZNetworking;
 		};
-		2A09604022ABC373007B74ED /* PBXContainerItemProxy */ = {
+		2A04C58522ABCD1700BAEBD7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 2A09603922ABC373007B74ED /* CZNetworking.xcodeproj */;
+			containerPortal = 2A04C57E22ABCD1700BAEBD7 /* CZNetworking.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 044E02511F74349B00849AA2;
 			remoteInfo = CZNetworkingTests;
 		};
-		2A09604222ABC379007B74ED /* PBXContainerItemProxy */ = {
+		2A04C58722ABCD1B00BAEBD7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 2A09603922ABC373007B74ED /* CZNetworking.xcodeproj */;
+			containerPortal = 2A04C57E22ABCD1700BAEBD7 /* CZNetworking.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = 044E02471F74349B00849AA2;
 			remoteInfo = CZNetworking;
+		};
+		2A04C58922ABCD1D00BAEBD7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2A04C56C22ABCD0600BAEBD7 /* CZUtils.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = C39982C91F7739EA00775B6C;
+			remoteInfo = CZUtils;
 		};
 		2A0C7C741F949CC4004F4B17 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -127,34 +144,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = 2AC429DC1F7E3269005D553B;
 			remoteInfo = CZJsonModelTests;
-		};
-		2A945A9E2215AA0200B4517A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2AFB0D6B21F77685009697AC /* ReactiveListViewKit.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 044E032B1F74458B00849AA2;
-			remoteInfo = ReactiveListViewKit;
-		};
-		2AB416CE21F8E9A9006F1F7D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2AB416C921F8E9A9006F1F7D /* CZUtils.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C39982CA1F7739EA00775B6C;
-			remoteInfo = CZUtils;
-		};
-		2AB416D021F8E9A9006F1F7D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2AB416C921F8E9A9006F1F7D /* CZUtils.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C39982D31F7739EA00775B6C;
-			remoteInfo = CZUtilsTests;
-		};
-		2AB416DC21F8E9D6006F1F7D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2AB416C921F8E9A9006F1F7D /* CZUtils.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = C39982C91F7739EA00775B6C;
-			remoteInfo = CZUtils;
 		};
 		2AFB0D7121F77685009697AC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -201,7 +190,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				2A5311361F7E2CCB007D565D /* CZUtils.framework in Embed Frameworks */,
-				2A945A9D2215AA0100B4517A /* ReactiveListViewKit.framework in Embed Frameworks */,
 				2A0C7C771F949CCC004F4B17 /* CZJsonModel.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -212,7 +200,8 @@
 /* Begin PBXFileReference section */
 		1BEA25CCC12D8D13B336A988 /* Pods-CZInstagramUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CZInstagramUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CZInstagramUITests/Pods-CZInstagramUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		1D332FFE01F4C367ACD92CF9 /* Pods-CZInstagram.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CZInstagram.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CZInstagram/Pods-CZInstagram.debug.xcconfig"; sourceTree = "<group>"; };
-		2A09603922ABC373007B74ED /* CZNetworking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CZNetworking.xcodeproj; path = CZInstagram/Utils/CZNetworking/CZNetworking.xcodeproj; sourceTree = "<group>"; };
+		2A04C56C22ABCD0600BAEBD7 /* CZUtils.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CZUtils.xcodeproj; path = CZInstagram/Utils/CZUtils/CZUtils.xcodeproj; sourceTree = "<group>"; };
+		2A04C57E22ABCD1700BAEBD7 /* CZNetworking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CZNetworking.xcodeproj; path = CZInstagram/Utils/CZNetworking/CZNetworking.xcodeproj; sourceTree = "<group>"; };
 		2A0C7C581F949C55004F4B17 /* HotUserCellCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HotUserCellCardView.swift; path = "UI Layer/FeedList/HotUsers/HotUserCellCardView.swift"; sourceTree = "<group>"; };
 		2A0C7C591F949C55004F4B17 /* HotUserCellCardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HotUserCellCardView.xib; path = "UI Layer/FeedList/HotUsers/HotUserCellCardView.xib"; sourceTree = "<group>"; };
 		2A0C7C5A1F949C55004F4B17 /* HotUserCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HotUserCellView.swift; path = "UI Layer/FeedList/HotUsers/HotUserCellView.swift"; sourceTree = "<group>"; };
@@ -226,9 +215,6 @@
 		2A0C7C721F949CAF004F4B17 /* ServicesProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ServicesProxy.swift; path = "Net Layer/ServicesProxy.swift"; sourceTree = "<group>"; };
 		2A3ECC141F949AA000CF9EF3 /* CZJsonModel.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CZJsonModel.xcodeproj; path = CZInstagram/Utils/CZJsonModel/CZJsonModel/CZJsonModel.xcodeproj; sourceTree = "<group>"; };
 		2A5311341F7E2CCB007D565D /* CZUtils.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CZUtils.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		2A865ABE21F8E37B007C7F19 /* feeds.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = feeds.json; path = Resources/JSON/feeds.json; sourceTree = "<group>"; };
-		2AB416C921F8E9A9006F1F7D /* CZUtils.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CZUtils.xcodeproj; path = CZInstagram/Utils/CZUtils/CZUtils.xcodeproj; sourceTree = "<group>"; };
-		2AD9850C21F8BFA60010DF34 /* users.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = users.json; path = Resources/JSON/users.json; sourceTree = "<group>"; };
 		2AFB0D6B21F77685009697AC /* ReactiveListViewKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ReactiveListViewKit.xcodeproj; path = CZInstagram/Utils/ReactiveListViewKit/ReactiveListViewKit/ReactiveListViewKit.xcodeproj; sourceTree = "<group>"; };
 		8665D73F98B7512828BD08DD /* Pods-CZInstagramTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CZInstagramTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CZInstagramTests/Pods-CZInstagramTests.release.xcconfig"; sourceTree = "<group>"; };
 		99352FF4BF824DFED4F36ABE /* Pods_CZInstagramUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CZInstagramUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -301,7 +287,6 @@
 				C1D8357BEF4C65585BF798BC /* Pods_CZInstagram.framework in Frameworks */,
 				2A5311351F7E2CCB007D565D /* CZUtils.framework in Frameworks */,
 				2A0C7C761F949CCC004F4B17 /* CZJsonModel.framework in Frameworks */,
-				2A945A9C2215AA0100B4517A /* ReactiveListViewKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -324,11 +309,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2A09603A22ABC373007B74ED /* Products */ = {
+		2A04C56D22ABCD0600BAEBD7 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2A09603F22ABC373007B74ED /* CZNetworking.framework */,
-				2A09604122ABC373007B74ED /* CZNetworkingTests.xctest */,
+				2A04C57222ABCD0600BAEBD7 /* CZUtils.framework */,
+				2A04C57422ABCD0600BAEBD7 /* CZUtilsTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2A04C57F22ABCD1700BAEBD7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2A04C58422ABCD1700BAEBD7 /* CZNetworking.framework */,
+				2A04C58622ABCD1700BAEBD7 /* CZNetworkingTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -338,15 +332,6 @@
 			children = (
 				2A3ECC1B1F949AA000CF9EF3 /* CZJsonModel.framework */,
 				2A3ECC1D1F949AA000CF9EF3 /* CZJsonModelTests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		2AB416CA21F8E9A9006F1F7D /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				2AB416CF21F8E9A9006F1F7D /* CZUtils.framework */,
-				2AB416D121F8E9A9006F1F7D /* CZUtilsTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -393,9 +378,7 @@
 		E109CDB91F5BEFB10012B3A8 /* JSON */ = {
 			isa = PBXGroup;
 			children = (
-				2A865ABE21F8E37B007C7F19 /* feeds.json */,
 				E109CDBB1F5BEFFD0012B3A8 /* user.json */,
-				2AD9850C21F8BFA60010DF34 /* users.json */,
 				E109CDBA1F5BEFFD0012B3A8 /* mediaImage.json */,
 				E18B9F611F5BF039005D5C10 /* mediaVideo.json */,
 				E18B9F621F5BF039005D5C10 /* mediaCarousel.json */,
@@ -458,10 +441,10 @@
 		E1CD1F831F5B831E00CE529F = {
 			isa = PBXGroup;
 			children = (
+				2A04C57E22ABCD1700BAEBD7 /* CZNetworking.xcodeproj */,
+				2A04C56C22ABCD0600BAEBD7 /* CZUtils.xcodeproj */,
 				2AFB0D6B21F77685009697AC /* ReactiveListViewKit.xcodeproj */,
-				2A09603922ABC373007B74ED /* CZNetworking.xcodeproj */,
 				2A3ECC141F949AA000CF9EF3 /* CZJsonModel.xcodeproj */,
-				2AB416C921F8E9A9006F1F7D /* CZUtils.xcodeproj */,
 				E1CD1F8E1F5B831E00CE529F /* CZInstagram */,
 				E1CD1FA31F5B831E00CE529F /* CZInstagramTests */,
 				E1CD1FAE1F5B831E00CE529F /* CZInstagramUITests */,
@@ -544,8 +527,8 @@
 			children = (
 				E1E940D41F5CBE0A002B6D33 /* User.swift */,
 				E1E940D61F5CBE31002B6D33 /* Feed.swift */,
-				E1D6D00E1F5DC5A5007E999D /* ImageInfo.swift */,
 				E12F8E221F65C91A00E5E3A6 /* Comment.swift */,
+				E1D6D00E1F5DC5A5007E999D /* ImageInfo.swift */,
 				E1CB9E3B1F60992800B69FB8 /* CZUser.swift */,
 				E1153E031F60B8AF00C038AF /* CZFeed.swift */,
 				E1E940D81F5CBE3F002B6D33 /* UserManager.swift */,
@@ -633,12 +616,11 @@
 			buildRules = (
 			);
 			dependencies = (
-				2A09604322ABC379007B74ED /* PBXTargetDependency */,
-				2AB416DD21F8E9D6006F1F7D /* PBXTargetDependency */,
+				2A04C58A22ABCD1D00BAEBD7 /* PBXTargetDependency */,
+				2A04C58822ABCD1B00BAEBD7 /* PBXTargetDependency */,
 				2AFB0D7621F776A0009697AC /* PBXTargetDependency */,
 				2A0C7C751F949CC4004F4B17 /* PBXTargetDependency */,
 				2A0C7C791F949CCC004F4B17 /* PBXTargetDependency */,
-				2A945A9F2215AA0200B4517A /* PBXTargetDependency */,
 			);
 			name = CZInstagram;
 			productName = CZInstagram;
@@ -733,12 +715,12 @@
 					ProjectRef = 2A3ECC141F949AA000CF9EF3 /* CZJsonModel.xcodeproj */;
 				},
 				{
-					ProductGroup = 2A09603A22ABC373007B74ED /* Products */;
-					ProjectRef = 2A09603922ABC373007B74ED /* CZNetworking.xcodeproj */;
+					ProductGroup = 2A04C57F22ABCD1700BAEBD7 /* Products */;
+					ProjectRef = 2A04C57E22ABCD1700BAEBD7 /* CZNetworking.xcodeproj */;
 				},
 				{
-					ProductGroup = 2AB416CA21F8E9A9006F1F7D /* Products */;
-					ProjectRef = 2AB416C921F8E9A9006F1F7D /* CZUtils.xcodeproj */;
+					ProductGroup = 2A04C56D22ABCD0600BAEBD7 /* Products */;
+					ProjectRef = 2A04C56C22ABCD0600BAEBD7 /* CZUtils.xcodeproj */;
 				},
 				{
 					ProductGroup = 2AFB0D6C21F77685009697AC /* Products */;
@@ -755,18 +737,32 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		2A09603F22ABC373007B74ED /* CZNetworking.framework */ = {
+		2A04C57222ABCD0600BAEBD7 /* CZUtils.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = CZUtils.framework;
+			remoteRef = 2A04C57122ABCD0600BAEBD7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2A04C57422ABCD0600BAEBD7 /* CZUtilsTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = CZUtilsTests.xctest;
+			remoteRef = 2A04C57322ABCD0600BAEBD7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2A04C58422ABCD1700BAEBD7 /* CZNetworking.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = CZNetworking.framework;
-			remoteRef = 2A09603E22ABC373007B74ED /* PBXContainerItemProxy */;
+			remoteRef = 2A04C58322ABCD1700BAEBD7 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		2A09604122ABC373007B74ED /* CZNetworkingTests.xctest */ = {
+		2A04C58622ABCD1700BAEBD7 /* CZNetworkingTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = CZNetworkingTests.xctest;
-			remoteRef = 2A09604022ABC373007B74ED /* PBXContainerItemProxy */;
+			remoteRef = 2A04C58522ABCD1700BAEBD7 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		2A3ECC1B1F949AA000CF9EF3 /* CZJsonModel.framework */ = {
@@ -781,20 +777,6 @@
 			fileType = wrapper.cfbundle;
 			path = CZJsonModelTests.xctest;
 			remoteRef = 2A3ECC1C1F949AA000CF9EF3 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		2AB416CF21F8E9A9006F1F7D /* CZUtils.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = CZUtils.framework;
-			remoteRef = 2AB416CE21F8E9A9006F1F7D /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		2AB416D121F8E9A9006F1F7D /* CZUtilsTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = CZUtilsTests.xctest;
-			remoteRef = 2AB416D021F8E9A9006F1F7D /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		2AFB0D7221F77685009697AC /* ReactiveListViewKit.framework */ = {
@@ -819,7 +801,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E1EE698A1F5E561C00FF1656 /* mediaImageOld.json in Resources */,
-				2A865AC321F8E37B007C7F19 /* feeds.json in Resources */,
 				2A0C7C631F949C55004F4B17 /* HotUserCellView.xib in Resources */,
 				2A0C7C611F949C55004F4B17 /* HotUserCellCardView.xib in Resources */,
 				2A0C7C661F949C55004F4B17 /* HotUsersCellViewController.xib in Resources */,
@@ -831,7 +812,6 @@
 				E1CD20061F5B883A00CE529F /* FeedListViewController.xib in Resources */,
 				E1CD1F9A1F5B831E00CE529F /* LaunchScreen.storyboard in Resources */,
 				E1CD1F971F5B831E00CE529F /* Assets.xcassets in Resources */,
-				2AD9851121F8BFA60010DF34 /* users.json in Resources */,
 				E18B9F641F5BF039005D5C10 /* mediaCarousel.json in Resources */,
 				E109CDBD1F5BEFFD0012B3A8 /* user.json in Resources */,
 				DF7C7F702166F570003E738B /* portrait.jpg in Resources */,
@@ -1076,10 +1056,15 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		2A09604322ABC379007B74ED /* PBXTargetDependency */ = {
+		2A04C58822ABCD1B00BAEBD7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = CZNetworking;
-			targetProxy = 2A09604222ABC379007B74ED /* PBXContainerItemProxy */;
+			targetProxy = 2A04C58722ABCD1B00BAEBD7 /* PBXContainerItemProxy */;
+		};
+		2A04C58A22ABCD1D00BAEBD7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = CZUtils;
+			targetProxy = 2A04C58922ABCD1D00BAEBD7 /* PBXContainerItemProxy */;
 		};
 		2A0C7C751F949CC4004F4B17 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1090,16 +1075,6 @@
 			isa = PBXTargetDependency;
 			name = CZJsonModel;
 			targetProxy = 2A0C7C781F949CCC004F4B17 /* PBXContainerItemProxy */;
-		};
-		2A945A9F2215AA0200B4517A /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = ReactiveListViewKit;
-			targetProxy = 2A945A9E2215AA0200B4517A /* PBXContainerItemProxy */;
-		};
-		2AB416DD21F8E9D6006F1F7D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = CZUtils;
-			targetProxy = 2AB416DC21F8E9D6006F1F7D /* PBXContainerItemProxy */;
 		};
 		2AFB0D7621F776A0009697AC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1244,7 +1219,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Cheng-Zhang.CZInstagram";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -1259,7 +1234,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Cheng-Zhang.CZInstagram";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

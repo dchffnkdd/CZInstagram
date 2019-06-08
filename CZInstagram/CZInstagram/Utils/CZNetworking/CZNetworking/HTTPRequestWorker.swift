@@ -6,6 +6,7 @@
 //  Copyright © 2016 Cheng Zhang. All rights reserved.
 //
 
+import Foundation
 import CZUtils
 
 @objc open class HTTPRequestWorker: CZConcurrentOperation {
@@ -21,7 +22,6 @@ import CZUtils
         case POST(ContentType, Data?)
         case PUT
         case DELETE
-        case UPLOAD(String, Data)
         case HEAD
         case PATCH
         case OPTIONS
@@ -35,7 +35,6 @@ import CZUtils
             case .POST: return "POST"
             case .PUT: return "PUT"
             case .DELETE: return "DELETE"
-            case .UPLOAD: return "UPLOAD"
             default:
                 assertionFailure("Unsupported type")
                 return ""
@@ -44,10 +43,10 @@ import CZUtils
         
         var hasSerializableUrl: Bool {
             switch self {
-            case .GET, .PUT:
-                return true
-            default:
+            case .DELETE, .POST:
                 return false
+            default:
+                return true
             }
         }
         
@@ -60,8 +59,6 @@ import CZUtils
             case (.PUT, .PUT):
                 return true
             case (.DELETE, .DELETE):
-                return true
-            case (.UPLOAD, .UPLOAD):
                 return true
             default:
                 return false
@@ -76,9 +73,9 @@ import CZUtils
     
     /// Progress closure: (currSize, expectedSize, downloadURL)
     public typealias Progress = (Int64, Int64, URL) -> Void
-    public typealias Success = (URLSessionDataTask?, Data?) -> Void
+    public typealias Success = (URLSessionDataTask?, Any?) -> Void
     public typealias Failure = (URLSessionDataTask?, Error) -> Void
-    public typealias Cached = (URLSessionDataTask?, Data?) -> Void
+    public typealias Cached = (URLSessionDataTask?, Any?) -> Void
     let url: URL
     private var success: Success?
     private var failure: Failure?
@@ -106,8 +103,8 @@ import CZUtils
                          headers: Headers? = nil,
                          shouldSerializeJson: Bool = true,
                          httpCache: CZHTTPCache? = nil,
-                         success: Success? = nil,
-                         failure: Failure? = nil,
+                         success: @escaping Success,
+                         failure: @escaping Failure,
                          cached: Cached? = nil,
                          progress: Progress? = nil) {
         self.requestType = requestType
@@ -130,8 +127,8 @@ import CZUtils
         // Fetch from cache
         if  requestType == .GET,
             let cached = cached,
-            let cachedData = httpCache?.readData(forKey: httpCacheKey) as? Data {
-            CZMainQueueScheduler.async { [weak self] in
+            let cachedData = httpCache?.readData(forKey: httpCacheKey)  {
+            CZMainQueueScheduler.async {[weak self] in
                 cached(self?.dataTask, cachedData)
             }
         }
@@ -188,18 +185,6 @@ import CZUtils
             
         case .DELETE:
             dataTask = urlSession?.dataTask(with: request as URLRequest)
-            
-        case let .UPLOAD(fileName, data):
-            do {
-                let request = try Upload.buildRequest(
-                    url,
-                    params: params,
-                    fileName: fileName,
-                    data: data)
-                dataTask = urlSession?.dataTask(with: request)
-            } catch {
-                dbgPrint("Failed to build upload request. Error - \(error.localizedDescription)")
-            }
         default:
             assertionFailure("Unsupported request type.")
         }
@@ -234,36 +219,39 @@ extension HTTPRequestWorker: URLSessionDataDelegate {
     
     public func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
         defer { finish() }
-        
-        guard self.response == task.response else { return }
-        
-        guard error == nil,
-              let httpResponse = response as? HTTPURLResponse,
-              httpResponse.statusCode == 200 else {
-                // Failure completion
-                var errorDescription = error?.localizedDescription ?? ""
-                let responseString = "Response: \(String(describing: response))"
-                errorDescription = responseString + "\n"
-                if let receivedDict = CZHTTPJsonSerializer.deserializedObject(with: receivedData)  {
-                    errorDescription += "\nReceivedData: \(receivedDict)"
+        guard self.response == task.response else {return}
+        if error == nil,
+            let httpResponse = response as? HTTPURLResponse,
+            httpResponse.statusCode == 200 {
+            if shouldSerializeJson,
+                let deserializedObject = CZHTTPJsonSerializer.deserializedObject(with: receivedData) {
+                // Return [AnyHashable: Any] if available
+                if requestType == .GET {
+                    httpCache?.saveData(deserializedObject, forKey: httpCacheKey)
                 }
-                let errorRes = CZNetError(errorDescription)
-                dbgPrint("Failure of dataTask, error - \(errorRes)")
                 CZMainQueueScheduler.async { [weak self] in
-                    self?.failure?(nil, errorRes)
+                    self?.success?(task as? URLSessionDataTask, deserializedObject)
                 }
-                return
+            } else {
+                // Otherwise return `Data`
+                CZMainQueueScheduler.sync { [weak self] in
+                    guard let `self` = self else {return}
+                    self.success?(task as? URLSessionDataTask, self.receivedData)
+                }
+            }
+            return
         }
-        
-        // Success completion
-        if cached != nil {
-            httpCache?.saveData(receivedData, forKey: httpCacheKey)
+        var errorDescription = error?.localizedDescription ?? ""
+        let responseString = "Response: \(String(describing: response))"
+        errorDescription = responseString + "\n"
+        if let receivedDict = CZHTTPJsonSerializer.deserializedObject(with: receivedData)  {
+            errorDescription += "\nReceivedData: \(receivedDict)"
         }
-        CZMainQueueScheduler.sync { [weak self] in
-            guard let `self` = self else {return}
-            self.success?(task as? URLSessionDataTask, self.receivedData)
+        let errorRes = CZNetError(errorDescription)
+        dbgPrint("Failure of dataTask, error - \(errorRes)")
+        CZMainQueueScheduler.async { [weak self] in
+            self?.failure?(nil, errorRes)
         }
-        
     }
 }
 

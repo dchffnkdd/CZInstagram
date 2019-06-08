@@ -11,6 +11,7 @@ import EasyMapping
 import CZUtils
 import CZJsonModel
 import ReactiveListViewKit
+import CZNetworking
 
 class CZFeed: CZCustomModel {
     lazy var feedId: String = ""

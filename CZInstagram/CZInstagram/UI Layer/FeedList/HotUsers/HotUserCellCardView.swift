@@ -20,7 +20,7 @@ class HotUserCellCardView: CZNibLoadableView, CZFeedCellViewSizeCalculatable {
     @IBOutlet var followButton: UIButton?
     @IBOutlet var closeButton: UIButton?
     
-    private var viewModel: HotUserCellViewModel
+    fileprivate var viewModel: HotUserCellViewModel
     var diffId: String {return viewModel.diffId}
     var onEvent: OnEvent?
     

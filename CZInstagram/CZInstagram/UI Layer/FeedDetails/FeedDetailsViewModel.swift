@@ -10,11 +10,11 @@ import CZUtils
 import ReactiveListViewKit
 
 class FeedDetailsViewModel: NSObject, NSCopying {
-    private(set) var feed: Feed
-    private(set) var feeds: [Comment] = []
-    private(set) var page: Int = 0
-    private(set) var isLoadingFeeds: Bool = false
-    private(set) var lastMinFeedId: String = "-1"
+    fileprivate(set) var feed: Feed
+    fileprivate(set) var feeds: [Comment] = []
+    fileprivate(set) var page: Int = 0
+    fileprivate(set) var isLoadingFeeds: Bool = false
+    fileprivate(set) var lastMinFeedId: String = "-1"
     var core: Core<FeedDetailsState>?
 
     init(feed: Feed) {
@@ -32,7 +32,7 @@ class FeedDetailsViewModel: NSObject, NSCopying {
         let headerSectionModel = CZSectionModel(feedModels: [headerFeedModel])
 
         // Feeds Section
-        let feedModels = feeds.compactMap { CZFeedModel(viewClass: FeedDetailsCellView.self,
+        let feedModels = feeds.flatMap { CZFeedModel(viewClass: FeedDetailsCellView.self,
                                                      viewModel: FeedDetailsCellViewModel($0)) }
         let feedsSectionModel = CZSectionModel(feedModels: feedModels)
         return [headerSectionModel, feedsSectionModel]

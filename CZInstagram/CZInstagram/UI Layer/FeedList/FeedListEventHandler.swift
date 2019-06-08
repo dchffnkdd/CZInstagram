@@ -41,7 +41,7 @@ class FeedListEventHandler: Middleware {
     }
 }
 
-private extension FeedListEventHandler {
+fileprivate extension FeedListEventHandler {
     func selectedCell(feedModel: CZFeedModel) {
         if let viewModel = feedModel.viewModel as? FeedCellViewModel {
             let detailsVC = FeedDetailsViewController(feed: viewModel.feed)
