@@ -15,7 +15,7 @@ class ServicesProxy: NSObject {
     }()
 
     private var baseURL: String
-    private var presetParams: [AnyHashable: Any]? // ["access_token": ""] etc.
+    private var presetParams: [AnyHashable: Any]?
     private let httpManager: CZHTTPManager
     
     override init() {
@@ -38,46 +38,15 @@ class ServicesProxy: NSObject {
                                     success: @escaping (Model) -> Void,
                                     failure: @escaping (Error) -> Void,
                                     cached: ((Model) -> Void)? = nil) {
-        typealias Completion = (Model) -> Void
-        let modelingHandler = { (completion: Completion?, task: URLSessionDataTask?, data: Data?) in
-            let data: Data? = {
-                guard let dataKey = dataKey,
-                      let dict = CZHTTPJsonSerializer.deserializedObject(with: data) as? CZDictionary,
-                      let dataDict = dict[dataKey] else {
-                        return data
-                }
-                return CZHTTPJsonSerializer.jsonData(with: dataDict)
-            }()
-            let model: Model = CodableHelper.decode(data)!
-            completion?(model)
-        }
-        
-        getData(endPoint,
-                params: params,
-                success: { (task, data) in
-            modelingHandler(success, task, data)
-        },failure: {(task, error) in
-            failure(error)
-        }, cached: { (task, data) in
-            modelingHandler(cached, task, data)
-        })
-    }
-    
-    private func getData(_ endPoint: String,
-                         params: [AnyHashable: Any]? = nil,
-                         success: @escaping HTTPRequestWorker.Success,
-                         failure: @escaping HTTPRequestWorker.Failure,
-                         cached: HTTPRequestWorker.Cached? = nil,
-                         progress: HTTPRequestWorker.Progress? = nil) {
-        httpManager.GET(urlString(endPoint),
-                        params: wrappedParams(params),
-                        success: { (sessionTask, data) in
-                            success(sessionTask, data)
-        }, failure: { (sessionTask, error) in
-            dbgPrint("Failed to fetch \(endPoint) Error: \n\n\(error)")
-            failure(sessionTask, error)
-        }, cached: cached,
-           progress: progress)
+        httpManager.GETCodableModel(
+            urlString(endPoint),
+            params: wrappedParams(params),
+            dataKey: dataKey,
+            success: success,
+            failure: {(task, error) in
+                failure(error)
+            },
+            cached: cached)
     }
 
     func postData(_ endPoint: String,

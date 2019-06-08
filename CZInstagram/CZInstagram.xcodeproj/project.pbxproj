@@ -25,8 +25,6 @@
 		2A865AC321F8E37B007C7F19 /* feeds.json in Resources */ = {isa = PBXBuildFile; fileRef = 2A865ABE21F8E37B007C7F19 /* feeds.json */; };
 		2A945A9C2215AA0100B4517A /* ReactiveListViewKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AFB0D7221F77685009697AC /* ReactiveListViewKit.framework */; };
 		2A945A9D2215AA0100B4517A /* ReactiveListViewKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2AFB0D7221F77685009697AC /* ReactiveListViewKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		2A945AA32215AA0600B4517A /* CZNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AB416D921F8E9CD006F1F7D /* CZNetworking.framework */; };
-		2A945AA42215AA0600B4517A /* CZNetworking.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2AB416D921F8E9CD006F1F7D /* CZNetworking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2AD9851121F8BFA60010DF34 /* users.json in Resources */ = {isa = PBXBuildFile; fileRef = 2AD9850C21F8BFA60010DF34 /* users.json */; };
 		5560A4703F003A7CF4712DB2 /* Pods_CZInstagramUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99352FF4BF824DFED4F36ABE /* Pods_CZInstagramUITests.framework */; };
 		59EE7BDBCC8ECE6B4CB44B58 /* Pods_CZInstagramTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C094810A6D359CA64336807C /* Pods_CZInstagramTests.framework */; };
@@ -81,6 +79,27 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		2A09603E22ABC373007B74ED /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2A09603922ABC373007B74ED /* CZNetworking.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 044E02481F74349B00849AA2;
+			remoteInfo = CZNetworking;
+		};
+		2A09604022ABC373007B74ED /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2A09603922ABC373007B74ED /* CZNetworking.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 044E02511F74349B00849AA2;
+			remoteInfo = CZNetworkingTests;
+		};
+		2A09604222ABC379007B74ED /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2A09603922ABC373007B74ED /* CZNetworking.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 044E02471F74349B00849AA2;
+			remoteInfo = CZNetworking;
+		};
 		2A0C7C741F949CC4004F4B17 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 2A3ECC141F949AA000CF9EF3 /* CZJsonModel.xcodeproj */;
@@ -116,13 +135,6 @@
 			remoteGlobalIDString = 044E032B1F74458B00849AA2;
 			remoteInfo = ReactiveListViewKit;
 		};
-		2A945AA52215AA0600B4517A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2AB416D221F8E9CD006F1F7D /* CZNetworking.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 044E02471F74349B00849AA2;
-			remoteInfo = CZNetworking;
-		};
 		2AB416CE21F8E9A9006F1F7D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 2AB416C921F8E9A9006F1F7D /* CZUtils.xcodeproj */;
@@ -137,33 +149,12 @@
 			remoteGlobalIDString = C39982D31F7739EA00775B6C;
 			remoteInfo = CZUtilsTests;
 		};
-		2AB416D821F8E9CD006F1F7D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2AB416D221F8E9CD006F1F7D /* CZNetworking.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 044E02481F74349B00849AA2;
-			remoteInfo = CZNetworking;
-		};
-		2AB416DA21F8E9CD006F1F7D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2AB416D221F8E9CD006F1F7D /* CZNetworking.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 044E02511F74349B00849AA2;
-			remoteInfo = CZNetworkingTests;
-		};
 		2AB416DC21F8E9D6006F1F7D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 2AB416C921F8E9A9006F1F7D /* CZUtils.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = C39982C91F7739EA00775B6C;
 			remoteInfo = CZUtils;
-		};
-		2AB416DE21F8E9D8006F1F7D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2AB416D221F8E9CD006F1F7D /* CZNetworking.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 044E02471F74349B00849AA2;
-			remoteInfo = CZNetworking;
 		};
 		2AFB0D7121F77685009697AC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -212,7 +203,6 @@
 				2A5311361F7E2CCB007D565D /* CZUtils.framework in Embed Frameworks */,
 				2A945A9D2215AA0100B4517A /* ReactiveListViewKit.framework in Embed Frameworks */,
 				2A0C7C771F949CCC004F4B17 /* CZJsonModel.framework in Embed Frameworks */,
-				2A945AA42215AA0600B4517A /* CZNetworking.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -222,6 +212,7 @@
 /* Begin PBXFileReference section */
 		1BEA25CCC12D8D13B336A988 /* Pods-CZInstagramUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CZInstagramUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CZInstagramUITests/Pods-CZInstagramUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		1D332FFE01F4C367ACD92CF9 /* Pods-CZInstagram.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CZInstagram.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CZInstagram/Pods-CZInstagram.debug.xcconfig"; sourceTree = "<group>"; };
+		2A09603922ABC373007B74ED /* CZNetworking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CZNetworking.xcodeproj; path = CZInstagram/Utils/CZNetworking/CZNetworking.xcodeproj; sourceTree = "<group>"; };
 		2A0C7C581F949C55004F4B17 /* HotUserCellCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HotUserCellCardView.swift; path = "UI Layer/FeedList/HotUsers/HotUserCellCardView.swift"; sourceTree = "<group>"; };
 		2A0C7C591F949C55004F4B17 /* HotUserCellCardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HotUserCellCardView.xib; path = "UI Layer/FeedList/HotUsers/HotUserCellCardView.xib"; sourceTree = "<group>"; };
 		2A0C7C5A1F949C55004F4B17 /* HotUserCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HotUserCellView.swift; path = "UI Layer/FeedList/HotUsers/HotUserCellView.swift"; sourceTree = "<group>"; };
@@ -237,7 +228,6 @@
 		2A5311341F7E2CCB007D565D /* CZUtils.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CZUtils.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A865ABE21F8E37B007C7F19 /* feeds.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = feeds.json; path = Resources/JSON/feeds.json; sourceTree = "<group>"; };
 		2AB416C921F8E9A9006F1F7D /* CZUtils.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CZUtils.xcodeproj; path = CZInstagram/Utils/CZUtils/CZUtils.xcodeproj; sourceTree = "<group>"; };
-		2AB416D221F8E9CD006F1F7D /* CZNetworking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CZNetworking.xcodeproj; path = CZInstagram/Utils/CZNetworking/CZNetworking.xcodeproj; sourceTree = "<group>"; };
 		2AD9850C21F8BFA60010DF34 /* users.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = users.json; path = Resources/JSON/users.json; sourceTree = "<group>"; };
 		2AFB0D6B21F77685009697AC /* ReactiveListViewKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ReactiveListViewKit.xcodeproj; path = CZInstagram/Utils/ReactiveListViewKit/ReactiveListViewKit/ReactiveListViewKit.xcodeproj; sourceTree = "<group>"; };
 		8665D73F98B7512828BD08DD /* Pods-CZInstagramTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CZInstagramTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CZInstagramTests/Pods-CZInstagramTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -310,7 +300,6 @@
 			files = (
 				C1D8357BEF4C65585BF798BC /* Pods_CZInstagram.framework in Frameworks */,
 				2A5311351F7E2CCB007D565D /* CZUtils.framework in Frameworks */,
-				2A945AA32215AA0600B4517A /* CZNetworking.framework in Frameworks */,
 				2A0C7C761F949CCC004F4B17 /* CZJsonModel.framework in Frameworks */,
 				2A945A9C2215AA0100B4517A /* ReactiveListViewKit.framework in Frameworks */,
 			);
@@ -335,6 +324,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2A09603A22ABC373007B74ED /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2A09603F22ABC373007B74ED /* CZNetworking.framework */,
+				2A09604122ABC373007B74ED /* CZNetworkingTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		2A3ECC151F949AA000CF9EF3 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -349,15 +347,6 @@
 			children = (
 				2AB416CF21F8E9A9006F1F7D /* CZUtils.framework */,
 				2AB416D121F8E9A9006F1F7D /* CZUtilsTests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		2AB416D321F8E9CD006F1F7D /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				2AB416D921F8E9CD006F1F7D /* CZNetworking.framework */,
-				2AB416DB21F8E9CD006F1F7D /* CZNetworkingTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -470,7 +459,7 @@
 			isa = PBXGroup;
 			children = (
 				2AFB0D6B21F77685009697AC /* ReactiveListViewKit.xcodeproj */,
-				2AB416D221F8E9CD006F1F7D /* CZNetworking.xcodeproj */,
+				2A09603922ABC373007B74ED /* CZNetworking.xcodeproj */,
 				2A3ECC141F949AA000CF9EF3 /* CZJsonModel.xcodeproj */,
 				2AB416C921F8E9A9006F1F7D /* CZUtils.xcodeproj */,
 				E1CD1F8E1F5B831E00CE529F /* CZInstagram */,
@@ -644,13 +633,12 @@
 			buildRules = (
 			);
 			dependencies = (
+				2A09604322ABC379007B74ED /* PBXTargetDependency */,
 				2AB416DD21F8E9D6006F1F7D /* PBXTargetDependency */,
-				2AB416DF21F8E9D8006F1F7D /* PBXTargetDependency */,
 				2AFB0D7621F776A0009697AC /* PBXTargetDependency */,
 				2A0C7C751F949CC4004F4B17 /* PBXTargetDependency */,
 				2A0C7C791F949CCC004F4B17 /* PBXTargetDependency */,
 				2A945A9F2215AA0200B4517A /* PBXTargetDependency */,
-				2A945AA62215AA0600B4517A /* PBXTargetDependency */,
 			);
 			name = CZInstagram;
 			productName = CZInstagram;
@@ -745,8 +733,8 @@
 					ProjectRef = 2A3ECC141F949AA000CF9EF3 /* CZJsonModel.xcodeproj */;
 				},
 				{
-					ProductGroup = 2AB416D321F8E9CD006F1F7D /* Products */;
-					ProjectRef = 2AB416D221F8E9CD006F1F7D /* CZNetworking.xcodeproj */;
+					ProductGroup = 2A09603A22ABC373007B74ED /* Products */;
+					ProjectRef = 2A09603922ABC373007B74ED /* CZNetworking.xcodeproj */;
 				},
 				{
 					ProductGroup = 2AB416CA21F8E9A9006F1F7D /* Products */;
@@ -767,6 +755,20 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		2A09603F22ABC373007B74ED /* CZNetworking.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = CZNetworking.framework;
+			remoteRef = 2A09603E22ABC373007B74ED /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2A09604122ABC373007B74ED /* CZNetworkingTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = CZNetworkingTests.xctest;
+			remoteRef = 2A09604022ABC373007B74ED /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		2A3ECC1B1F949AA000CF9EF3 /* CZJsonModel.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -793,20 +795,6 @@
 			fileType = wrapper.cfbundle;
 			path = CZUtilsTests.xctest;
 			remoteRef = 2AB416D021F8E9A9006F1F7D /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		2AB416D921F8E9CD006F1F7D /* CZNetworking.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = CZNetworking.framework;
-			remoteRef = 2AB416D821F8E9CD006F1F7D /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		2AB416DB21F8E9CD006F1F7D /* CZNetworkingTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = CZNetworkingTests.xctest;
-			remoteRef = 2AB416DA21F8E9CD006F1F7D /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		2AFB0D7221F77685009697AC /* ReactiveListViewKit.framework */ = {
@@ -1088,6 +1076,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		2A09604322ABC379007B74ED /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = CZNetworking;
+			targetProxy = 2A09604222ABC379007B74ED /* PBXContainerItemProxy */;
+		};
 		2A0C7C751F949CC4004F4B17 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = CZJsonModel;
@@ -1103,20 +1096,10 @@
 			name = ReactiveListViewKit;
 			targetProxy = 2A945A9E2215AA0200B4517A /* PBXContainerItemProxy */;
 		};
-		2A945AA62215AA0600B4517A /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = CZNetworking;
-			targetProxy = 2A945AA52215AA0600B4517A /* PBXContainerItemProxy */;
-		};
 		2AB416DD21F8E9D6006F1F7D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = CZUtils;
 			targetProxy = 2AB416DC21F8E9D6006F1F7D /* PBXContainerItemProxy */;
-		};
-		2AB416DF21F8E9D8006F1F7D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = CZNetworking;
-			targetProxy = 2AB416DE21F8E9D8006F1F7D /* PBXContainerItemProxy */;
 		};
 		2AFB0D7621F776A0009697AC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

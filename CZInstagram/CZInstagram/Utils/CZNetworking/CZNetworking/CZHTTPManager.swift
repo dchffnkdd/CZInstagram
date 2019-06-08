@@ -6,7 +6,7 @@
 //  Copyright © 2016 Cheng Zhang. All rights reserved.
 //
 
-import UIKit
+import CZUtils
 
 /**
  Asynchronous HTTP requests manager based on NSOperationQueue
@@ -27,63 +27,124 @@ open class CZHTTPManager: NSObject {
     }
     
     public func GET(_ urlStr: String,
-                    params: HTTPRequestWorker.Params? = nil,
                     headers: HTTPRequestWorker.Headers? = nil,
-                    success: @escaping HTTPRequestWorker.Success,
-                    failure: @escaping HTTPRequestWorker.Failure,
+                    params: HTTPRequestWorker.Params? = nil,
+                    success: HTTPRequestWorker.Success? = nil,
+                    failure: HTTPRequestWorker.Failure? = nil,
                     cached: HTTPRequestWorker.Cached? = nil,
                     progress: HTTPRequestWorker.Progress? = nil) {
-        startRequester(
+        startOperation(
             .GET,
             urlStr: urlStr,
-            params: params,
             headers: headers,
+            params: params,
             success: success,
             failure: failure,
             cached: cached,
             progress: progress)
     }
     
+    public func GETCodableModel<Model: Codable>(_ urlStr: String,
+                                                headers: HTTPRequestWorker.Headers? = nil,
+                                                params: HTTPRequestWorker.Params? = nil,
+                                                dataKey: String? = nil,
+                                                success: @escaping (Model) -> Void,
+                                                failure: HTTPRequestWorker.Failure? = nil,
+                                                cached: ((Model) -> Void)? = nil,
+                                                progress: HTTPRequestWorker.Progress? = nil) {
+        
+        let modelingHandler = { (completion: ((Model) -> Void)?, task: URLSessionDataTask?, data: Data?) in
+            let retrievedData: Data? = {
+                // With given dataKey, retrieve corresponding field from dictionary
+                if let dataKey = dataKey,
+                    let dict = CZHTTPJsonSerializer.deserializedObject(with: data) as? [AnyHashable : Any],
+                    let dataDict = dict[dataKey]  {
+                    return CZHTTPJsonSerializer.jsonData(with: dataDict)
+                }
+                // Othewise, return directly as data should be decodable
+                return data
+            }()
+            
+            guard let model: Model = CodableHelper.decode(retrievedData).assertIfNil else {
+                failure?(task, CZNetError.parse)
+                return
+            }
+            completion?(model)
+        }
+        
+        GET(urlStr,
+            headers: headers,
+            params: params,
+            success: { (task, data) in
+                modelingHandler(success, task, data)
+            },
+            failure: failure,
+            cached: { (task, data) in
+                modelingHandler(cached, task, data)
+            },
+           progress: progress)
+    }
+    
     public func POST(_ urlStr: String,
                      contentType: HTTPRequestWorker.ContentType = .formUrlencoded,
+                     headers: HTTPRequestWorker.Headers? = nil,
                      params: HTTPRequestWorker.Params? = nil,
                      data: Data? = nil,
-                     headers: HTTPRequestWorker.Headers? = nil,
-                     success: @escaping HTTPRequestWorker.Success,
-                     failure: @escaping HTTPRequestWorker.Failure,
+                     success: HTTPRequestWorker.Success? = nil,
+                     failure: HTTPRequestWorker.Failure? = nil,
                      progress: HTTPRequestWorker.Progress? = nil) {
-        startRequester(
+        startOperation(
             .POST(contentType, data),
             urlStr: urlStr,
-            params: params,
             headers: headers,
+            params: params,
             success: success,
             failure: failure,
             progress: progress)
     }
     
     public func DELETE(_ urlStr: String,
-                       params: HTTPRequestWorker.Params? = nil,
                        headers: HTTPRequestWorker.Headers? = nil,
-                       success: @escaping HTTPRequestWorker.Success,
-                       failure: @escaping HTTPRequestWorker.Failure) {
-        startRequester(
+                       params: HTTPRequestWorker.Params? = nil,
+                       success: HTTPRequestWorker.Success? = nil,
+                       failure: HTTPRequestWorker.Failure? = nil) {
+        startOperation(
             .DELETE,
             urlStr: urlStr,
-            params: params,
             headers: headers,
+            params: params,
             success: success,
             failure: failure)
+    }
+    
+    public func UPLOAD(_ urlStr: String,
+                       headers: HTTPRequestWorker.Headers? = nil,
+                       params: HTTPRequestWorker.Params? = nil,
+                       fileName: String? = nil,
+                       data: Data,
+                       success: HTTPRequestWorker.Success? = nil,
+                       failure: HTTPRequestWorker.Failure? = nil,
+                       progress: HTTPRequestWorker.Progress? = nil) {
+        let fileName = fileName ?? UUID.generate()
+        startOperation(
+            .UPLOAD(fileName, data),
+            urlStr: urlStr,
+            headers: headers,
+            params: params,
+            success: success,
+            failure: failure,
+            progress: progress)
     }
 }
 
 private extension CZHTTPManager {
-    func startRequester(_ requestType: HTTPRequestWorker.RequestType,
+    
+    func startOperation(_ requestType: HTTPRequestWorker.RequestType,
                         urlStr: String,
-                        params: HTTPRequestWorker.Params? = nil,
                         headers: HTTPRequestWorker.Headers? = nil,
-                        success: @escaping HTTPRequestWorker.Success,
-                        failure: @escaping HTTPRequestWorker.Failure,
+                        params: HTTPRequestWorker.Params? = nil,
+                        success: HTTPRequestWorker.Success? = nil,
+                        failure: HTTPRequestWorker.Failure? = nil,
                         cached: HTTPRequestWorker.Cached? = nil,
                         progress: HTTPRequestWorker.Progress? = nil) {
         let op = HTTPRequestWorker(

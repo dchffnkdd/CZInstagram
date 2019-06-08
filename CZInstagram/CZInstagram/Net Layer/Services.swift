@@ -13,7 +13,7 @@ import ReactiveListViewKit
 class Services: NSObject {
     static let shared = Services()
     private let kBaseURL = "https://api.instagram.com/v1"
-    private let accessToken = "5956152420.6d6cef1.e003104aee864ac1bf9a81c53703294b"
+    private let accessToken = "5956152420.6d6cef1.80211b1480af4b74a11d239e091c83ed"
     private lazy var servicesProxy: ServicesProxy = {
         return ServicesProxy(baseURL: self.kBaseURL,
                              presetParams: ["access_token": self.accessToken])
