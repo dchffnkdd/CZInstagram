@@ -8,7 +8,9 @@
 
 import UIKit
 
-/// Text based SupplementaryView for SectionHeaderView/SectionFooterView
+/**
+ Text based SupplementaryView for SectionHeaderView/SectionFooterView
+ */
 open class CZFeedListSupplementaryTextFeedModel: CZFeedModel {
     public init(title: String,
                 actionButtonText: String? = nil,
@@ -75,7 +77,7 @@ open class CZFeedListSupplementaryTextViewModel: NSObject, CZFeedViewModelable {
 
 open class CZFeedListSupplementaryTextView: UIView, CZFeedCellViewSizeCalculatable {
     public typealias ActionButtonClosure = (UIButton) -> Void
-    public var onEvent: OnEvent?
+    public var onAction: OnAction?
     private var titleLabel: UILabel!
     private lazy var actionButton: UIButton = UIButton(frame: .zero)
     private let topDivider = CZDividerView()
@@ -89,9 +91,9 @@ open class CZFeedListSupplementaryTextView: UIView, CZFeedCellViewSizeCalculatab
         return viewModel?.diffId ?? ""
     }
     
-    public required init(viewModel: CZFeedViewModelable?, onEvent: OnEvent?) {
+    public required init(viewModel: CZFeedViewModelable?, onAction: OnAction?) {
         self.viewModel = viewModel as? CZFeedListSupplementaryTextViewModel
-        self.onEvent = onEvent
+        self.onAction = onAction
         super.init(frame: .zero)
         config(with: viewModel)
     }

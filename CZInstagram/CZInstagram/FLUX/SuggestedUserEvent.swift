@@ -1,5 +1,5 @@
 //
-//  SuggestedUserEvent.swift
+//  SuggestedUserAction.swift
 //  CZInstagram
 //
 //  Created by Cheng Zhang on 3/28/17.
@@ -9,7 +9,7 @@
 import UIKit
 import ReactiveListViewKit
 
-enum SuggestedUserEvent: Event {
+enum SuggestedUserAction: Action {
     case follow(user: User)
     case ignore(user: User)        
 }

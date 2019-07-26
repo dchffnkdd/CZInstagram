@@ -8,9 +8,9 @@
 
 import UIKit
 
-/// Fundamental protocol of eventful Component
-public protocol CZEventable: class {
-    var onEvent: OnEvent? {get set}
+/// Fundamental protocol of actionable Component
+public protocol CZActionable: class {
+    var onAction: OnAction? {get set}
 }
 
 /// Fundamental CellView protocol, compatible with UICollectionViewCell/View/ViewController
@@ -24,19 +24,19 @@ public protocol CZEventable: class {
 ///     - if CZFeedCellViewable is `UIView`, it will be appended to underlying UIStackView
 ///     - if CZFeedCellViewable is `UIViewController`, its `didMove(to:)` parentViewController method will be invoked and its `view` will be automatically appended to UIStackView
 ///
-public protocol CZFeedCellViewable: NSObjectProtocol, CZEventable {
+public protocol CZFeedCellViewable: NSObjectProtocol, CZActionable {
     // diffId is used to match view and ViewModel if corresponding ViewModel changes
     var diffId: String {get}
-    // Event hanlder closure
-    var onEvent: OnEvent? {get set}
+    // Action hanlder closure
+    var onAction: OnAction? {get set}
 
     /// Initializer of FeedCellView
     ///
     /// - Parameters:
     ///   - viewModel: ViewModel of FeedCellView
-    ///   - onEvent: Event handler for events of cellView, cellView can propagate customEvent
+    ///   - onAction: Action handler for actions of cellView, cellView can propagate customAction
     ///              e.g. `OptionSelect`, like/comment/share
-    init(viewModel: CZFeedViewModelable?, onEvent: OnEvent?)
+    init(viewModel: CZFeedViewModelable?, onAction: OnAction?)
     func config(with viewModel: CZFeedViewModelable?)
     func config(with viewModel: CZFeedViewModelable?, prevViewModel: CZFeedViewModelable?)
 }

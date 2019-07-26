@@ -15,14 +15,14 @@ class FeedDetailsViewModel: NSObject, NSCopying {
     private(set) var page: Int = 0
     private(set) var isLoadingFeeds: Bool = false
     private(set) var lastMinFeedId: String = "-1"
-    var core: Core<FeedDetailsState>?
+    var store: Store<FeedDetailsState>?
 
     init(feed: Feed) {
         self.feed = feed
         super.init()
     }
 
-    lazy var sectionModelsResolver: CZFeedListFacadeView.SectionModelsResolver = { (feeds: [Any]) -> [CZSectionModel] in
+    lazy var sectionModelsTransformer: CZFeedListFacadeView.SectionModelsTransformer = { (feeds: [Any]) -> [CZSectionModel] in
         guard let feeds = feeds as? [Comment] else { fatalError() }
         // Header Section
         let headCellViewModel = FeedCellViewModel(self.feed)
@@ -55,7 +55,7 @@ class FeedDetailsViewModel: NSObject, NSCopying {
             break
         }
 
-        core?.fire(event: FeedDetailsEvent.fetchingFeeds(fetchType))
+        store?.dispatch(action: FeedDetailsAction.fetchingFeeds(fetchType))
 
         var params: [AnyHashable: Any] = ["count": "\(Instagram.FeedDetails.countPerPage)"]
         if isLoadMore {
@@ -76,8 +76,8 @@ class FeedDetailsViewModel: NSObject, NSCopying {
                 } else {
                     self.feeds = feeds
                 }
-                // Fire event after fetch feeds, notify subscribers to update UI
-                self.core?.fire(event: FeedDetailsEvent.fetchedFeeds)
+                // Fire action after fetch feeds, notify subscribers to update UI
+                self.store?.dispatch(action: FeedDetailsAction.fetchedFeeds)
             }, failure: { error in
                 self.isLoadingFeeds = false
         })
@@ -89,11 +89,11 @@ class FeedDetailsViewModel: NSObject, NSCopying {
 }
 
 extension FeedDetailsViewModel: State {
-    func react(to event: Event) {
-        feeds.forEach {$0.react(to: event)}
+    func reduce(action: Action) {
+        feeds.forEach {$0.reduce(action: action)}
 
-        switch event {
-        case let CZFeedListViewEvent.selectedCell(feedModel):
+        switch action {
+        case let CZFeedListViewAction.selectedCell(feedModel):
             CZUtils.dbgPrint(feedModel)
             if let viewModel = feedModel.viewModel as? FeedCellViewModel {
                 let success = { (data: Any?) in

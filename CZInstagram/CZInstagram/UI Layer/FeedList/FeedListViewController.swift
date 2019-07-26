@@ -10,21 +10,21 @@ import CZUtils
 import ReactiveListViewKit
 
 class FeedListViewController: UIViewController {
-    /// Core - Composition of Dispatcher/Store
-    private(set) var core: Core<FeedListState>
+    /// Store that maintains State
+    private(set) var store: Store<FeedListState>
     /// List view that populates feeds
     private(set) var feedListFacadeView: CZReactiveFeedListFacadeView<FeedListState>?
 
     init() {
-        // Setup `Core` of FLUX pattern
+        // Setup `Store` of FLUX pattern
         let viewModel = FeedListViewModel()
-        let eventHandler = FeedListEventHandler()
-        core = Core<FeedListState>.init(state: FeedListState(viewModel: viewModel), middlewares: [eventHandler])
+        let actionHandler = FeedListActionHandler()
+        store = Store<FeedListState>.init(state: FeedListState(viewModel: viewModel), middlewares: [actionHandler])
         super.init(nibName:nil, bundle: .main)
         
-        viewModel.core = core
-        eventHandler.core = core
-        eventHandler.coordinator = self
+        viewModel.store = store
+        actionHandler.store = store
+        actionHandler.coordinator = self
     }
     required init?(coder aDecoder: NSCoder) { fatalError("Should call designated initilizer.") }
 
@@ -32,17 +32,17 @@ class FeedListViewController: UIViewController {
         super.viewDidLoad()
         // Set up list view
         setupFeedListView()
-        // Add self as subscriber of `core`, will get notified on state change
-        core.add(subscriber: self)
-        // Fire `pullToRefresh` event that triggers fetch feeds command
-        core.fire(event: CZFeedListViewEvent.pullToRefresh(isFirst: true))
+        // Add self as subscriber of `store`, will get notified on state change
+        store.subscribe(self)
+        // Fire `pullToRefresh` action that triggers fetch feeds command
+        store.dispatch(action: CZFeedListViewAction.pullToRefresh(isFirst: true))
     }
 }
 
 private extension FeedListViewController {
     func setupFeedListView() {
-        feedListFacadeView = CZReactiveFeedListFacadeView<FeedListState>(core: core,
-                                                                         sectionModelsResolver: core.state.viewModel.sectionModelsResolver,
+        feedListFacadeView = CZReactiveFeedListFacadeView<FeedListState>(store: store,
+                                                                         sectionModelsTransformer: store.state.viewModel.sectionModelsTransformer,
                                                                          parentViewController: self)
         feedListFacadeView?.overlayOnSuperViewController(self, insets: Constants.feedListViewInsets)
     }
@@ -62,7 +62,7 @@ extension FeedListViewController: Subscriber {
     }
     
     func reloadFeedListView() {
-        feedListFacadeView?.batchUpdate(withFeeds: core.state.viewModel.feeds)
+        feedListFacadeView?.batchUpdate(withFeeds: store.state.viewModel.feeds)
     }
 }
 

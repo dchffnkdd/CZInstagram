@@ -8,14 +8,16 @@
 
 import UIKit
 
-/// Convenience helper class for `FacadeView`
+/**
+ Convenience helper class for `FacadeView`
+ */
 public class CZFacadeViewHelper: NSObject {
     /// Calculate cell size based on input params, adaptive to `UICollectionViewCell`/`UIView`/`UIViewController`
     public static func sizeThatFits(_ containerSize: CGSize,
                                     viewModel: CZFeedViewModelable,
                                     viewClass: CZFeedCellViewable.Type,
                                     isHorizontal: Bool = false) -> CGSize {
-        let tmpComponent = viewClass.init(viewModel: viewModel, onEvent: nil)
+        let tmpComponent = viewClass.init(viewModel: viewModel, onAction: nil)
         let tmpView: UIView
         switch tmpComponent {
         case let tmpComponent as UIView:

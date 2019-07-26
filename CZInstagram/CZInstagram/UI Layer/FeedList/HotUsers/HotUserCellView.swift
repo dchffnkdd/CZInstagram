@@ -26,20 +26,20 @@ class HotUserCellView: CZNibLoadableView, CZFeedCellViewSizeCalculatable {
     
     private var viewModel: HotUserCellViewModel    
     var diffId: String {return viewModel.diffId}
-    var onEvent: OnEvent?
+    var onAction: OnAction?
 
-    required init(viewModel: CZFeedViewModelable?, onEvent: OnEvent?) {
+    required init(viewModel: CZFeedViewModelable?, onAction: OnAction?) {
         guard let viewModel = viewModel as? HotUserCellViewModel else {
             fatalError("Incorrect ViewModel type.")
         }
         self.viewModel = viewModel
-        self.onEvent = onEvent
+        self.onAction = onAction
         super.init(frame: .zero)
         config(with: viewModel)
     }
 
     required init?(coder aDecoder: NSCoder) {
-        fatalError("Must call designated initializer `init(viewModel:onEvent:)`")
+        fatalError("Must call designated initializer `init(viewModel:onAction:)`")
     }
 
     func config(with viewModel: CZFeedViewModelable?) {
@@ -48,12 +48,12 @@ class HotUserCellView: CZNibLoadableView, CZFeedCellViewSizeCalculatable {
         }
         if let portraitUrl = viewModel.portraitUrl {
             portaitView?.sd_setImage(with: portraitUrl)
-            portaitView?.roundToCircleWithFrame()
+            portaitView?.roundToCircle()
         }
         nameLabel?.text = viewModel.userName
         detailsLabel?.text = viewModel.fullName
         
-        frameView?.roundCornerWithFrame(cornerRadius: 2)
+        frameView?.roundCorner(2)
     }
 
     static func sizeThatFits(_ containerSize: CGSize, viewModel: CZFeedViewModelable) -> CGSize {

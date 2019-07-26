@@ -3,39 +3,37 @@ import Foundation
 // MARK: - State
 
 public protocol State {
-    mutating func react(to event: Event)
+    mutating func reduce(action: Action)
 }
 
 public protocol CopyableState: State, NSCopying {}
 
-// MARK: - Events
+// MARK: - Actions
 
-public protocol Event {}
-
+public protocol Action {}
 
 // MARK: - Commands
 
 public protocol Command {
     associatedtype StateType: CopyableState
-    func execute(state: StateType, core: Core<StateType>)
+    func execute(state: StateType, store: Store<StateType>)
 }
-
 
 // MARK: - Middlewares
 
 public protocol AnyMiddleware {
-    func _process(event: Event, state: Any)
+    func _process(action: Action, state: Any)
 }
 
 public protocol Middleware: AnyMiddleware {
     associatedtype StateType
-    func process(event: Event, state: StateType)
+    func process(action: Action, state: StateType)
 }
 
 extension Middleware {
-    public func _process(event: Event, state: Any) {
+    public func _process(action: Action, state: Any) {
         if let state = state as? StateType {
-            process(event: event, state: state)
+            process(action: action, state: state)
         }
     }
 }
@@ -80,8 +78,9 @@ public struct Subscription<StateType: State> {
     }
 }
 
-// MARK: - Core
-public class Core<StateType: CopyableState> {
+// MARK: - Store
+
+public class Store<StateType: CopyableState> {
     public private (set) var prevState: StateType?
     /// Main State
     public private (set) var state: StateType {
@@ -95,8 +94,8 @@ public class Core<StateType: CopyableState> {
         }
     }
 
-    private let jobQueue:DispatchQueue = DispatchQueue(label: "reactor.core.queue", qos: .userInitiated, attributes: [])
-    private let subscriptionsSyncQueue = DispatchQueue(label: "reactor.core.subscription.sync")
+    private let jobQueue:DispatchQueue = DispatchQueue(label: "reactor.store.queue", qos: .userInitiated, attributes: [])
+    private let subscriptionsSyncQueue = DispatchQueue(label: "reactor.store.subscription.sync")
     private var _subscriptions = [Subscription<StateType>]()
     private var subscriptions: [Subscription<StateType>] {
         get {
@@ -112,16 +111,14 @@ public class Core<StateType: CopyableState> {
     }
     private let middlewares: [Middlewares<StateType>]
     
-    public init(state: StateType, middlewares: [AnyMiddleware] = [], useGCD: Bool = false) {
+    public init(state: StateType, middlewares: [AnyMiddleware] = []) {
         self.state = state
         self.middlewares = middlewares.map(Middlewares.init)
-        shouldUseGCD = useGCD
     }
-    
     
     // MARK: - Subscriptions
     
-    public func add(subscriber: AnySubscriber, notifyOnQueue queue: DispatchQueue? = DispatchQueue.main, selector: ((StateType) -> Any)? = nil) {
+    public func subscribe(_ subscriber: AnySubscriber, notifyOnQueue queue: DispatchQueue? = DispatchQueue.main, selector: ((StateType) -> Any)? = nil) {
         internalDispatch(.async, queue: jobQueue) {
             guard !self.subscriptions.contains(where: {$0.subscriber === subscriber}) else { return }
             let subscription = Subscription(subscriber: subscriber, selector: selector, notifyQueue: queue ?? self.jobQueue)
@@ -134,41 +131,32 @@ public class Core<StateType: CopyableState> {
         subscriptions = subscriptions.filter { $0.subscriber !== subscriber }
     }
     
-    // MARK: - Events
+    // MARK: - Actions
     
-    public func fire(event: Event) {
-        let eventString = String(describing: event).components(separatedBy: "\n").first
-        dbgPrint("Reactor - Fired event: \(eventString!)")
+    public func dispatch(action: Action) {
+        let actionString = String(describing: action).components(separatedBy: "\n").first
+        dbgPrint("Reactor - Fired action: \(actionString!)")
         internalDispatch(.async, queue: jobQueue) {
-            self.state.react(to: event)
+            self.state.reduce(action: action)
             let state = self.state
-            self.middlewares.forEach { $0.middleware._process(event: event, state: state) }
+            self.middlewares.forEach { $0.middleware._process(action: action, state: state) }
         }
     }
     
     public func fire<C: Command>(command: C) where C.StateType == StateType {
         internalDispatch(.async, queue: jobQueue) {
-            command.execute(state: self.state, core: self)
+            command.execute(state: self.state, store: self)
         }
     }
 }
 
 // MARK: - Internal Adapative Dispatch
 
-private var shouldUseGCD: Bool = false
 private enum DispatchType {
     case sync, async
 }
 private func internalDispatch<T>(_ type: DispatchType, queue: DispatchQueue, closure: @escaping ()->T) -> T? {
-    var queue = queue
-    var useGCD: Bool = shouldUseGCD
-    if !Thread.current.isMainThread &&
-       !shouldUseGCD {
-        queue = DispatchQueue.main
-        useGCD = true
-    }
-
-    if useGCD {
+    if ReactiveListViewKit.useGCD {
         switch type {
         case .sync:
             return queue.sync(execute: closure)

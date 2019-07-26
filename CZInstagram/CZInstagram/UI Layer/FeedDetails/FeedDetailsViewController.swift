@@ -10,18 +10,18 @@ import CZUtils
 import ReactiveListViewKit
 
 class FeedDetailsViewController: UIViewController {
-    private(set) var core: Core<FeedDetailsState>
+    private(set) var store: Store<FeedDetailsState>
     private(set) var viewModel: FeedDetailsViewModel
-    private(set) var eventHandler: FeedDetailsEventHandler
+    private(set) var actionHandler: FeedDetailsActionHandler
     private(set) var feedListFacadeView: CZFeedListFacadeView?
     private(set) var isFirstVisible = false
 
     init(feed: Feed) {
         viewModel = FeedDetailsViewModel(feed: feed)
-        eventHandler = FeedDetailsEventHandler()
-        core = Core<FeedDetailsState>.init(state: FeedDetailsState(viewModel: viewModel), middlewares: [eventHandler])
-        viewModel.core = core
-        eventHandler.core = core
+        actionHandler = FeedDetailsActionHandler()
+        store = Store<FeedDetailsState>.init(state: FeedDetailsState(viewModel: viewModel), middlewares: [actionHandler])
+        viewModel.store = store
+        actionHandler.store = store
         super.init(nibName:nil, bundle: .main)
     }
     required init?(coder aDecoder: NSCoder) { fatalError("Should call designated initilizer.") }
@@ -33,18 +33,18 @@ class FeedDetailsViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         if !isFirstVisible {
             isFirstVisible = true
-            core.add(subscriber: self)
+            store.subscribe(self)
             setupFeedDetailsView()
-            core.fire(event: CZFeedListViewEvent.pullToRefresh(isFirst: true))
+            store.dispatch(action: CZFeedListViewAction.pullToRefresh(isFirst: true))
         }
     }
 }
 
 private extension FeedDetailsViewController {
     func setupFeedDetailsView() {
-        feedListFacadeView = CZFeedListFacadeView(sectionModelsResolver: viewModel.sectionModelsResolver,
-                                                  onEvent: { [weak self] event in
-            self?.core.fire(event: event)
+        feedListFacadeView = CZFeedListFacadeView(sectionModelsTransformer: viewModel.sectionModelsTransformer,
+                                                  onAction: { [weak self] action in
+            self?.store.dispatch(action: action)
         }, backgroundColor: ReactiveListViewKit.GreyBGColor,
            minimumLineSpacing: 0,
            allowLoadMore: false)
@@ -63,7 +63,7 @@ extension FeedDetailsViewController: Subscriber {
         reloadFeedDetailsView()
     }
     func reloadFeedDetailsView() {
-        feedListFacadeView?.batchUpdate(withFeeds: core.state.viewModel.feeds)
+        feedListFacadeView?.batchUpdate(withFeeds: store.state.viewModel.feeds)
     }
 }
 

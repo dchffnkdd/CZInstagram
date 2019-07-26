@@ -28,7 +28,7 @@ class Comment: ReactiveListDiffable {
 }
 
 extension Comment: State {
-    func react(to event: Event) {
+    func reduce(action: Action) {
     }
 
 }

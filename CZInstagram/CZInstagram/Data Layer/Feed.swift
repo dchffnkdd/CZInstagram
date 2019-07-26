@@ -47,11 +47,11 @@ class Feed: ReactiveListDiffable {
 }
 
 extension Feed: State {
-    func react(to event: Event) {
-        switch event {
-        // React to LikeFeed event
-        case let event as LikeFeedEvent:
-            if feedId == event.feed.feedId {
+    func reduce(action: Action) {
+        switch action {
+        // React to LikeFeed action
+        case let action as LikeFeedAction:
+            if feedId == action.feed.feedId {
                 userHasLiked = !userHasLiked
             }
         default:

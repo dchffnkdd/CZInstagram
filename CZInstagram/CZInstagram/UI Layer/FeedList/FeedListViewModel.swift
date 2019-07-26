@@ -21,20 +21,21 @@ class FeedListViewModel: NSObject, NSCopying {
     private(set) var page: Int = 0
     private(set) var isLoadingFeeds: Bool = false
     private(set) var lastMinFeedId: String = "-1"
-    var core: Core<FeedListState>?
-    var sectionModelsResolver: CZFeedListFacadeView.SectionModelsResolver!
+    var store: Store<FeedListState>?
+    var sectionModelsTransformer: CZFeedListFacadeView.SectionModelsTransformer!
 
     override init() {
         super.init()
         
         /// SectionModelsResolver closure -  mapping feeds to sectionModels
-        sectionModelsResolver = { (feeds: [Any]) -> [CZSectionModel] in
+        sectionModelsTransformer = { (feeds: [Any]) -> [CZSectionModel] in
             guard let feeds = feeds as? [Feed] else { fatalError() }
             var sectionModels = [CZSectionModel]()
             
             // 1. HotUsers section
-            let HotUsersFeedModels = self.storyUsers.compactMap { CZFeedModel(viewClass: HotUserCellView.self,
-                                                                           viewModel: HotUserCellViewModel($0)) }
+            let HotUsersFeedModels = self.storyUsers.compactMap {
+                CZFeedModel(viewClass: HotUserCellView.self, viewModel: HotUserCellViewModel($0))
+            }
             
             let hotUsersSectionModel = CZSectionModel(isHorizontal: true,
                                                       heightForHorizontal: HotUserSection.heightForHorizontal,
@@ -52,8 +53,9 @@ class FeedListViewModel: NSObject, NSCopying {
             sectionModels.append(hotUsersSectionModel)
             
             // 2. Feeds section
-            var feedModels = feeds.compactMap { CZFeedModel(viewClass: FeedCellView.self,
-                                                         viewModel: FeedCellViewModel($0)) }
+            var feedModels = feeds.compactMap {
+                CZFeedModel(viewClass: FeedCellView.self, viewModel: FeedCellViewModel($0))                
+            }
             
             // 3. SuggestedUsers - CellViewController
             if feedModels.count > 0 {
@@ -86,7 +88,7 @@ class FeedListViewModel: NSObject, NSCopying {
             break
         }
 
-        core?.fire(event: FeedListEvent.fetchingFeeds(fetchType))
+        store?.dispatch(action: FeedListAction.fetchingFeeds(fetchType))
 
         var params: [AnyHashable: Any] = ["count": "\(Instagram.FeedList.countPerPage)"]
         if isLoadMore {
@@ -105,15 +107,15 @@ class FeedListViewModel: NSObject, NSCopying {
             } else {
                 self.feeds = feeds
             }
-            // Fire event after fetch feeds, notify subscribers to update UI
-            self.core?.fire(event: FeedListEvent.fetchedFeeds)
+            // Fire action after fetch feeds, notify subscribers to update UI
+            self.store?.dispatch(action: FeedListAction.fetchedFeeds)
         }, failure: { error in
                 self.isLoadingFeeds = false
         }, cached: {[weak self] feeds in
             if case let .pullToRefresh(isFirst) = fetchType,
                 isFirst {
                 self?.feeds = feeds
-                self?.core?.fire(event: FeedListEvent.gotCachedFeeds)
+                self?.store?.dispatch(action: FeedListAction.gotCachedFeeds)
             }
         })
     }
@@ -124,11 +126,11 @@ class FeedListViewModel: NSObject, NSCopying {
 }
 
 extension FeedListViewModel: State {
-    func react(to event: Event) {
-        feeds.forEach {$0.react(to: event)}
+    func reduce(action: Action) {
+        feeds.forEach {$0.reduce(action: action)}
 
-        switch event {
-        case let CZFeedListViewEvent.selectedCell(feedModel):
+        switch action {
+        case let CZFeedListViewAction.selectedCell(feedModel):
             CZUtils.dbgPrint(feedModel)
             if let viewModel = feedModel.viewModel as? FeedCellViewModel {
                 let success = { (data: Any?) in

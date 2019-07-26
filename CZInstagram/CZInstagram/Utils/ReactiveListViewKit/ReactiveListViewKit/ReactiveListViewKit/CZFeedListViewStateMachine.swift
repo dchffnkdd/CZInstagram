@@ -8,7 +8,9 @@
 
 import UIKit
 
-/// Elegant State Machine for `CZFeedListFacadeView`
+/**
+ Elegant State Machine for `CZFeedListFacadeView`
+ */
 public class CZFeedListViewStateMachine {
     public enum State {
         case `init`
@@ -22,7 +24,7 @@ public class CZFeedListViewStateMachine {
         case requestingMoreViewModels
         case requestingMoreViewModelsError
     }
-    public enum Event {
+    public enum Action {
         case resetingViewModels
         case appendingViewModels
         case requestingMoreViewModels
@@ -38,8 +40,8 @@ public class CZFeedListViewStateMachine {
         self.state = state
     }
     
-    public func sendEvent(_ event: Event) {
-        switch event {
+    public func sendAction(_ action: Action) {
+        switch action {
         case .resetingViewModels:
             state = .showingViewModels
         case .appendingViewModels:

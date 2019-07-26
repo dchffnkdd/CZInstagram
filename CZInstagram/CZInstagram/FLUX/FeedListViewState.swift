@@ -22,11 +22,11 @@ extension FeedListViewState: RootViewStatable {
 }
 
 extension FeedListViewState: State {
-    mutating func react(to event: Event) {
-        switch event {
-        case let FeedListEvent.fetchingFeeds(fetchingType):
+    mutating func reduce(action: Action) {
+        switch action {
+        case let FeedListAction.fetchingFeeds(fetchingType):
             self = .loadingFeeds(fetchingType)
-        case FeedListEvent.fetchedFeeds:
+        case FeedListAction.fetchedFeeds:
             self = .content
         default:
             break

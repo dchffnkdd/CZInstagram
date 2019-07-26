@@ -8,13 +8,15 @@
 
 import UIKit
 
-/// Internal convenience `UICollectionViewCell` class wrapping input CellView
+/**
+ Internal convenience `UICollectionViewCell` class wrapping input CellView
+ */
 internal class CZFeedListCell: UICollectionViewCell {
     private var model: CZFeedModel?
     // Adaptive to `UIView`/`UIViewController`
     private var cellComponent: CZFeedCellViewSizeCalculatable?
 
-    open func config(with model: CZFeedModel, onEvent: OnEvent?, parentViewController: UIViewController? = nil) {
+    open func config(with model: CZFeedModel, onAction: OnAction?, parentViewController: UIViewController? = nil) {
         defer {
             self.model = model
             cellComponent?.config(with: model.viewModel)
@@ -39,7 +41,7 @@ internal class CZFeedListCell: UICollectionViewCell {
         if let cellComponent = self.cellComponent {
             cellComponent.config(with: model.viewModel)
         } else {
-            self.cellComponent = model.viewClass.init(viewModel: model.viewModel, onEvent: onEvent)
+            self.cellComponent = model.viewClass.init(viewModel: model.viewModel, onAction: onAction)
             let cellView: UIView
             switch cellComponent {
             case let cellComponent as UIView:

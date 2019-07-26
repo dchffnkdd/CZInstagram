@@ -8,7 +8,9 @@
 
 import UIKit
 
-/// Line SupplementaryView for SectionHeaderView/SectionFooterView
+/**
+ Line SupplementaryView for SectionHeaderView/SectionFooterView
+ */
 open class CZFeedListSupplementaryLineFeedModel: CZFeedModel {
     public init(inset: UIEdgeInsets = ReactiveListViewKit.feedListSupplementaryLineFooterViewInset) {
         super.init(viewClass: CZFeedListSupplementaryLineView.self,
@@ -44,7 +46,7 @@ open class CZFeedListSupplementaryLineViewModel: NSObject, CZFeedViewModelable {
 }
 
 open class CZFeedListSupplementaryLineView: UIView, CZFeedCellViewSizeCalculatable {
-    public var onEvent: OnEvent?
+    public var onAction: OnAction?
     public var lineView: UIView!
 
     private lazy var hasSetup: Bool = false
@@ -53,9 +55,9 @@ open class CZFeedListSupplementaryLineView: UIView, CZFeedCellViewSizeCalculatab
         return viewModel?.diffId ?? ""
     }
 
-    public required init(viewModel: CZFeedViewModelable?, onEvent: OnEvent?) {
+    public required init(viewModel: CZFeedViewModelable?, onAction: OnAction?) {
         self.viewModel = viewModel
-        self.onEvent = onEvent
+        self.onAction = onAction
         super.init(frame: .zero)
         setup()
         config(with: viewModel)

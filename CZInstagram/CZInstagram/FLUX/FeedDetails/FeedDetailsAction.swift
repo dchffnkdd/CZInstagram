@@ -1,5 +1,5 @@
 //
-//  FeedDetailsEvents.swift
+//  FeedDetailsActions.swift
 //  CZInstagram
 //
 //  Created by Cheng Zhang on 1/4/17.
@@ -9,9 +9,9 @@
 import CZUtils
 import ReactiveListViewKit
 
-// MARK: - Events
+// MARK: - Actions
 
-enum FeedDetailsEvent: Event {
+enum FeedDetailsAction: Action {
     case requestFetchingFeeds(FetchingFeedsType)
     case fetchingFeeds(FetchingFeedsType)
     case gotCachedFeeds
@@ -27,7 +27,7 @@ class FetchCommentsCommand: Command {
         self.type = type
         self.viewModel = viewModel
     }
-    public func execute(state: FeedDetailsState, core: Core<FeedDetailsState>) {
+    public func execute(state: FeedDetailsState, store: Store<FeedDetailsState>) {
         viewModel.fetchFeeds(type: type)
     }
 }

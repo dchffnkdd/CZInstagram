@@ -1,5 +1,5 @@
 //
-//  UserStoryEvent.swift
+//  UserStoryAction.swift
 //  CZInstagram
 //
 //  Created by Cheng Zhang on 3/28/17.
@@ -9,6 +9,6 @@
 import UIKit
 import ReactiveListViewKit
 
-enum UserStoryEvent: Event {
+enum UserStoryAction: Action {
     case selected(user: User)
 }

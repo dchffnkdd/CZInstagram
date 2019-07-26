@@ -21,19 +21,19 @@ class FeedDetailsCellView: CZNibLoadableView, CZFeedCellViewSizeCalculatable {
 
     private var viewModel: FeedDetailsCellViewModel    
     var diffId: String {return viewModel.diffId}
-    var onEvent: OnEvent?
+    var onAction: OnAction?
 
-    required init(viewModel: CZFeedViewModelable?, onEvent: OnEvent?) {
+    required init(viewModel: CZFeedViewModelable?, onAction: OnAction?) {
         guard let viewModel = viewModel as? FeedDetailsCellViewModel else {
             fatalError("Incorrect ViewModel type.")
         }
         self.viewModel = viewModel
-        self.onEvent = onEvent
+        self.onAction = onAction
         super.init(frame: .zero)
         config(with: viewModel)
     }
 
-    required init?(coder aDecoder: NSCoder) { fatalError("Must call designated initializer `init(viewModel:onEvent:)`")  }
+    required init?(coder aDecoder: NSCoder) { fatalError("Must call designated initializer `init(viewModel:onAction:)`")  }
 
     func config(with viewModel: CZFeedViewModelable?) {
         guard let viewModel = viewModel as? FeedDetailsCellViewModel else {
@@ -42,7 +42,7 @@ class FeedDetailsCellView: CZNibLoadableView, CZFeedCellViewSizeCalculatable {
         if let portraitUrl = viewModel.portraitUrl {
             portaitView.sd_setImage(with: portraitUrl)
         }
-        portaitView.roundToCircleWithFrame()
+        portaitView.roundToCircle()
         userNameLabel.text = viewModel.userName
         contentLabel.text = viewModel.content
     }
@@ -51,7 +51,7 @@ class FeedDetailsCellView: CZNibLoadableView, CZFeedCellViewSizeCalculatable {
     func config(with viewModel: CZFeedViewModelable?, prevViewModel: CZFeedViewModelable?) {}
 
     static func sizeThatFits(_ containerSize: CGSize, viewModel: CZFeedViewModelable) -> CGSize {
-        let tmpView = FeedDetailsCellView(viewModel: viewModel, onEvent: nil)
+        let tmpView = FeedDetailsCellView(viewModel: viewModel, onAction: nil)
         tmpView.translatesAutoresizingMaskIntoConstraints = false
         tmpView.layoutIfNeeded()
         var size = tmpView.systemLayoutSizeFitting(CGSize(width: containerSize.width, height: 0))

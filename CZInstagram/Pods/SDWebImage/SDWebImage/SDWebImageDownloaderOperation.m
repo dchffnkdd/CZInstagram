@@ -320,7 +320,7 @@ didReceiveResponse:(NSURLResponse *)response
                 if (val) CFNumberGetValue(val, kCFNumberNSIntegerType, &orientationValue);
                 CFRelease(properties);
 
-                // When we draw to Core Graphics, we lose orientation information,
+                // When we draw to Store Graphics, we lose orientation information,
                 // which means the image below born of initWithCGIImage will be
                 // oriented incorrectly sometimes. (Unlike the image born of initWithData
                 // in didCompleteWithError.) So save it here and pass it on later.

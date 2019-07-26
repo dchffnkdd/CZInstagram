@@ -8,17 +8,19 @@
 
 import UIKit
 
-/// Convenience class of SectionHeaderView/SectionFooterView
+/**
+ Convenience class of SectionHeaderView/SectionFooterView
+ */
 open class CZFeedListSupplementaryView: UICollectionReusableView {
     open override var reuseIdentifier: String? {
         return type(of: self).reuseId
     }
     private var model: CZFeedModel?
     private var contentView: CZFeedCellViewSizeCalculatable?
-    open static var reuseId: String {
+    public static var reuseId: String {
         return NSStringFromClass(object_getClass(self)!)
     }
-    open func config(with model: CZFeedModel, onEvent: OnEvent?) {
+    open func config(with model: CZFeedModel, onAction: OnAction?) {
         defer {
             self.model = model
             contentView?.config(with: model.viewModel)
@@ -31,7 +33,7 @@ open class CZFeedListSupplementaryView: UICollectionReusableView {
             self.contentView = nil
         }
         if contentView == nil {
-            self.contentView = model.viewClass.init(viewModel: model.viewModel, onEvent: onEvent)
+            self.contentView = model.viewClass.init(viewModel: model.viewModel, onAction: onAction)
             guard let contentView = self.contentView as? UIView else {
                 assertionFailure("\(model.viewClass) should be subClass of UIView!")
                 return

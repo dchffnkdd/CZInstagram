@@ -32,6 +32,6 @@ class HotUsersCellViewModel: NSObject, CZFeedViewModelable {
 }
 
 extension HotUsersCellViewModel: State {
-    func react(to event: Event) {
+    func reduce(action: Action) {
     }
 }

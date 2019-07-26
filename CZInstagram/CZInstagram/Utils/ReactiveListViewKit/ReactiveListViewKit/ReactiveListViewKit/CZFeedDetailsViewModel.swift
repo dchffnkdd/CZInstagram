@@ -8,7 +8,9 @@
 
 import UIKit
 
-/// ViewModel/State class for `CZFeedDetailsFacadeView`
+/**
+ ViewModel/State class for `CZFeedDetailsFacadeView`
+ */
 open class CZFeedDetailsViewModel: NSObject, NSCopying {
     private var _feedModels: [CZFeedModelable]
     required public init(feedModels: [CZFeedModelable]? = nil) {
@@ -20,7 +22,7 @@ open class CZFeedDetailsViewModel: NSObject, NSCopying {
     }
     // MARK: - NSCopying
     public func copy(with zone: NSZone? = nil) -> Any {
-        let feedModels = _feedModels.compactMap{ $0.copy() as? CZFeedModelable}
+        let feedModels = _feedModels.compactMap{ $0.copy(with: nil) as? CZFeedModelable}
         let viewModel = type(of: self).init(feedModels: feedModels)
         return viewModel
     }

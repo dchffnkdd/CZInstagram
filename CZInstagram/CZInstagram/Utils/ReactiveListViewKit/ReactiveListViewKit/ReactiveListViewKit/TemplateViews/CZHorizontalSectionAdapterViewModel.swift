@@ -8,7 +8,9 @@
 
 import UIKit
 
-/// ViewModel class of `CZHorizontalSectionAdapterView`
+/**
+ ViewModel class of `CZHorizontalSectionAdapterView`
+ */
 public class CZHorizontalSectionAdapterViewModel: NSObject, CZFeedViewModelable, State {
     public lazy var diffId: String = self.currentClassName
     private(set) var feedModels: [CZFeedModel]
@@ -52,5 +54,5 @@ public class CZHorizontalSectionAdapterViewModel: NSObject, CZFeedViewModelable,
         let feedModelsCopy = feedModels.copy() as! [CZFeedModel]
         return CZHorizontalSectionAdapterViewModel(feedModelsCopy, viewHeight: viewHeight)
     }
-    public func react(to event: Event) { }
+    public func reduce(action: Action) { }
 }

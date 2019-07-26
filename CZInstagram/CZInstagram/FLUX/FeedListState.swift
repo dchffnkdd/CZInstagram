@@ -27,8 +27,8 @@ class FeedListState: NSObject, CopyableState {
 }
 
 extension FeedListState {
-    func react(to event: Event) {
-        viewModel.react(to: event)
-        viewState.react(to: event)
+    func reduce(action: Action) {
+        viewModel.reduce(action: action)
+        viewState.reduce(action: action)
     }
 }
