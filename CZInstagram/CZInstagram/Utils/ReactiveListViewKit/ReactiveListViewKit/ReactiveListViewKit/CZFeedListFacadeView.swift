@@ -31,16 +31,16 @@ open class CZFeedListFacadeView: UIView {
     private var showsVerticalScrollIndicator: Bool
     private var showsHorizontalScrollIndicator: Bool
 
-    private var stateMachine: CZFeedListViewStateMachine!
     private var isHorizontal: Bool
     private var prevLoadMoreScrollOffset: CGFloat = 0
     private var isLoadingMore: Bool = false
     private var viewedIndexPaths = Set<IndexPath>()
     private var allowPullToRefresh: Bool
     private var allowLoadMore: Bool
+    private var hasPulledToRefresh: Bool = false
 
+    private lazy var stateMachine = CZFeedListViewStateMachine()
     private lazy var registeredCellReuseIds: Set<String> = []
-    private lazy var hasPulledToRefresh: Bool = false
     public static let kLoadMoreThreshold = 0
     /// Threshold of `loadMore`action, indicates distance from the last cell
     private var loadMoreThreshold: Int = kLoadMoreThreshold
@@ -167,9 +167,9 @@ open class CZFeedListFacadeView: UIView {
 
 private extension CZFeedListFacadeView  {
     func registerCellClassesIfNeeded(for sectionModels: [CZSectionModel]) {
-        [CZFeedModel](sectionModels.flatMap({$0.feedModels})).forEach {
-            registerCellClassIfNeeded($0.viewClass)
-        }
+        sectionModels
+            .flatMap({ $0.feedModels })
+            .forEach { registerCellClassIfNeeded($0.viewClass) }
     }
 
     func registerCellClassIfNeeded(_ cellClass: AnyClass) {
